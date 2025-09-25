@@ -1,0 +1,19 @@
+<nz-modal
+  [(nzVisible)]="isVisible"
+  [nzFooter]="modalFooter"
+  [nzMaskClosable]="false"
+  nzTitle="HIPAA Agreement
+"
+  (nzOnCancel)="handleCancel()"
+>
+  <ng-container *nzModalContent>
+    <div>
+      The information contained in this application is privileged and confidential information intended for the use of the individual or
+      entity involved in this service. Health Care Information is proprietary, privileged, confidential, personal and sensitive and should
+      only be read by authorized individuals. Failure to maintain confidentiality is subject to penalties under state and federal law.
+    </div>
+  </ng-container>
+  <ng-template #modalFooter>
+    <button nz-button nzType="primary" (click)="handleOk()">Accept & Agree</button>
+  </ng-template>
+</nz-modal>

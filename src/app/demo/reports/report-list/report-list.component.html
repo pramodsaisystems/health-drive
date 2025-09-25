@@ -1,0 +1,109 @@
+<div class="row report-cont">
+  <div class="col-sm-12">
+    <div class="row pb-4">
+      <div class="col-10">
+        <span class="card-header-title">Report Configuration</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-block">
+        <form nz-form [formGroup]="validateForm" [nzLayout]="'vertical'" class="login-form">
+          <ng-container>
+            <div nz-row [nzGutter]="8">
+              <div nz-col [nzXs]="12" [nzSm]="12" [nzMd]="8" [nzLg]="4" [nzXl]="4">
+                <nz-form-item>
+                  <nz-form-control [nzSpan]="24" nzErrorTip="Please input your search text!">
+                    <nz-input-group>
+                      <input type="text" nz-input formControlName="search" placeholder="Search" />
+                    </nz-input-group>
+                  </nz-form-control>
+                </nz-form-item>
+              </div>
+              <div nz-col [nzXs]="12" [nzSm]="12" [nzMd]="8" [nzLg]="4" [nzXl]="4">
+                <nz-form-item>
+                  <nz-form-control [nzSpan]="24" nzErrorTip="Please select type!">
+                    <nz-select nzShowSearch formControlName="reportType" nzPlaceHolder="Select Report Type">
+                      @for (data of reportTypeList; track data) {
+                        <nz-option nzValue="{{ data.reporttype }}" nzLabel="{{ data.reporttype }}"></nz-option>
+                      }
+                    </nz-select>
+                  </nz-form-control>
+                </nz-form-item>
+              </div>
+              <div nz-col [nzSpan]="6">
+                <nz-form-item>
+                  <nz-form-control>
+                    <button nz-button class="me-2" nzType="primary" (click)="submitForm()">
+                      <span nz-tooltip nzTooltipTitle="search" nz-icon nzType="search"></span>
+                    </button>
+                    <button nz-button nzType="default" (click)="handleReset()">
+                      <span nz-tooltip nzTooltipTitle="reset" nz-icon nzType="close-circle" nzTheme="outline"></span>
+                    </button>
+                  </nz-form-control>
+                </nz-form-item>
+              </div>
+            </div>
+            <!-- <button nz-button class="login-form-button login-form-margin" [nzType]="'primary'">Log in</button> -->
+          </ng-container>
+        </form>
+        <nz-table [nzPageSize]="20" [nzLoading]="loading" nzNoResult="No Data Found." #basicTable [nzData]="reportList">
+          <thead>
+            <tr>
+              <!-- <th [nzSortFn]="sortReportIdFn">Id</th> -->
+              <th [nzSortFn]="sortNameFn" width="10%">Display Name</th>
+              <th [nzSortFn]="sortLongNameFn" width="20%">Long Name</th>
+              <th [nzSortFn]="sortDescriptionFn" width="40%">Description</th>
+              <th [nzSortFn]="sortTypeFn" width="10%">Type</th>
+              <th width="15%">Category</th>
+              <!-- <th [nzSortFn]="sortActiveFn">Active</th> -->
+              <th width="5%">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (data of basicTable.data; track data) {
+              <tr>
+                <!-- <td>{{ data.reportid }}</td> -->
+                <td>{{ data.reportname }}</td>
+                <td>{{ data.reportkey }}</td>
+                <td title="{{ data.description }}">
+                  {{ getDesc(data.description) }}
+                </td>
+                <td>{{ data.reporttype }}</td>
+                <td>
+                  <span style="display: inline-block; margin-right: 8px">
+                    <label nz-checkbox [nzDisabled]="true" [ngModel]="data?.isclinical"></label>
+                    Clinical
+                  </span>
+                  <span style="display: inline-block">
+                    <label nz-checkbox [nzDisabled]="true" [ngModel]="data?.isoperational"></label>
+                    Operational
+                  </span>
+                </td>
+                <!-- <td>
+                  <div (click)="onDeactivate(data)"><nz-switch [(ngModel)]="data.isactive" [nzControl]="true"></nz-switch></div>
+                </td> -->
+                <td>
+                  <a (click)="showModal(data, 'Edit')" nz-tooltip nzTooltipTitle="Edit Report">
+                    <img src="assets/images/pencil.svg" height="18" width="18" class="me-2" alt="Edit report" />
+                  </a>
+                  <!-- <a nz-tooltip nzTooltipTitle="Delete report" (click)="onDeleteReport(data.reportid)" [ngClass]="'disabled'">
+                    <img src="assets/images/delete.svg" height="18" width="18" alt="Delete report" />
+                  </a> -->
+                </td>
+              </tr>
+            }
+          </tbody>
+        </nz-table>
+      </div>
+    </div>
+    <!-- <app-card cardTitle="Users" buttonText="Add User" (onBtnClickEvt)="onAddNewUser()"> -->
+    <view-edit-report-modal
+      *ngIf="isVisible"
+      [isVisible]="isVisible"
+      [type]="type"
+      [selectedRow]="selectedRow"
+      (closeModalEvent)="onCloseModalEvent($event)"
+    ></view-edit-report-modal>
+    <!-- </app-card> -->
+  </div>
+</div>

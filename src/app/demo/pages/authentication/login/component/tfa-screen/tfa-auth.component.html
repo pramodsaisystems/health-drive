@@ -1,0 +1,28 @@
+<div>
+  <div nz-row [nzGutter]="8">
+    <!-- <div *ngIf="QRImage"> -->
+    <div *ngIf="QRImage" nz-col [nzSpan]="24" class="otp-title">Show MFA</div>
+    <div *ngIf="!QRImage" nz-col [nzSpan]="24" class="otp-title">MFA Passcode</div>
+    <div nz-col [nzSpan]="24" class="otp-desc mt-2 mb-2">Please enter generated One-Time Password (OTP) from google Authenticator</div>
+    <div *ngIf="QRImage" nz-col [nzSpan]="24" class="otp-desc">
+      <img height="200px" width="200px" src="{{ QRImage }}" alt="authenticater QR" />
+    </div>
+    <div *ngIf="QRImage" nz-col [nzSpan]="24" class="otp-desc mt-2 mb-2">Secret Key-{{ key }}</div>
+    <div *ngIf="QRImage" nz-col [nzSpan]="24" class="otp-desc mt-2 mb-2">Auth Type-Time Based OTP</div>
+    <!-- </div> -->
+    <div nz-col [nzSpan]="24" class="mt-2 mb-2">
+      <ngx-otp-input
+        (otpChange)="onOtpChange($event)"
+        (otpComplete)="otpComplete($event)"
+        [status]="status"
+        #otpInput
+        [options]="otpOptions"
+        [ngClass]="otpErr ? 'error-ngx-otp' : ''"
+      ></ngx-otp-input>
+      <div *ngIf="otpErr" class="error-label">OTP is required!</div>
+    </div>
+    <div nz-col [nzSpan]="24" class="mb-2 mt-2">
+      <button nz-button style="width: 100%" nzType="primary" (click)="onContinueClick()">Continue</button>
+    </div>
+  </div>
+</div>

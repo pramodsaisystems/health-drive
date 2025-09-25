@@ -1,0 +1,83 @@
+<nz-modal
+  [nzMaskClosable]="false"
+  [(nzVisible)]="isVisible"
+  [nzFooter]="modalFooter"
+  nzTitle="{{ type }} Client"
+  (nzOnCancel)="handleCancel()"
+>
+  <form nz-form [formGroup]="validateForm" [nzLayout]="'vertical'" class="login-form" (ngSubmit)="submitForm()">
+    <ng-container *nzModalContent>
+      <div nz-row [nzGutter]="8">
+        <div nz-col [nzSpan]="12">
+          <nz-form-item>
+            <nz-form-label [nzSpan]="24" nzRequired nzFor="clientname">Client Name</nz-form-label>
+            <nz-form-control [nzSpan]="24" nzErrorTip="Client name is required!">
+              <nz-input-group>
+                <input type="text" nz-input formControlName="clientname" placeholder="Enter Client Name" />
+              </nz-input-group>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div nz-col [nzSpan]="12">
+          <nz-form-item>
+            <nz-form-label [nzSpan]="24" nzRequired nzFor="clientshortname">Client Short Name</nz-form-label>
+            <nz-form-control [nzSpan]="24" nzErrorTip="Client short name is required!">
+              <nz-input-group>
+                <input type="text" nz-input formControlName="clientshortname" placeholder="Enter Client Short Name" />
+              </nz-input-group>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div nz-col [nzSpan]="12">
+          <nz-form-item>
+            <nz-form-label [nzSpan]="24" nzFor="clientid" nzRequired>Session Timeout:</nz-form-label>
+            <nz-form-control [nzSpan]="24" nzErrorTip="Session timeout is required!">
+              <nz-select nzShowSearch formControlName="sessionTime" nzPlaceHolder="Select Session Time">
+                @for (data of sessionList; track data) {
+                  <nz-option nzValue="{{ data.value }}" nzLabel="{{ data.id }}"></nz-option>
+                }
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <!-- <div nz-col [nzSpan]="24">
+          <nz-form-item>
+            <nz-form-label [nzSpan]="24" nzRequired nzFor="email">Email</nz-form-label>
+            <nz-form-control [nzSpan]="24" [nzErrorTip]="emailErrorTpl">
+              <nz-input-group>
+                <input type="email" nz-input formControlName="email" placeholder="Email" />
+                <ng-template #emailErrorTpl let-control>
+                  @if (control.errors?.['email']) {
+                    The input is not valid E-mail!
+                  }
+                  @if (control.errors?.['required']) {
+                    Please input your E-mail!
+                  }
+                </ng-template>
+              </nz-input-group>
+            </nz-form-control>
+          </nz-form-item>
+        </div> -->
+        <!-- <div nz-col [nzSpan]="12">
+          <nz-form-item>
+            <nz-form-control [nzSpan]="24" nzErrorTip="Please select show in DDL!">
+              <label nz-checkbox formControlName="isshowinddl">
+                <span>Is show in DDL</span>
+              </label>
+            </nz-form-control>
+          </nz-form-item>
+        </div> -->
+      </div>
+      <!-- <button nz-button class="login-form-button login-form-margin" [nzType]="'primary'">Log in</button> -->
+    </ng-container>
+
+    <ng-template #modalFooter>
+      <nz-form-item>
+        <nz-form-control>
+          <button nz-button nzType="default" (click)="handleCancel()">Cancel</button>
+          <button nz-button nzType="primary" (click)="submitForm()">Save</button>
+        </nz-form-control>
+      </nz-form-item>
+    </ng-template>
+  </form>
+</nz-modal>

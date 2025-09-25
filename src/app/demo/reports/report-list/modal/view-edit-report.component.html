@@ -1,0 +1,81 @@
+<nz-modal
+  [nzMaskClosable]="false"
+  [(nzVisible)]="isVisible"
+  [nzFooter]="modalFooter"
+  nzTitle="{{ type }} Report"
+  (nzOnCancel)="handleCancel()"
+>
+  <form nz-form [formGroup]="validateForm" [nzLayout]="'vertical'" class="login-form" (ngSubmit)="submitForm()">
+    <ng-container *nzModalContent>
+      <div nz-row [nzGutter]="8">
+        <div nz-col [nzSpan]="12">
+          <nz-form-item>
+            <nz-form-label [nzSpan]="24" nzRequired nzFor="reportname">Report Display Name</nz-form-label>
+            <nz-form-control [nzSpan]="24" nzErrorTip="Report name is required!">
+              <nz-input-group>
+                <input type="text" nz-input formControlName="reportname" placeholder="Enter Report Name" />
+              </nz-input-group>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div nz-col [nzSpan]="12">
+          <nz-form-item>
+            <nz-form-label [nzSpan]="24" nzRequired nzFor="reportkey">Report Long Name</nz-form-label>
+            <nz-form-control [nzSpan]="24" nzErrorTip="Report long name is required!">
+              <nz-input-group>
+                <input [disabled]="true" type="text" nz-input formControlName="reportkey" placeholder="Enter Report Long Name" />
+              </nz-input-group>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div nz-col [nzSpan]="24">
+          <nz-form-item>
+            <nz-form-label [nzSpan]="24" nzRequired nzFor="description">Report Description</nz-form-label>
+            <nz-form-control [nzSpan]="24" nzErrorTip="Description is required!">
+              <nz-input-group>
+                <textarea
+                  [maxLength]="200"
+                  type="text"
+                  nz-input
+                  rows="4"
+                  formControlName="description"
+                  placeholder="Enter Report Description"
+                ></textarea>
+              </nz-input-group>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div nz-col [nzSpan]="12">
+          <nz-form-item>
+            <nz-form-label [nzSpan]="24" nzFor="category">Category</nz-form-label>
+            <nz-form-control [nzSpan]="24" nzErrorTip="Please select is clinical report!">
+              <label nz-checkbox formControlName="isclinical">
+                <span>Is Clinical</span>
+              </label>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div nz-col [nzSpan]="12">
+          <nz-form-item>
+            <nz-form-label [nzSpan]="24" nzFor="operational"></nz-form-label>
+            <nz-form-control [nzSpan]="24" nzErrorTip="Please select is operational report!">
+              <label nz-checkbox formControlName="isoperational">
+                <span>Is Operational</span>
+              </label>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+      <!-- <button nz-button class="login-form-button login-form-margin" [nzType]="'primary'">Log in</button> -->
+    </ng-container>
+
+    <ng-template #modalFooter>
+      <nz-form-item>
+        <nz-form-control>
+          <button nz-button nzType="default" (click)="handleCancel()">Cancel</button>
+          <button nz-button nzType="primary" (click)="submitForm()">Save</button>
+        </nz-form-control>
+      </nz-form-item>
+    </ng-template>
+  </form>
+</nz-modal>

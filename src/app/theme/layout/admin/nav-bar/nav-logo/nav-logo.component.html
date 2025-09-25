@@ -1,0 +1,18 @@
+<div class="m-header">
+  <div class="pc-h-item">
+    <a
+      href="javascript:"
+      class="pc-head-link head-link-secondary m-0 mobile-menu"
+      [ngClass]="{ on: navCollapsed }"
+      id="sidebar-hide mobile-collapse"
+      (click)="navCollapse()"
+    >
+      <i class="ti ti-menu-2"></i>
+    </a>
+  </div>
+  <a [routerLink]="['/dashboard/']" class="b-brand">
+    <img width="164px" src="assets/images/navigatEHR_logo_header.svg" alt="" class="logo logo-lg" />
+  </a>
+</div>
+
+<!-- [ Header ] end -->

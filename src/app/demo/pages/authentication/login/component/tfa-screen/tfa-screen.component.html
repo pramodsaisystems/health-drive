@@ -1,0 +1,15 @@
+<div>
+  <div nz-row [nzGutter]="8">
+    <div nz-col [nzSpan]="24" class="otp-title mt-5 mb-3">Enter OTP</div>
+    <div nz-col [nzSpan]="24" class="otp-desc mb-3">We’ve sent an OTP to {{ email }}</div>
+    <div nz-col [nzSpan]="24" class="mb-3">
+      <ngx-otp-input [options]="otpOptions"></ngx-otp-input>
+    </div>
+    <div nz-col [nzSpan]="24" class="mb-3">
+      <button nz-button style="width: 100%" nzType="primary">Proceed</button>
+    </div>
+    <div nz-col [nzSpan]="24" class="d-grid justify-content-center">
+      <a href="javascript:" class="resend-otp">Resend OTP</a>
+    </div>
+  </div>
+</div>

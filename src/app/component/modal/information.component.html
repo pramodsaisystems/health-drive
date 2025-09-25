@@ -1,0 +1,91 @@
+<nz-modal
+  [nzWidth]="'60vw'"
+  [nzMaskClosable]="false"
+  [(nzVisible)]="isVisible"
+  [nzTitle]="modalTitle"
+  [nzFooter]="modalFooter"
+  (nzOnCancel)="handleCancel()"
+>
+  <ng-template #modalTitle>
+    <div style="font-weight: 600 !important">
+      <img class="mb-1" height="20" width="20" src="assets/images/info-circle-blue.svg" alt="info circle " />
+      {{ type }}
+    </div>
+  </ng-template>
+  <ng-container *nzModalContent>
+    <div nz-row [nzGutter]="8">
+      <div nz-col [nzSpan]="24" style="font-size: 12px; font-weight: 400">
+        <div *ngIf="type === 'Users'">
+          <ul>
+            <li>
+              <b>Add User:</b>
+              Click the "Add User" button to create a new user. You will be prompted to enter the necessary details such as name, email,
+              role, and other relevant information.
+            </li>
+            <li>
+              <b>Edit User:</b>
+              Use the "Edit" button in the action column to modify user details. You can update their information, change roles, or adjust
+              permissions.
+            </li>
+            <li>
+              <b>User Menu Mapping:</b>
+              Click this button to configure specific menu access based on the user like Reports, Dashboards, and Settings access based on
+              the particular user. This allows you to customize what each user can see and do within the systems.
+            </li>
+            <li>
+              <b>Delete User:</b>
+              To remove a user, click the button. Be cautious, as this action is irreversible.
+            </li>
+          </ul>
+        </div>
+        <div *ngIf="type === 'Clients'">
+          <ul>
+            <li>
+              <b>Add Client:</b>
+              Click the "Add Clients" button to create a new client. You will be prompted to enter the necessary details such as Client Name
+              and Client Short Name and Is shows DDL means that this client is present in the dropdown list.
+            </li>
+            <li>
+              <b>Edit Client:</b>
+              Use the "Edit" button in the action column to modify client details. You can update their information.
+            </li>
+            <li>
+              <b>Client Report Mapping:</b>
+              Click this button to configure specific menus like Reports and Dashboards access based on the clients. This allows you to
+              customize what each clients can see and do within the systems.
+            </li>
+            <li>
+              <b>Delete Client:</b>
+              To remove a client, click the button. Be cautious, as this action is irreversible.
+            </li>
+          </ul>
+        </div>
+        <div *ngIf="type === 'Roles'">
+          <ul>
+            <li>
+              <b>Add Role:</b>
+              Click the "Add Role" button to create a new Roles. You will be prompted to enter the necessary details such as Client Name and
+              Role Name and Is show DDL means that the new roles will display under the respective client name in the dropdown list.
+            </li>
+            <li>
+              <b>Edit Role:</b>
+              Use the "Edit" button in the action column to modify Roles details. You can update their information.
+            </li>
+            <li>
+              <b>Role Menu Mapping:</b>
+              Click this button to configure specific menu access based on the roles like Reports, Dashboards, and Settings access based on
+              the Roles. This allows you to customize what each role can see and do within the systems.
+            </li>
+            <li>
+              <b>Delete Role:</b>
+              To remove a role, click the button. Be cautious, as this action is irreversible.
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+  <ng-template #modalFooter>
+    <button nz-button nzType="primary" (click)="handleCancel()">Close</button>
+  </ng-template>
+</nz-modal>

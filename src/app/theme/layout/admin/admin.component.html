@@ -1,0 +1,44 @@
+<app-navigation
+  class="coded-navbar pc-sidebar"
+  [ngClass]="{
+    'navbar-collapsed': navCollapsed,
+    'mob-open': navCollapsedMob
+  }"
+  (NavCollapsedMob)="navMobClick()"
+  (mouseenter)="onMouseEnter($event.target)"
+  (mouseleave)="onMouseLeave($event.target)"
+  [navCollapsed]="navCollapsed"
+></app-navigation>
+<app-nav-bar (NavCollapse)="this.navCollapsed = !this.navCollapsed" (NavCollapsedMob)="navMobClick()"></app-nav-bar>
+<div class="pc-container">
+  <div class="coded-wrapper">
+    <div class="coded-content">
+      <div class="coded-inner-content">
+        <!-- <app-breadcrumbs></app-breadcrumbs> -->
+        <div class="main-body">
+          <div class="page-wrapper">
+            <router-outlet></router-outlet>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pc-menu-overlay" (click)="closeMenu()" (keydown)="handleKeyDown($event)" tabindex="0"></div>
+</div>
+<footer class="pc-footer">
+  <div class="footer-wrapper container-fluid">
+    <div nz-row>
+      <div nz-col [nzSpan]="24">
+        <p class="m-0 d-flex justify-content-center footer-cpt">
+          © 2024 Copyright:
+          <a href="https://navigatehr.saisystemshealth.com/home.aspx#" target="_blank">&nbsp;Saisystems Health &nbsp;</a>
+          CPT ® 2017 American Medical Association. All rights reserved. CPT ® is a registered trademark of the American Medical
+          Association
+          <!-- Copyright &copy;
+          <a href="" target="_blank">Saisystems Health</a> -->
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+<!-- <app-configuration></app-configuration> -->

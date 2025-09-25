@@ -1,0 +1,134 @@
+<nz-modal
+  [nzMaskClosable]="false"
+  [nzWidth]="'80vw'"
+  [(nzVisible)]="isVisible"
+  [nzFooter]="modalFooter"
+  nzTitle="Client Report Mapping"
+  (nzOnCancel)="handleCancel()"
+>
+  <ng-container *nzModalContent>
+    <div>
+      <h3>
+        {{ selectedRow?.clientname }}
+      </h3>
+    </div>
+    <div>
+      <nz-tabset>
+        @for (data of clientMenuMapList; track data; let idx = $index) {
+          <nz-tab nzTitle="{{ data?.reportType }}">
+            <div class="row">
+              <nz-table
+                nzNoResult="No Data Found."
+                #basicTable
+                style="max-height: 450px; overflow: auto"
+                class="pe-0 me-0"
+                [nzOuterBordered]="true"
+                [nzShowPagination]="false"
+                [nzData]="data?.reportList"
+              >
+                <thead>
+                  <tr>
+                    <th width="10%" nzShowSort (nzSortOrderChange)="sortBy('reportname', $event, idx)">Name</th>
+                    <th width="20%" nzShowSort (nzSortOrderChange)="sortBy('reportkey', $event, idx)">Long Name</th>
+                    <th width="50%" nzShowSort (nzSortOrderChange)="sortBy('description', $event, idx)">Description</th>
+                    <th width="20%">Category</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <nz-input-group [nzSuffix]="suffixIconClose">
+                        <input type="text" nz-input placeholder="Search name" [(ngModel)]="searchName" />
+                      </nz-input-group>
+                      <ng-template #suffixIconClose>
+                        <img height="12" width="12" style="cursor: pointer" [src]="'assets/images/cross.svg'" (click)="onClearName()" />
+                      </ng-template>
+                    </td>
+                    <td>
+                      <nz-input-group [nzSuffix]="suffixIconClose1">
+                        <input type="text" nz-input placeholder="Search long name" [(ngModel)]="searchLname" />
+                      </nz-input-group>
+                      <ng-template #suffixIconClose1>
+                        <img height="12" width="12" style="cursor: pointer" [src]="'assets/images/cross.svg'" (click)="onClearLName()" />
+                      </ng-template>
+                    </td>
+                    <td>
+                      <nz-input-group [nzSuffix]="suffixIconClose2">
+                        <input type="text" nz-input placeholder="Search description" [(ngModel)]="searchDesc" />
+                      </nz-input-group>
+                      <ng-template #suffixIconClose2>
+                        <img height="12" width="12" style="cursor: pointer" [src]="'assets/images/cross.svg'" (click)="onClearDesc()" />
+                      </ng-template>
+                    </td>
+                    <td>
+                      <nz-select
+                        (ngModelChange)="onFilterChange($event)"
+                        style="width: 100%"
+                        [(ngModel)]="category"
+                        nzShowSearch
+                        nzPlaceHolder="Select category"
+                      >
+                        <nz-option nzValue="" nzLabel="All"></nz-option>
+                        <nz-option nzValue="clinical" nzLabel="Clinical"></nz-option>
+                        <nz-option nzValue="operational" nzLabel="Operational"></nz-option>
+                      </nz-select>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <label nz-checkbox [ngModel]="data?.isactive" (ngModelChange)="onClickMenu(data)">{{ data?.reportType }}</label>
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                  @for (data1 of data?.reportList; track data1) {
+                    <tr *ngIf="conditon(data1)">
+                      <td>
+                        <label nz-checkbox [ngModel]="data1?.isactive" (ngModelChange)="onClickSubmenu(data, data1)">
+                          {{ data1?.reportname }}
+                        </label>
+                      </td>
+                      <td>{{ data1?.reportkey }}</td>
+                      <td>{{ data1?.description }}</td>
+                      <td>
+                        <label nz-checkbox [nzDisabled]="true" [ngModel]="data1?.isclinical"></label>
+                        Clinical
+                        <label nz-checkbox [nzDisabled]="true" [ngModel]="data1?.isoperational"></label>
+                        Operational
+                      </td>
+                    </tr>
+                  }
+                </tbody>
+              </nz-table>
+              <!-- @for (item of data.reportList; track item) {
+                <div class="col-sm-8 col-xs-8 col-md-4 col-lg-4 col-xl-4">
+                  <label nz-checkbox [ngModel]="item?.isactive" (ngModelChange)="onClickSubmenu(data, item)">{{ item?.reportname }}</label>
+                </div>
+                <div class="col-sm-8 col-xs-8 col-md-4 col-lg-4 col-xl-4">desc</div>
+                <div class="col-sm-8 col-xs-8 col-md-4 col-lg-4 col-xl-4">test</div>
+              } -->
+            </div>
+          </nz-tab>
+          <!-- <div class="pt-2 pb-2">
+          <label nz-checkbox [ngModel]="data?.isactive" (ngModelChange)="onClickMenu(data)">{{ data?.reportType }}</label>
+        </div> -->
+        }
+      </nz-tabset>
+    </div>
+  </ng-container>
+  <ng-template #modalFooter>
+    <button nz-button nzType="default" (click)="handleCancel()">Cancel</button>
+    <button nz-button nzType="primary" (click)="handleOk()">Save</button>
+  </ng-template>
+
+  <edit-client-user-dash-modal
+    *ngIf="isCUDVisible"
+    [isCUDVisible]="isCUDVisible"
+    [selectedRow]="selectedRow"
+    [selectedReportId]="selectedReportId"
+    [selectedReportName]="selectedReportName"
+    (closeModalEvent)="onCUDMCloseModalEvent($event)"
+  ></edit-client-user-dash-modal>
+</nz-modal>

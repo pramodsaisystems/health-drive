@@ -1,0 +1,144 @@
+<div>
+  <div *ngIf="screen === 'email'">
+    <div nz-col [nzSpan]="24" class="otp-title mt-5 mb-3">Forgot Password</div>
+    <div nz-col [nzSpan]="24" class="otp-desc mb-3">
+      Forgot your password? No worries! Just enter your email below, and we’ll send you a OTP to reset it
+    </div>
+    <form nz-form [formGroup]="validateForm" [nzLayout]="'vertical'" class="login-form" (ngSubmit)="submitForm()">
+      <div nz-row [nzGutter]="8">
+        <div nz-col [nzSpan]="24">
+          <nz-form-item>
+            <nz-form-label [nzSpan]="24" nzFor="username">Email</nz-form-label>
+            <nz-form-control [nzSpan]="24" [nzErrorTip]="emailErrorTpl">
+              <nz-input-group>
+                <input type="text" nz-input formControlName="email" placeholder="Enter email" />
+                <ng-template #emailErrorTpl let-control>
+                  @if (control.errors?.['email']) {
+                    The input is not valid E-mail!
+                  }
+                  @if (control.errors?.['required']) {
+                    Email is required!
+                  }
+                </ng-template>
+              </nz-input-group>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+      <!-- <button nz-button class="login-form-button login-form-margin" [nzType]="'primary'">Log in</button> -->
+
+      <nz-form-item>
+        <nz-form-control>
+          <button nz-button class="mb-2" style="width: 100%" nzType="primary">Get OTP</button>
+          <button class="mb-4" nzType="default" (click)="onEvtCancelClick()" nz-button style="width: 100%">Cancel</button>
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+  </div>
+  <div *ngIf="screen === 'otp'">
+    <div nz-row [nzGutter]="8">
+      <div nz-col [nzSpan]="24" class="otp-title mt-5 mb-3">Enter OTP</div>
+      <div nz-col [nzSpan]="24" class="otp-desc mb-3">Enter the OTP sent to your email to reset your password.</div>
+      <div nz-col [nzSpan]="24" class="mb-3">
+        <ngx-otp-input
+          [options]="otpOptions"
+          (otpChange)="onOtpChange($event)"
+          (otpComplete)="otpComplete($event)"
+          [ngClass]="otpErr ? 'error-ngx-otp' : ''"
+        ></ngx-otp-input>
+        <div *ngIf="otpErr" class="error-label">OTP is required!</div>
+      </div>
+      <div nz-col [nzSpan]="24" class="mb-2">
+        <button nz-button style="width: 100%" (click)="onVerifyOTP()" nzType="primary">Validate OTP</button>
+      </div>
+      <div nz-col [nzSpan]="24" class="d-grid justify-content-center mb-2">
+        <a href="javascript:" class="resend-otp" (click)="onResendOTP()">Resend OTP</a>
+      </div>
+      <div nz-col [nzSpan]="24" class="mb-2">
+        <button nzType="default" class="mb-2" (click)="onEvtCancelClick()" nz-button style="width: 100%">Cancel</button>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="screen === 'pwd'">
+    <div nz-col [nzSpan]="24" class="otp-title mt-5 mb-3">Reset Password</div>
+    <form nz-form [formGroup]="validateForm1" [nzLayout]="'vertical'" class="login-form" (ngSubmit)="submitForm1()">
+      <div nz-row [nzGutter]="8">
+        <div nz-col [nzXs]="24" [nzSm]="24" [nzMd]="24" [nzLg]="24" [nzXl]="24">
+          <nz-form-item>
+            <nz-form-label [nzSpan]="24" nzRequired>New Password</nz-form-label>
+            <nz-form-control [nzSpan]="24" [nzErrorTip]="errorPwd">
+              <nz-input-group [nzSuffix]="suffixIconSearch">
+                <input
+                  [type]="!showPwd ? 'password' : 'text'"
+                  nz-input
+                  formControlName="newPassword"
+                  placeholder="Enter New Password"
+                  (ngModelChange)="updateConfirmValidator1()"
+                />
+              </nz-input-group>
+              <ng-template #errorPwd let-control>
+                @if (control.errors?.['required']) {
+                  New Password is required!
+                }
+                @if (control.errors?.['passwordStrength']) {
+                  Password must contain at least 8 characters, including an uppercase letter, a lowercase letter, a number, and a special
+                  character.
+                }
+              </ng-template>
+              <ng-template #suffixIconSearch>
+                <img
+                  height="18"
+                  width="18"
+                  style="cursor: pointer"
+                  [src]="showPwd ? 'assets/images/eye.svg' : 'assets/images/eye-slash.svg'"
+                  (click)="onShowPwd1(showPwd)"
+                />
+              </ng-template>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+
+        <div nz-col [nzXs]="24" [nzSm]="24" [nzMd]="24" [nzLg]="24" [nzXl]="24">
+          <nz-form-item>
+            <nz-form-label [nzSpan]="24" nzRequired>Confirm New Password</nz-form-label>
+            <nz-form-control [nzSpan]="24" [nzErrorTip]="errorTpl">
+              <nz-input-group [nzSuffix]="suffixIconSearch2">
+                <input
+                  nz-input
+                  [type]="!showConfPwd ? 'password' : 'text'"
+                  placeholder="Confirm New Password"
+                  formControlName="confirmPassword"
+                  id="confirmPassword"
+                />
+              </nz-input-group>
+              <ng-template #errorTpl let-control>
+                @if (control.errors?.['required']) {
+                  Please confirm your password!
+                }
+                @if (control.errors?.['confirm']) {
+                  Passwords must match!
+                }
+              </ng-template>
+              <ng-template #suffixIconSearch2>
+                <img
+                  height="18"
+                  width="18"
+                  style="cursor: pointer"
+                  [src]="showConfPwd ? 'assets/images/eye.svg' : 'assets/images/eye-slash.svg'"
+                  (click)="onShowConfPwd(showConfPwd)"
+                />
+              </ng-template>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+
+      <nz-form-item>
+        <nz-form-control>
+          <button class="mb-2" nz-button style="width: 100%" nzType="primary" (click)="submitForm1()">Reset Password</button>
+          <button nzType="default" (click)="onEvtCancelClick()" nz-button style="width: 100%">Cancel</button>
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+  </div>
+</div>

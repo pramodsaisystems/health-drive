@@ -1,0 +1,19 @@
+<div class="card">
+  <div class="card-header">
+    <div class="row">
+      <div class="col-10">
+        @if (!customHeader) {
+          <span class="card-header-title">{{ cardTitle }}</span>
+        }
+      </div>
+      <div class="col-2 d-flex justify-content-end">
+        @if (buttonText) {
+          <button nz-button nzType="primary" (click)="onBtnClick()">{{ buttonText }}</button>
+        }
+      </div>
+    </div>
+  </div>
+  <div class="card-block">
+    <ng-content></ng-content>
+  </div>
+</div>

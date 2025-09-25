@@ -1,0 +1,386 @@
+<nz-modal
+  [nzStyle]="{ width: '80vw' }"
+  [(nzVisible)]="isVisible"
+  [nzFooter]="modalFooter"
+  [nzMaskClosable]="false"
+  nzTitle="{{ type }} User"
+  (nzOnCancel)="handleCancel()"
+  nzCentered
+  nzClassName="add-edit-user"
+>
+  <form nz-form [formGroup]="validateForm" [nzLayout]="'vertical'" class="login-form" (ngSubmit)="submitForm()">
+    <ng-container *nzModalContent>
+      <div nz-row [nzGutter]="8">
+        <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="12" [nzLg]="12" [nzXl]="12">
+          <nz-form-item>
+            <nz-form-label [nzSpan]="24" nzRequired>First Name</nz-form-label>
+            <nz-form-control [nzSpan]="24" nzErrorTip="First name is required!">
+              <nz-input-group>
+                <input type="text" nz-input formControlName="firstname" placeholder="Enter First Name" />
+              </nz-input-group>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="12" [nzLg]="12" [nzXl]="12">
+          <nz-form-item>
+            <nz-form-label [nzSpan]="24">Middle Name</nz-form-label>
+            <nz-form-control [nzSpan]="24" nzErrorTip="Middle name is required!">
+              <nz-input-group>
+                <input type="text" nz-input formControlName="middlename" placeholder="Enter Middle Name" />
+              </nz-input-group>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="12" [nzLg]="12" [nzXl]="12">
+          <nz-form-item>
+            <nz-form-label [nzSpan]="24" nzRequired>Last Name</nz-form-label>
+            <nz-form-control [nzSpan]="24" nzErrorTip="Last name is required!">
+              <nz-input-group>
+                <input type="text" nz-input formControlName="lastname" placeholder="Enter Last Name" />
+              </nz-input-group>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="12" [nzLg]="12" [nzXl]="12">
+          <nz-form-item>
+            <nz-form-label [nzSpan]="24" nzRequired>Email</nz-form-label>
+            <nz-form-control [nzSpan]="24" [nzErrorTip]="emailErrorTpl">
+              <nz-input-group>
+                <input type="email" nz-input formControlName="email" placeholder="Enter Email" [disabled]="true" />
+                <ng-template #emailErrorTpl let-control>
+                  @if (control.errors?.['email']) {
+                    The input is not valid E-mail!
+                  }
+                  @if (control.errors?.['required']) {
+                    Email is required!
+                  }
+                </ng-template>
+              </nz-input-group>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <!-- <div nz-col [nzSpan]="12">
+          <nz-form-item>
+            <nz-form-label [nzSpan]="24" nzRequired>Username</nz-form-label>
+            <nz-form-control [nzSpan]="24" nzErrorTip="Username is required!">
+              <nz-input-group>
+                <input type="text" nz-input formControlName="username" placeholder="Enter Username" [disabled]="true" />
+              </nz-input-group>
+            </nz-form-control>
+          </nz-form-item>
+        </div> -->
+        <div *ngIf="type === 'Add'" nz-col [nzXs]="24" [nzSm]="12" [nzMd]="12" [nzLg]="12" [nzXl]="12">
+          <nz-form-item>
+            <nz-form-label [nzSpan]="24" nzRequired>Password</nz-form-label>
+            <nz-form-control [nzSpan]="24" [nzErrorTip]="errorPwd">
+              <nz-input-group [nzSuffix]="suffixIconSearch">
+                <input
+                  [type]="!showPwd ? 'password' : 'text'"
+                  nz-input
+                  formControlName="password"
+                  placeholder="Enter Password"
+                  (ngModelChange)="updateConfirmValidator1()"
+                  [(ngModel)]="password1"
+                />
+              </nz-input-group>
+              <ng-template #errorPwd let-control>
+                @if (control.errors?.['required']) {
+                  Password is required!
+                }
+                @if (control.errors?.['passwordStrength']) {
+                  Password must contain at least 8 characters, including an uppercase letter, a lowercase letter, a number, and a special
+                  character.
+                }
+              </ng-template>
+              <ng-template #suffixIconSearch>
+                <img
+                  height="18"
+                  width="18"
+                  style="cursor: pointer"
+                  [src]="showPwd ? 'assets/images/eye.svg' : 'assets/images/eye-slash.svg'"
+                  (click)="onShowPwd(showPwd)"
+                />
+              </ng-template>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+
+        <div *ngIf="type === 'Add'" nz-col [nzXs]="24" [nzSm]="12" [nzMd]="12" [nzLg]="12" [nzXl]="12">
+          <nz-form-item>
+            <nz-form-label [nzSpan]="24" nzRequired>Confirm Password</nz-form-label>
+            <nz-form-control [nzSpan]="24" [nzErrorTip]="errorTpl">
+              <nz-input-group [nzSuffix]="suffixIconSearch1">
+                <input
+                  nz-input
+                  [type]="!showConfPwd ? 'password' : 'text'"
+                  placeholder="Confirm Password"
+                  formControlName="checkPassword"
+                  id="checkPassword"
+                />
+              </nz-input-group>
+              <ng-template #errorTpl let-control>
+                @if (control.errors?.['required']) {
+                  Please confirm your password!
+                }
+                @if (control.errors?.['confirm']) {
+                  Two passwords that you enter is inconsistent!
+                }
+              </ng-template>
+              <ng-template #suffixIconSearch1>
+                <img
+                  height="18"
+                  width="18"
+                  style="cursor: pointer"
+                  [src]="showConfPwd ? 'assets/images/eye.svg' : 'assets/images/eye-slash.svg'"
+                  (click)="onShowConfPwd(showConfPwd)"
+                />
+              </ng-template>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+
+        <!-- <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="12" [nzLg]="12" [nzXl]="12">
+          <nz-form-item>
+            <nz-form-label [nzSpan]="24" nzRequired>Client Name</nz-form-label>
+            <nz-form-control [nzSpan]="24" nzErrorTip="Client name is required!">
+              <nz-select
+                nzShowSearch
+                formControlName="clientid"
+                nzPlaceHolder="Select Client"
+                (ngModelChange)="updateConfirmValidator($event)"
+              >
+                @for (data of clientsList; track data) {
+                  <nz-option nzValue="{{ data.id }}" nzLabel="{{ data.name }}"></nz-option>
+                }
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+        </div> -->
+        <!-- <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="12" [nzLg]="12" [nzXl]="12">
+          <nz-form-item>
+            <nz-form-label [nzSpan]="24" nzRequired>Role</nz-form-label>
+            <nz-form-control [nzSpan]="24" nzErrorTip="Role is required!">
+              <nz-select nzShowSearch formControlName="userroleid" nzPlaceHolder="Select Role">
+                @for (data of userRolesData; track data) {
+                  <nz-option nzValue="{{ data.id }}" nzLabel="{{ data.name }}"></nz-option>
+                }
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+        </div> -->
+
+        <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="6" [nzLg]="6" [nzXl]="6">
+          <nz-form-item>
+            <nz-form-control [nzSpan]="24" nzErrorTip="Please select show in DDL!">
+              <label nz-checkbox formControlName="isTFAEnabled">
+                <span>MFA Enabled</span>
+              </label>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+
+        <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="6" [nzLg]="6" [nzXl]="6" *ngIf="type === 'Edit'">
+          <nz-form-item>
+            <nz-form-control [nzSpan]="24" nzErrorTip="Please select show in DDL!">
+              <label nz-checkbox formControlName="isTFAReset">
+                <span>MFA Reset</span>
+              </label>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="6" [nzLg]="6" [nzXl]="6" *ngIf="currRole === 'super admin'">
+          <nz-form-item>
+            <nz-form-control [nzSpan]="24" nzErrorTip="Please select is locked!">
+              <label nz-checkbox formControlName="isLocked">
+                <span>Is Locked</span>
+              </label>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div nz-col [nzXs]="24" [nzSm]="24" [nzMd]="24" [nzLg]="24" [nzXl]="24">
+          <nz-form-item>
+            <nz-form-control>
+              <button [ngClass]="selectedRow.userroleid === 1 ? 'disabled' : ''" nz-button nzType="primary" (click)="onAddClient()">
+                Add Client
+              </button>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+
+        <!-- <div class="card" style="width: 100%; padding: 8px">
+          <div><h3>Access Configuration</h3></div>
+          <div nz-row [nzGutter]="8">
+            <div nz-col [nzXs]="12" [nzSm]="12" [nzMd]="8" [nzLg]="8" [nzXl]="8">
+              <nz-form-item>
+                <nz-form-label [nzSpan]="24">State</nz-form-label>
+                <nz-form-control [nzSpan]="24" nzErrorTip="State is required!">
+                  <nz-select
+                    nzAllowClear
+                    nzMode="tags"
+                    nzShowSearch
+                    formControlName="state"
+                    nzPlaceHolder="Select State"
+                    (ngModelChange)="onStateClick($event)"
+                    [nzDisabled]="!validateForm.value.clientid"
+                  >
+                    @for (data of stateList; track data) {
+                      <nz-option [nzDisabled]="disabledState" nzValue="{{ data.name }}" nzLabel="{{ data.name }}"></nz-option>
+                    }
+                  </nz-select>
+                </nz-form-control>
+              </nz-form-item>
+            </div>
+
+            <div nz-col [nzXs]="12" [nzSm]="12" [nzMd]="8" [nzLg]="8" [nzXl]="8">
+              <nz-form-item>
+                <nz-form-label [nzSpan]="24">Service Location</nz-form-label>
+                <nz-form-control [nzSpan]="24" nzErrorTip="Service location is required!">
+                  <nz-select
+                    nzMode="tags"
+                    [nzDisabled]="!validateForm.value.clientid"
+                    nzShowSearch
+                    nzAllowClear
+                    formControlName="serviceloc"
+                    nzPlaceHolder="Select Service Location"
+                    (ngModelChange)="onServeLocClick($event)"
+                  >
+                    @for (data of serviceLocList; track data) {
+                      <nz-option nzValue="{{ data.name }}" nzLabel="{{ data.name }}"></nz-option>
+                    }
+                  </nz-select>
+                </nz-form-control>
+              </nz-form-item>
+            </div>
+            <div nz-col [nzXs]="12" [nzSm]="12" [nzMd]="8" [nzLg]="8" [nzXl]="8">
+              <nz-form-item>
+                <nz-form-label [nzSpan]="24">Provider</nz-form-label>
+                <nz-form-control [nzSpan]="24" nzErrorTip="Provider is required!">
+                  <nz-select
+                    [nzDisabled]="!validateForm.value.clientid"
+                    nzMode="tags"
+                    nzShowSearch
+                    formControlName="provider"
+                    nzPlaceHolder="Select Provider"
+                  >
+                    @for (data of providerList; track data) {
+                      <nz-option nzValue="{{ data.name }}" nzLabel="{{ data.name }}"></nz-option>
+                    }
+                  </nz-select>
+                </nz-form-control>
+              </nz-form-item>
+            </div>
+          </div>
+        </div> -->
+        <!-- <div nz-col [nzSpan]="12">
+          <nz-form-item>
+            <nz-form-control [nzSpan]="24" nzErrorTip="Please accept the agreement!">
+              <label nz-checkbox formControlName="agreementaccepted">
+                <span>Agreement Accepted</span>
+              </label>
+            </nz-form-control>
+          </nz-form-item>
+        </div> -->
+      </div>
+      <!-- <button nz-button class="login-form-button login-form-margin" [nzType]="'primary'">Log in</button> -->
+      <nz-table
+        *ngIf="selectedRow.userroleid !== 1"
+        [nzPageSize]="5"
+        nzNoResult="No Data Found."
+        [nzLoading]="loading"
+        #fixedTable
+        [nzData]="userClientList"
+        [(nzPageIndex)]="currentPage"
+        class="user-client-table"
+      >
+        <thead>
+          <tr>
+            <th [style.width]="'10%'">Client Name</th>
+            <th [style.width]="'9%'">Short Name</th>
+
+            <th [style.width]="'10%'">Role</th>
+            <th [style.width]="'15%'" [nzBreakWord]="true">State</th>
+
+            <th [style.width]="'25%'" [nzBreakWord]="true">Locations</th>
+            <th [style.width]="'15%'" [nzBreakWord]="true">Provider</th>
+            <th [style.width]="'6%'">Default</th>
+            <th [style.width]="'10%'">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (data of fixedTable.data; track data; let index = $index) {
+            <tr>
+              <td>{{ data.clientName }}</td>
+              <td>{{ data.clientShortName }}</td>
+              <td>{{ data.roleName }}</td>
+              <td>{{ data.assignedStates }}</td>
+              <td>{{ data.assignedServiceLocations }}</td>
+              <td>{{ data.assignedProviders }}</td>
+              <td>
+                <div>
+                  <span
+                    [ngModelOptions]="{ standalone: true }"
+                    (click)="onDefaultClient(data, index)"
+                    nz-radio
+                    [ngModel]="data.isDefault"
+                  ></span>
+                </div>
+              </td>
+              <td>
+                <a
+                  *ngIf="data.isUserAccess === null || data.isUserAccess"
+                  nz-tooltip
+                  nzTooltipTitle="Edit client"
+                  (click)="onEditClient(data, index)"
+                >
+                  <img src="assets/images/pencil.svg" height="18" width="18" class="me-2" alt="Edit client" />
+                </a>
+                <a
+                  *ngIf="data.userClientId !== 0 && (data.isUserAccess === null || data.isUserAccess)"
+                  (click)="editReportMapping(data)"
+                  nz-tooltip
+                  nzTooltipTitle="Edit user menu mapping"
+                >
+                  <img src="assets/images/ui-checks.svg" class="me-2" height="18" width="18" alt="Delete user" />
+                </a>
+                <a
+                  *ngIf="data.isUserAccess === null || data.isUserAccess"
+                  nz-tooltip
+                  nzTooltipTitle="Delete client"
+                  (click)="onDeleteClient(data, index)"
+                >
+                  <img src="assets/images/delete.svg" height="18" width="18" alt="Delete client" />
+                </a>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </nz-table>
+      <view-edit-user-client-modal
+        *ngIf="showClientModal"
+        [isVisible]="showClientModal"
+        [type]="clientModalType"
+        [selectedRow]="selectedClientRow"
+        [clientsList]="aeUserClientList"
+        (closeModalEvent)="onHandleCancel($event)"
+        (updateClientEvent)="onUpdateClient($event)"
+      ></view-edit-user-client-modal>
+      <edit-report-menu-modal
+        *ngIf="isERMVisible"
+        [isVisible]="isERMVisible"
+        [selectedRow]="selectedRow"
+        [selectedClientRow]="selectedClientRow"
+        [reportMenuMapList]="reportMenuMapList"
+        (closeModalEvent)="onERMCloseModalEvent($event)"
+      ></edit-report-menu-modal>
+    </ng-container>
+
+    <ng-template #modalFooter>
+      <nz-form-item>
+        <nz-form-control>
+          <button nz-button nzType="default" (click)="handleCancel()">Cancel</button>
+          <button nz-button nzType="primary" (click)="submitForm()">Save</button>
+        </nz-form-control>
+      </nz-form-item>
+    </ng-template>
+  </form>
+</nz-modal>

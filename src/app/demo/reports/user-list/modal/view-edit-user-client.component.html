@@ -1,0 +1,126 @@
+<nz-modal
+  [nzStyle]="{ width: '70vw' }"
+  [(nzVisible)]="isVisible"
+  [nzFooter]="modalFooter"
+  [nzMaskClosable]="false"
+  nzTitle="{{ type }} User Client"
+  (nzOnCancel)="handleCancel()"
+  nzCentered
+  nzClassName="add-edit-user"
+>
+  <form nz-form [formGroup]="validateForm" [nzLayout]="'vertical'" class="login-form" (ngSubmit)="submitForm()">
+    <ng-container *nzModalContent>
+      <div nz-row [nzGutter]="8">
+        <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="12" [nzLg]="12" [nzXl]="12">
+          <nz-form-item>
+            <nz-form-label [nzSpan]="24" nzRequired>Client Name</nz-form-label>
+            <nz-form-control [nzSpan]="24" nzErrorTip="Client name is required!">
+              <nz-select
+                nzShowSearch
+                formControlName="clientid"
+                nzPlaceHolder="Select Client"
+                (ngModelChange)="updateConfirmValidator($event)"
+              >
+                @for (data of clientsList; track data) {
+                  <nz-option
+                    *ngIf="data?.isUserAccess === null || data?.isUserAccess"
+                    nzValue="{{ data.id }}"
+                    nzLabel="{{ data.name }}"
+                  ></nz-option>
+                }
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="12" [nzLg]="12" [nzXl]="12">
+          <nz-form-item>
+            <nz-form-label [nzSpan]="24" nzRequired>Role</nz-form-label>
+            <nz-form-control [nzSpan]="24" nzErrorTip="Role is required!">
+              <nz-select nzShowSearch formControlName="userroleid" nzPlaceHolder="Select Role">
+                @for (data of userRolesData; track data) {
+                  <nz-option nzValue="{{ data.id }}" nzLabel="{{ data.name }}"></nz-option>
+                }
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+
+        <div class="card" style="width: 100%; padding: 8px">
+          <div><h3>Access Configuration</h3></div>
+          <div nz-row [nzGutter]="8">
+            <div nz-col [nzXs]="12" [nzSm]="12" [nzMd]="8" [nzLg]="8" [nzXl]="8">
+              <nz-form-item>
+                <nz-form-label [nzSpan]="24">Provider</nz-form-label>
+                <nz-form-control [nzSpan]="24" nzErrorTip="Provider is required!">
+                  <nz-select
+                    [nzDisabled]="!validateForm.value.clientid"
+                    nzMode="tags"
+                    nzShowSearch
+                    nzAllowClear
+                    formControlName="provider"
+                    [nzMaxTagCount]="10"
+                    nzPlaceHolder="Select Provider"
+                  >
+                    @for (data of providerList; track data) {
+                      <nz-option nzValue="{{ data.name }}" nzLabel="{{ data.name }}"></nz-option>
+                    }
+                  </nz-select>
+                </nz-form-control>
+              </nz-form-item>
+            </div>
+            <div nz-col [nzXs]="12" [nzSm]="12" [nzMd]="8" [nzLg]="8" [nzXl]="8">
+              <nz-form-item>
+                <nz-form-label [nzSpan]="24">State</nz-form-label>
+                <nz-form-control [nzSpan]="24" nzErrorTip="State is required!">
+                  <nz-select
+                    nzAllowClear
+                    nzMode="tags"
+                    nzShowSearch
+                    formControlName="state"
+                    nzPlaceHolder="Select State"
+                    [nzMaxTagCount]="10"
+                    [nzDisabled]="!validateForm.value.clientid"
+                  >
+                    @for (data of stateList; track data) {
+                      <nz-option [nzDisabled]="disabledState" nzValue="{{ data.name }}" nzLabel="{{ data.name }}"></nz-option>
+                    }
+                  </nz-select>
+                </nz-form-control>
+              </nz-form-item>
+            </div>
+
+            <div nz-col [nzXs]="12" [nzSm]="12" [nzMd]="8" [nzLg]="8" [nzXl]="8">
+              <nz-form-item>
+                <nz-form-label [nzSpan]="24">Service Location</nz-form-label>
+                <nz-form-control [nzSpan]="24" nzErrorTip="Service location is required!">
+                  <nz-select
+                    nzMode="tags"
+                    [nzDisabled]="!validateForm.value.clientid"
+                    nzShowSearch
+                    nzAllowClear
+                    [nzMaxTagCount]="10"
+                    formControlName="serviceloc"
+                    nzPlaceHolder="Select Service Location"
+                  >
+                    @for (data of serviceLocList; track data) {
+                      <nz-option nzValue="{{ data.name }}" nzLabel="{{ data.name }}"></nz-option>
+                    }
+                  </nz-select>
+                </nz-form-control>
+              </nz-form-item>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+
+    <ng-template #modalFooter>
+      <nz-form-item>
+        <nz-form-control>
+          <button nz-button nzType="default" (click)="handleCancel()">Cancel</button>
+          <button nz-button nzType="primary" (click)="submitForm()">Save</button>
+        </nz-form-control>
+      </nz-form-item>
+    </ng-template>
+  </form>
+</nz-modal>

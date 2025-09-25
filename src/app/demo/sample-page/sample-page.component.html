@@ -1,0 +1,40 @@
+<div class="row sample-page">
+  <div class="col-sm-12">
+    <nz-tabset
+      nzType="card"
+      [nzSelectedIndex]="selectedPage"
+      (nzSelectedIndexChange)="onSelectedIndexChange($event)"
+      (nzSelectChange)="log([$event])"
+    >
+      @for (tab of menuList; track tab) {
+        <nz-tab [nzTitle]="tab.title">
+          <div *ngIf="reportId && embededToken && !loading; else other_content">
+            <div class="row">
+              <powerbi-report
+                class="iframe-class"
+                [embedConfig]="reportConfig"
+                (loaded)="onReportLoaded($event)"
+                (rendered)="onReportRendered($event)"
+              ></powerbi-report>
+            </div>
+            <!-- <iframe
+              class="iframe-class"
+              src="https://app.fabric.microsoft.com/reportEmbed?reportId=15f6a0f3-f631-44bf-9a9c-8bdac90586ce&autoAuth=true&ctid=907fe139-9ca0-4ad6-a3b1-9d00af9b1fd1"
+            ></iframe> -->
+          </div>
+          <ng-template #other_content>
+            <div class="row" style="padding: 0px 8px">
+              <div class="card no-dashboard">
+                <div class="card-block">
+                  <div><img src="assets/images/no-dash.svg" alt="no dashboard" /></div>
+                  <div class="desc mt-3">Dashboard currently unavailable.</div>
+                  <div class="desc">Please try again later.</div>
+                </div>
+              </div>
+            </div>
+          </ng-template>
+        </nz-tab>
+      }
+    </nz-tabset>
+  </div>
+</div>

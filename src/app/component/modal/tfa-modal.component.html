@@ -1,0 +1,67 @@
+<nz-modal
+  [nzWidth]="'60vw'"
+  [nzMaskClosable]="false"
+  [(nzVisible)]="isVisible"
+  [nzTitle]="modalTitle"
+  [nzFooter]="null"
+  (nzOnCancel)="handleCancel()"
+  nzClassName="add-edit-user"
+>
+  <ng-template #modalTitle>
+    <div style="font-weight: 600 !important">MFA</div>
+  </ng-template>
+
+  <ng-container *nzModalContent>
+    <div *ngIf="mfaEnabled" style="text-align: center">
+      <div class="mt-2 mb-2"><span nz-icon style="font-size: 64px" nzType="check-circle" nzTheme="outline"></span></div>
+      <div class="mt-2 mb-2"><h3>MFA already registered for this user!</h3></div>
+    </div>
+    <div *ngIf="!showTFA && !mfaEnabled">
+      <form nz-form [formGroup]="validateForm" [nzLayout]="'vertical'" class="login-form mt-2" (ngSubmit)="submitForm()">
+        <div nz-row [nzGutter]="8">
+          <div nz-col [nzSpan]="24">
+            <nz-form-item>
+              <nz-form-label [nzSpan]="24" nzFor="password">Current Password</nz-form-label>
+              <nz-form-control [nzSpan]="12" nzErrorTip="Please input your current password!">
+                <nz-input-group [nzSuffix]="suffixIconSearch">
+                  <input [type]="!showPwd ? 'password' : 'text'" nz-input formControlName="password" placeholder="Password" />
+                </nz-input-group>
+                <ng-template #suffixIconSearch>
+                  <img
+                    height="18"
+                    width="18"
+                    style="cursor: pointer"
+                    [src]="showPwd ? 'assets/images/eye.svg' : 'assets/images/eye-slash.svg'"
+                    (click)="onShowPwd(showPwd)"
+                  />
+                  <!-- <span nz-icon [nzType]="showPwd ? 'eye' : 'eye-invisible'" [nzTheme]="'outline'"></span> -->
+                </ng-template>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+
+          <div nz-col [nzSpan]="24">
+            <nz-form-item>
+              <nz-form-control [nzSpan]="24" nzErrorTip="Please enable the MFA!">
+                <label nz-checkbox formControlName="enableTFA">
+                  <span>Register MFA</span>
+                </label>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+        </div>
+        <!-- <button nz-button class="login-form-button login-form-margin" [nzType]="'primary'">Log in</button> -->
+
+        <nz-form-item>
+          <nz-form-control>
+            <button [disabled]="!validateForm.value.enableTFA" class="mb-4" nz-button nzType="primary">Save</button>
+            <button class="mb-4 ms-2" nz-button nzType="default" (click)="handleCancel()">Cancel</button>
+          </nz-form-control>
+        </nz-form-item>
+      </form>
+    </div>
+    <div *ngIf="showTFA">
+      <tfa-auth QRImage="{{ QRImage }}" key="{{ key }}" (onSuccessVerify)="onSuccessVerify()"></tfa-auth>
+    </div>
+  </ng-container>
+</nz-modal>

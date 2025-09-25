@@ -1,0 +1,33 @@
+.pc-footer {
+  position: fixed;
+  z-index: 1020;
+  margin-left: $sidebar-width;
+  margin-right: 20px;
+  margin-top: $header-height;
+  padding: 16px 0;
+  max-height: 60px !important;
+  width: 100%;
+  width: -moz-available; /* For Mozzila */
+  width: -webkit-fill-available; /* For Chrome */
+  width: stretch;
+
+  a {
+    color: var(--bs-body-color);
+
+    &:hover {
+      color: var(--bs-primary);
+    }
+  }
+  .footer-wrapper {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  .footer-link {
+    .list-inline-item:not(:last-child) {
+      margin-right: 0.9rem;
+    }
+  }
+  @media (max-width: 1024px) {
+    margin-left: 20px;
+  }
+}

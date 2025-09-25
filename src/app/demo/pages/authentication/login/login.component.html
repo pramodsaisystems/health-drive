@@ -1,0 +1,164 @@
+<div class="auth-main">
+  <div class="auth-wrapper v3">
+    <div class="auth-form">
+      <div class="card my-5">
+        <div class="card-body">
+          <div nz-row class="row">
+            <div
+              nz-col
+              [nzXs]="{ order: 2 }"
+              [nzSm]="{ order: 2 }"
+              [nzMd]="{ order: 1 }"
+              [nzLg]="{ order: 1 }"
+              [nzXl]="{ order: 1 }"
+              class="col-xs-12 col-sm-12 col-sm-push-6 col-md-7 col-lg-7 left-sect ps-5 pe-5"
+            >
+              <div class="d-flex justify-content-center mt-5">
+                <img src="assets/images/authentication/login_side.svg" alt="login side" />
+              </div>
+              <div class="d-flex mt-3">
+                <div class="col-7 wlcm-txt">
+                  Welcome to navigatEHR!
+                  <img src="assets/images/wave_hand.svg" alt="wave hand" />
+                </div>
+                <div class="col-5"></div>
+              </div>
+              <div class="d-flex wlcm-txt-desc mt-2">
+                Our platform provides extensive data insights aimed at enhancing healthcare delivery. It evaluates patient outcomes,
+                treatment effectiveness, and trends in population health, while also monitoring workflow efficiency and assessing financial
+                performance. Additionally, it oversees claims management and denial analysis, facilitating informed decision-making and
+                initiatives for quality improvement.
+                <!-- Our platform provides secure, role-based access to dynamic data analytics and visualizations powered by Power BI. Unlock
+                customized insights across multiple dimensions such as time periods, locations, CPT codes, claims and more to support
+                informed decision-making. -->
+              </div>
+              <div class="d-flex rights-res mt-4 mb-4">© 2024 navigatEHR | All rights reserved.</div>
+            </div>
+            <div
+              nz-col
+              [nzXs]="{ order: 1 }"
+              [nzSm]="{ order: 1 }"
+              [nzMd]="{ order: 2 }"
+              [nzLg]="{ order: 2 }"
+              [nzXl]="{ order: 2 }"
+              class="col-xs-12 col-sm-12 col-sm-pull-6 col-md-5 col-lg-5 rigth-sect"
+            >
+              <div>
+                <a href="#" class="d-flex justify-content-center mt-4 mb-4">
+                  <img src="assets/images/navigatEHR_logo_v2.svg" />
+                </a>
+                <div class="row">
+                  <div class="d-flex">
+                    <div class="auth-header">
+                      <!-- <h2 class="mt-5"><b>Login</b></h2> -->
+                    </div>
+                  </div>
+                </div>
+                <!-- <div class="d-grid">
+            <button type="button" class="btn mt-2 btn-light-primary bg-light text-muted">
+              <img src="assets/images/authentication/google-icon.svg" />
+              Sign In With Google
+            </button>
+          </div> -->
+                <!-- <div class="saprator mt-3">
+            <span>or</span>
+          </div> -->
+                <div *ngIf="!showResetPass && !isTFA">
+                  <form nz-form [formGroup]="validateForm" [nzLayout]="'vertical'" class="login-form mt-5" (ngSubmit)="submitForm()">
+                    <div nz-row [nzGutter]="8">
+                      <div nz-col [nzSpan]="24">
+                        <nz-form-item>
+                          <nz-form-label [nzSpan]="24" nzFor="username">Email</nz-form-label>
+                          <nz-form-control [nzSpan]="24" nzErrorTip="Please input your email!">
+                            <nz-input-group>
+                              <input type="text" nz-input formControlName="userName" placeholder="Enter email" />
+                            </nz-input-group>
+                          </nz-form-control>
+                        </nz-form-item>
+                      </div>
+                      <div nz-col [nzSpan]="24">
+                        <nz-form-item>
+                          <nz-form-label [nzSpan]="24" nzFor="password">Password</nz-form-label>
+                          <nz-form-control [nzSpan]="24" nzErrorTip="Please input your password!">
+                            <nz-input-group [nzSuffix]="suffixIconSearch">
+                              <input [type]="!showPwd ? 'password' : 'text'" nz-input formControlName="password" placeholder="Password" />
+                            </nz-input-group>
+                            <ng-template #suffixIconSearch>
+                              <img
+                                height="18"
+                                width="18"
+                                style="cursor: pointer"
+                                [src]="showPwd ? 'assets/images/eye.svg' : 'assets/images/eye-slash.svg'"
+                                (click)="onShowPwd(showPwd)"
+                              />
+                              <!-- <span nz-icon [nzType]="showPwd ? 'eye' : 'eye-invisible'" [nzTheme]="'outline'"></span> -->
+                            </ng-template>
+                          </nz-form-control>
+                        </nz-form-item>
+                      </div>
+
+                      <div nz-col [nzSpan]="24">
+                        <nz-form-item>
+                          <nz-form-control [nzSpan]="24" nzErrorTip="Please accept the hippa policy!">
+                            <label nz-checkbox formControlName="hippa">
+                              <span>Accept HIPAA</span>
+                            </label>
+                            <a (click)="onPolicyClick()" style="text-decoration: underline; margin-left: -4px">Policy</a>
+                          </nz-form-control>
+                        </nz-form-item>
+                      </div>
+                    </div>
+                    <!-- <button nz-button class="login-form-button login-form-margin" [nzType]="'primary'">Log in</button> -->
+
+                    <nz-form-item>
+                      <nz-form-control>
+                        <button class="mb-4" nz-button style="width: 100%" nzType="primary">Log In</button>
+                      </nz-form-control>
+                    </nz-form-item>
+                  </form>
+                  <div class="d-grid justify-content-center" (click)="showResetPassword()">
+                    <h5 class="text-secondary">
+                      <a href="javascript:">Forgot Password?</a>
+                    </h5>
+                  </div>
+                </div>
+                <div *ngIf="showResetPass">
+                  <reset-password [email]="validateForm.value.userName" (onCancelClick)="onCancelClick()"></reset-password>
+                </div>
+                <div *ngIf="isTFA">
+                  <!-- <tfa-screen [email]="validateForm.value.userName"></tfa-screen> -->
+                  <tfa-auth
+                    email="{{ validateForm.value.userName }}"
+                    password="{{ validateForm.value.password }}"
+                    QRImage="{{ QRImage }}"
+                    key="{{ key }}"
+                    [isloginpage]="true"
+                    (onSuccessVerify)="onSuccessVerify()"
+                  ></tfa-auth>
+                  <button nzType="default" (click)="onBackClick()" nz-button style="width: 100%">Back</button>
+                </div>
+
+                <!-- <h5 class="d-flex justify-content-center">
+                <a [routerLink]="['/guest/register']">Don't have an account?</a>
+              </h5> -->
+                <div class="d-grid mt-5 justify-content-center">
+                  <div class="pwd-text">Powered By</div>
+                </div>
+                <div class="d-grid justify-content-center mt-1">
+                  <img src="assets/images/authentication/sai_health.svg" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="disclaimer">
+          CPT copyright 2017 American Medical Association. All rights reserved.Fee schedules, relative value units, conversion factors
+          and/or related components are not assigned by AMA, are not part of CPT ®, and AMA is not recommending their use. AMA does not
+          directly or indirectly practice medicine or dispense medical services. AMA assumes no liability for data contained or not
+          contained herein.CPT ® is a registered trademark of the American Medical Association
+        </div>
+      </div>
+      <privacy-policy-modal [isVisible]="isPMVisible" (closeModalEvent)="onClosePrivacyModal($event)"></privacy-policy-modal>
+    </div>
+  </div>
+</div>

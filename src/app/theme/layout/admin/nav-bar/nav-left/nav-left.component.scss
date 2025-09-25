@@ -1,0 +1,15 @@
+.ms-0 {
+  margin: 0 16px 0 0 !important;
+}
+
+.app-header-title {
+  color: white;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+@media (max-width: 575px) {
+  .app-header-title {
+    font-size: 12px;
+  }
+}

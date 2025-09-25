@@ -1,0 +1,229 @@
+<ng-scrollbar style="height: calc(100vh - 60px)" visibility="hover">
+  <div class="navbar-content">
+    <nz-layout>
+      <nz-sider nzWidth="260px" nzCollapsible [(nzCollapsed)]="navCollapsed" [nzTrigger]="null">
+        <ul class="sidebar-menu" nz-menu nzTheme="light" nzMode="inline" (clickOutside)="fireOutClick()" (mouseleave)="navMob()">
+          <!-- <li nz-submenu nzTitle="User" nzIcon="user">
+            <ul>
+              <li nz-menu-item>Tom</li>
+              <li nz-menu-item>Bill</li>
+              <li nz-menu-item>Alex</li>
+            </ul>
+          </li>
+          <li nz-submenu nzTitle="Team" nzIcon="team">
+            <ul>
+              <li nz-menu-item>Team 1</li>
+              <li nz-menu-item>Team 2</li>
+            </ul>
+          </li>
+          <li nz-menu-item>
+            <span nz-icon nzType="file"></span>
+            <span>File</span>
+          </li> -->
+          @for (item of navigation; track item) {
+            @if (item?.children?.length > 0) {
+              <li nz-submenu [nzTitle]="testTitle" (click)="onMenuClick(item)" [(nzOpen)]="item.isopen">
+                <!-- <ul>
+                  <li nz-menu-group nzTitle="Item 1"> -->
+                <ul>
+                  @if (checkForClinicalOrOperational(item?.children)) {
+                    @if (checkForClinical(item?.children)) {
+                      <li nz-menu-group [nzTitle]="clTitle">
+                        @for (item1 of item?.children; track item1) {
+                          @if (item1.isClinical && item.clopen) {
+                            <li
+                              title="Category: {{ item1.category }}"
+                              nz-menu-item
+                              [ngClass]="item1.classes!"
+                              *ngIf="item1.url && !item1.external"
+                              [routerLinkActive]="['active']"
+                              [nzSelected]="item1?.selected"
+                            >
+                              <a
+                                class="nav-link"
+                                [target]="item1.target ? '_blank' : '_self'"
+                                [routerLink]="[item1.url]"
+                                (click)="closeOtherMenu($event, item1, item)"
+                              >
+                                <span nz-icon>
+                                  <img width="14" class="sidebar-img" src="assets/images/sidebar/{{ item1.icon }}.svg" alt="dashboard" />
+                                </span>
+                                <span class="coded-mtext">{{ item1.title }}</span>
+                              </a>
+                            </li>
+                            <li
+                              title="Category: {{ item1.category }}"
+                              [ngClass]="item1.classes!"
+                              nz-menu-item
+                              *ngIf="item1.url && item1.external"
+                              [nzSelected]="item1?.selected"
+                            >
+                              <a
+                                (click)="closeOtherMenu($event, item1, item)"
+                                [target]="item1.target ? '_blank' : '_self'"
+                                [href]="item1.url"
+                              >
+                                <span nz-icon>
+                                  <img width="14" class="sidebar-img" src="assets/images/sidebar/{{ item1.icon }}.svg" alt="dashboard" />
+                                </span>
+                                <span class="coded-mtext2">{{ item1.title }}</span>
+                              </a>
+                            </li>
+                          }
+                        }
+                      </li>
+                    }
+                    @if (checkForOperational(item?.children)) {
+                      <li nz-menu-group [nzTitle]="opTitle">
+                        @for (item1 of item?.children; track item1) {
+                          @if (item1.isOperational && item.opopen) {
+                            <li
+                              title="Category: {{ item1.category }}"
+                              nz-menu-item
+                              [ngClass]="item1.classes!"
+                              *ngIf="item1.url && !item1.external"
+                              [routerLinkActive]="['active']"
+                              [nzSelected]="!item1?.isClinical && item1?.selected"
+                            >
+                              <a
+                                class="nav-link"
+                                [target]="item1.target ? '_blank' : '_self'"
+                                [routerLink]="[item1.url]"
+                                (click)="closeOtherMenu($event, item1, item)"
+                              >
+                                <span nz-icon>
+                                  <img width="14" class="sidebar-img" src="assets/images/sidebar/{{ item1.icon }}.svg" alt="dashboard" />
+                                </span>
+                                <span class="coded-mtext">{{ item1.title }}</span>
+                              </a>
+                            </li>
+                            <li
+                              title="Category: {{ item1.category }}"
+                              [ngClass]="item1.classes!"
+                              nz-menu-item
+                              *ngIf="item1.url && item1.external"
+                              [nzSelected]="item1?.selected"
+                            >
+                              <a
+                                (click)="closeOtherMenu($event, item1, item)"
+                                [target]="item1.target ? '_blank' : '_self'"
+                                [href]="item1.url"
+                              >
+                                <span nz-icon>
+                                  <img width="14" class="sidebar-img" src="assets/images/sidebar/{{ item1.icon }}.svg" alt="dashboard" />
+                                </span>
+                                <span class="coded-mtext2">{{ item1.title }}</span>
+                              </a>
+                            </li>
+                          }
+                        }
+                      </li>
+                    }
+                  } @else {
+                    @for (item1 of item?.children; track item1) {
+                      <li
+                        title="Category: {{ item1.category }}"
+                        nz-menu-item
+                        [ngClass]="item1.classes!"
+                        *ngIf="item1.url && !item1.external"
+                        [routerLinkActive]="['active']"
+                        [nzSelected]="item1?.selected"
+                      >
+                        <a
+                          class="nav-link"
+                          [target]="item1.target ? '_blank' : '_self'"
+                          [routerLink]="[item1.url]"
+                          (click)="closeOtherMenu($event, item1, item)"
+                        >
+                          <span nz-icon>
+                            <img width="14" class="sidebar-img" src="assets/images/sidebar/{{ item1.icon }}.svg" alt="dashboard" />
+                          </span>
+                          <span class="coded-mtext">{{ item1.title }}</span>
+                        </a>
+                      </li>
+                      <li
+                        title="Category: {{ item1.category }}"
+                        [ngClass]="item1.classes!"
+                        nz-menu-item
+                        *ngIf="item1.url && item1.external"
+                        [nzSelected]="item1?.selected"
+                      >
+                        <a (click)="closeOtherMenu($event, item1, item)" [target]="item1.target ? '_blank' : '_self'" [href]="item1.url">
+                          <span nz-icon>
+                            <img width="14" class="sidebar-img" src="assets/images/sidebar/{{ item1.icon }}.svg" alt="dashboard" />
+                          </span>
+                          <span class="coded-mtext2">{{ item1.title }}</span>
+                        </a>
+                      </li>
+                    }
+                  }
+                </ul>
+                <!-- </li>
+                </ul> -->
+              </li>
+              <ng-template #testTitle>
+                <span nz-icon><img width="18" class="sidebar-img1" src="assets/images/sidebar/{{ item.icon }}.svg" alt="dashboard" /></span>
+                <span class="coded-mtext1" title="{{ item.title }}">{{ item.title }}</span>
+              </ng-template>
+              <ng-template #clTitle>
+                @if (item.isopen) {
+                  <div style="cursor: pointer; color: #000; opacity: 0.8" (click)="onCLOpenClick(item.clopen, item)">
+                    <span>Clinical</span>
+                    <span style="position: absolute; right: 18px">
+                      @if (!item.clopen) {
+                        <img width="14" src="assets/images/sidebar/plusCircleOutlined.svg" alt="plus outlined" />
+                      } @else {
+                        <img width="14" src="assets/images/sidebar/minusCircleOutlined.svg" alt="minus outlined" />
+                      }
+                    </span>
+                  </div>
+                }
+              </ng-template>
+              <ng-template #opTitle>
+                @if (item.isopen) {
+                  <div style="cursor: pointer; color: #000; opacity: 0.8" (click)="onOPOpenClick(item.opopen, item)">
+                    <span>Operational</span>
+                    <span style="position: absolute; right: 18px">
+                      @if (!item.opopen) {
+                        <img width="14" src="assets/images/sidebar/plusCircleOutlined.svg" alt="plus outlined" />
+                      } @else {
+                        <img width="14" src="assets/images/sidebar/minusCircleOutlined.svg" alt="minus outlined" />
+                      }
+                    </span>
+                  </div>
+                }
+              </ng-template>
+            } @else {
+              <li nz-menu-item [routerLinkActive]="['active']">
+                <a (click)="closeOtherMenu($event, item, item)" [target]="item.target ? '_blank' : '_self'" [href]="[item.url]">
+                  <span nz-icon>
+                    <img width="18" class="sidebar-img" src="assets/images/sidebar/{{ item.icon }}.svg" alt="dashboard" />
+                  </span>
+                  <span class="nav-item coded-menu-caption coded-mtext" title="{{ item.title }}">{{ item.title }}</span>
+                </a>
+              </li>
+            }
+          }
+        </ul>
+
+        <!-- <ul nz-menu nzTheme="light" nzMode="inline" class="nav coded-inner-navbar" (clickOutside)="fireOutClick()" (mouseleave)="navMob()">
+          @for (item of navigation; track item) {
+            @if (item.type == 'group') {
+              <app-nav-group [item]="item"></app-nav-group>
+            }
+            @if (item.type == 'collapse') {
+              <app-nav-collapse [item]="item"></app-nav-collapse>
+            }
+            @if (item.type == 'item') {
+              <app-nav-item [item]="item"></app-nav-item>
+            }
+          }
+        </ul> -->
+      </nz-sider>
+    </nz-layout>
+  </div>
+  <div *ngIf="!navCollapsed" style="text-align: center">
+    <div class="pwd-by">Powered By</div>
+    <div><img src="assets/images/SSH_Trans_BG.svg" alt="SSH trans BG" /></div>
+  </div>
+</ng-scrollbar>

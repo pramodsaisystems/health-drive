@@ -1,0 +1,83 @@
+<div class="row report-cont">
+  <div class="col-sm-12">
+    <div class="row pb-4">
+      <div class="col-10">
+        <span class="card-header-title">Activity Log</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-block">
+        <form nz-form [formGroup]="validateForm" [nzLayout]="'vertical'" class="login-form">
+          <ng-container>
+            <div nz-row [nzGutter]="8">
+              <div nz-col [nzXs]="12" [nzSm]="12" [nzMd]="8" [nzLg]="4" [nzXl]="4">
+                <nz-form-item>
+                  <nz-form-control [nzSpan]="24" nzErrorTip="Please input your search text!">
+                    <nz-input-group>
+                      <input type="text" nz-input formControlName="search" placeholder="Search" />
+                    </nz-input-group>
+                  </nz-form-control>
+                </nz-form-item>
+              </div>
+
+              <div nz-col [nzSpan]="6">
+                <nz-form-item>
+                  <nz-form-control>
+                    <button nz-button class="me-2" nzType="primary" (click)="submitForm()">
+                      <span nz-tooltip nzTooltipTitle="search" nz-icon nzType="search"></span>
+                    </button>
+                    <button nz-button nzType="default" (click)="handleReset()">
+                      <span nz-tooltip nzTooltipTitle="reset" nz-icon nzType="close-circle" nzTheme="outline"></span>
+                    </button>
+                  </nz-form-control>
+                </nz-form-item>
+              </div>
+            </div>
+            <!-- <button nz-button class="login-form-button login-form-margin" [nzType]="'primary'">Log in</button> -->
+          </ng-container>
+        </form>
+        <nz-table [nzPageSize]="20" [nzLoading]="loading" nzNoResult="No Data Found." #basicTable [nzData]="auditLogs">
+          <thead>
+            <tr>
+              <!-- <th [nzSortFn]="sortUserIdFn">User Id</th> -->
+              <!-- <th [nzSortFn]="sortAuditLogIdFn">Audit Log Id</th> -->
+              <th [nzSortFn]="sortNameFn">Name</th>
+              <th [nzSortFn]="sortEmailFn">Email</th>
+              <th [nzSortFn]="sortIpAddressFn">Ip Address</th>
+              <th [nzWidth]="'12%'" [nzSortFn]="sortLoginDeviceFn">Login Device</th>
+              <th>Browser</th>
+              <!-- <th [nzSortFn]="sortOsVersionFn">OS Version</th> -->
+              <th [nzSortFn]="sortPageNameFn">Event</th>
+              <th [nzSortFn]="sortLastLogInFn" [nzWidth]="'15%'">Date & Time</th>
+              <th [nzSortFn]="sortUserLoginInfoIdFn">Session Key</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (data of basicTable.data; track data) {
+              <tr>
+                <td>{{ data.firstName }} {{ data.lastName }}</td>
+                <!-- <td>{{ data.userId }}</td> -->
+                <!-- <td>{{ data.auditLogId }}</td> -->
+                <!-- <td>{{ data.username }}</td> -->
+                <td>{{ data.email }}</td>
+                <td>{{ data.ipaddress }}</td>
+
+                <td>
+                  <span style="text-transform: capitalize">{{ data.loginDevice }}</span>
+                </td>
+                <td>{{ data.loginSource }}</td>
+                <!-- <td>{{ data.osversion }}</td> -->
+                <td>{{ data.pageName }}</td>
+                <td>{{ data.createdDate + 'Z' | date: 'MM/dd/yyyy hh:mm a' }}</td>
+                <td>{{ data.userLoginInfoId }}</td>
+              </tr>
+            }
+          </tbody>
+        </nz-table>
+      </div>
+    </div>
+    <!-- <app-card cardTitle="Users" buttonText="Add User" (onBtnClickEvt)="onAddNewUser()"> -->
+
+    <!-- </app-card> -->
+  </div>
+</div>

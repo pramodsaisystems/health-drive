@@ -1,0 +1,62 @@
+.me-0 {
+  margin: 0 0 0 16px !important;
+}
+
+.dropdown-item i,
+.dropdown-item span {
+  color: #000 !important;
+}
+
+.dropdown-item:hover {
+  background-color: #1d4787 !important;
+  i,
+  span {
+    color: #fff !important;
+  }
+}
+
+.dropdown-user-profile {
+  padding: 0px;
+  .profile-sect {
+    background: #1d4787 !important;
+    color: #fff !important;
+    margin: -0.5rem -1rem 0.5rem -1rem;
+    border-radius: 8px 8px 0px 0px;
+    padding: 4px 12px 8px 12px;
+  }
+  .text-muted {
+    color: #fff !important;
+  }
+}
+
+.client-name-txt {
+  margin-right: 20px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.client-drpdwn {
+  max-width: 15vw;
+  min-width: 15vw;
+}
+
+@media (max-width: 1024px) {
+  .client-name-txt {
+    font-size: 14px;
+  }
+  .client-drpdwn {
+    max-width: 30vw;
+    min-width: 30vw;
+  }
+}
+
+@media (max-width: 575px) {
+  .client-name-txt {
+    font-size: 12px;
+  }
+  .client-drpdwn {
+    max-width: 30vw;
+    min-width: 30vw;
+  }
+}

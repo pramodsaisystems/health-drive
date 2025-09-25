@@ -1,0 +1,194 @@
+<div class="row report-cont">
+  <div class="col-sm-12">
+    <div class="row pb-4">
+      <div class="col-10">
+        <span class="card-header-title">Users</span>
+        <img
+          style="cursor: pointer"
+          src="assets/images/info-circle.svg"
+          alt="user information"
+          width="20"
+          height="20"
+          class="ms-1 mb-2"
+          (click)="onInfoClick()"
+        />
+      </div>
+      <div class="col-2 d-flex justify-content-end">
+        <button nz-button nzType="primary" (click)="onAddNewUser()">
+          <img width="16" height="15" src="assets/images/user/add_user.svg" class="me-1 mb-1" />
+          Add User
+        </button>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-block">
+        <div>
+          <form nz-form [formGroup]="validateForm" [nzLayout]="'vertical'" class="login-form">
+            <ng-container>
+              <div nz-row [nzGutter]="8">
+                <div nz-col [nzXs]="12" [nzSm]="12" [nzMd]="8" [nzLg]="4" [nzXl]="4">
+                  <nz-form-item>
+                    <nz-form-control [nzSpan]="24" nzErrorTip="Please input your search text!">
+                      <nz-input-group>
+                        <input type="text" nz-input formControlName="search" placeholder="Search" />
+                      </nz-input-group>
+                    </nz-form-control>
+                  </nz-form-item>
+                </div>
+
+                <div nz-col nz-col [nzXs]="12" [nzSm]="12" [nzMd]="8" [nzLg]="4" [nzXl]="4">
+                  <nz-form-item>
+                    <nz-form-control [nzSpan]="24" nzErrorTip="Please select your client!">
+                      <nz-select
+                        nzShowSearch
+                        (ngModelChange)="onClientChange($event)"
+                        formControlName="clientid"
+                        nzPlaceHolder="Select Client"
+                      >
+                        @for (data of clientsList; track data) {
+                          <nz-option nzValue="{{ data.id }}" nzLabel="{{ data.name }}"></nz-option>
+                        }
+                      </nz-select>
+                    </nz-form-control>
+                  </nz-form-item>
+                </div>
+                <div nz-col nz-col [nzXs]="12" [nzSm]="12" [nzMd]="8" [nzLg]="4" [nzXl]="4">
+                  <nz-form-item>
+                    <nz-form-control [nzSpan]="24" nzErrorTip="Please select your role!">
+                      <nz-select nzShowSearch formControlName="userroleid" nzPlaceHolder="Select Role">
+                        @for (data of userRolesData; track data) {
+                          <nz-option nzValue="{{ data.id }}" nzLabel="{{ data.name }}"></nz-option>
+                        }
+                      </nz-select>
+                    </nz-form-control>
+                  </nz-form-item>
+                </div>
+
+                <div nz-col nz-col [nzXs]="12" [nzSm]="12" [nzMd]="8" [nzLg]="4" [nzXl]="4">
+                  <nz-form-item>
+                    <nz-form-control [nzSpan]="24" nzErrorTip="Please select status!">
+                      <nz-select nzShowSearch formControlName="status" nzPlaceHolder="Select Status">
+                        <nz-option nzValue="1" nzLabel="Active"></nz-option>
+                        <nz-option nzValue="0" nzLabel="In-Active"></nz-option>
+                      </nz-select>
+                    </nz-form-control>
+                  </nz-form-item>
+                </div>
+                <div nz-col [nzSpan]="6">
+                  <nz-form-item>
+                    <nz-form-control>
+                      <button nz-button class="me-2" nzType="primary" (click)="submitForm()">
+                        <span nz-tooltip nzTooltipTitle="search" nz-icon nzType="search"></span>
+                      </button>
+                      <button nz-button nzType="default" (click)="handleReset()">
+                        <span nz-tooltip nzTooltipTitle="reset" nz-icon nzType="close-circle" nzTheme="outline"></span>
+                      </button>
+                    </nz-form-control>
+                  </nz-form-item>
+                </div>
+              </div>
+              <!-- <button nz-button class="login-form-button login-form-margin" [nzType]="'primary'">Log in</button> -->
+            </ng-container>
+          </form>
+        </div>
+        <nz-table [nzPageSize]="20" [nzLoading]="loading" nzNoResult="No Data Found." #basicTable [nzData]="userList">
+          <thead>
+            <tr>
+              <th [nzSortFn]="sortNameFn">Name</th>
+
+              <!-- <th [nzSortFn]="sortUserNameFn">User Name</th> -->
+              <th [nzSortFn]="sortEmailFn">Email</th>
+              <th [nzSortFn]="sortClientNameFn">Default Client Name</th>
+
+              <th [nzSortFn]="sortRoleFn">Role</th>
+              <th [nzSortFn]="sortLastLogInFn" [nzWidth]="'15%'">Last Login</th>
+              <th [nzSortFn]="sortActiveFn">Active</th>
+              <th [nzWidth]="'120px'">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (data of basicTable.data; track data) {
+              <tr>
+                <td>{{ data.firstname }} {{ data.lastname }}</td>
+
+                <!-- <td>{{ data.username }}</td> -->
+                <td>{{ data.email }}</td>
+                <td>
+                  <div *ngIf="data?.clientname && data?.userClientList?.length > 1; else secondOption">
+                    <span
+                      nz-tooltip
+                      [nzTooltipOverlayStyle]="{ 'min-width': '400px' }"
+                      nzTooltipTitle="{{ getTitleForClient(data.userClientList) }}"
+                    >
+                      {{ data.clientname }}
+                      <b>+{{ data.userClientList?.length - 1 }}</b>
+                    </span>
+                  </div>
+
+                  <ng-template #secondOption>
+                    <div *ngIf="data.clientname; else thirdOption">{{ data.clientname }}</div>
+                  </ng-template>
+
+                  <ng-template #thirdOption>
+                    <div></div>
+                  </ng-template>
+                </td>
+
+                <td>{{ data.rolename }}</td>
+                <td>{{ data.lastloggedindatetime + 'Z' | date: 'MM/dd/yyyy hh:mm a' }}</td>
+                <td>
+                  <div *ngIf="data.isUserAccess" (click)="onDeactivate(data)">
+                    <nz-switch [(ngModel)]="data.isactive" [nzControl]="true"></nz-switch>
+                  </div>
+                </td>
+                <td>
+                  <a *ngIf="data.isUserAccess" (click)="showModal(data, 'Edit')" nz-tooltip nzTooltipTitle="Edit user">
+                    <img src="assets/images/pencil.svg" height="18" width="18" class="me-2" alt="Edit user" />
+                    <!-- <span nz-icon nzType="edit" class="me-2" nzTheme="outline"></span> -->
+                  </a>
+                  <!-- <a
+                    *ngIf="data.rolename !== 'Super Admin'"
+                    (click)="editReportMapping(data)"
+                    nz-tooltip
+                    nzTooltipTitle="Edit user menu mapping"
+                  >
+                    <img src="assets/images/ui-checks.svg" class="me-2" height="18" width="18" alt="Delete user" />
+                  </a> -->
+                  <a *ngIf="data.isUserAccess" nz-tooltip nzTooltipTitle="Delete user" (click)="onDeleteUser(data.userId)">
+                    <img src="assets/images/delete.svg" height="18" width="18" alt="Delete user" />
+                    <!-- <span nz-icon nzType="delete" nzTheme="outline"></span> -->
+                  </a>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </nz-table>
+      </div>
+    </div>
+    <!-- <app-card cardTitle="Users" buttonText="Add User" (onBtnClickEvt)="onAddNewUser()"> -->
+
+    <view-edit-user-modal
+      *ngIf="isVisible"
+      [isVisible]="isVisible"
+      [type]="type"
+      [selectedRow]="selectedRow"
+      [clientsList]="clientsList"
+      (closeModalEvent)="onCloseModalEvent($event)"
+      (clientsListEvent)="onClientsListEvent($event)"
+    ></view-edit-user-modal>
+    <!-- <edit-report-menu-modal
+      *ngIf="isERMVisible"
+      [isVisible]="isERMVisible"
+      [selectedRow]="selectedRow"
+      [reportMenuMapList]="reportMenuMapList"
+      (closeModalEvent)="onERMCloseModalEvent($event)"
+    ></edit-report-menu-modal> -->
+    <information-modal
+      *ngIf="isIMVisible"
+      [isVisible]="isIMVisible"
+      [type]="'Users'"
+      (closeModalEvent)="onIMCloseModalEvent($event)"
+    ></information-modal>
+    <!-- </app-card> -->
+  </div>
+</div>

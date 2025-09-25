@@ -1,0 +1,18 @@
+.footer-cpt {
+  font-size: 10px;
+  color: rgba(152, 159, 173, 1);
+  font-weight: 400;
+  text-align: center;
+}
+
+@media (max-width: 1025px) {
+  .footer-cpt {
+    font-size: 9px;
+  }
+}
+
+@media (max-width: 769px) {
+  .footer-cpt {
+    font-size: 8px;
+  }
+}
