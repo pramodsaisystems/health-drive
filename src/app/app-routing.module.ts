@@ -15,7 +15,7 @@ const routes: Routes = [
       },
       {
         path: 'dashboard',
-        loadComponent: () => import('./demo/default/default.component').then((c) => c.DefaultComponent)
+        loadComponent: () => import('./demo/dashboard/dashboard.component')
       },
       {
         path: 'dashboard/:reportid',

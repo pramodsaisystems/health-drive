@@ -114,18 +114,7 @@
         </div>
       </div> -->
     </li>
-    <li>
-      <div class="pc-h-item" *ngIf="clientsList?.length > 0">
-        <span class="client-name-txt">Client:</span>
-        <div class="row pe-2 client-drpdwn">
-          <nz-select [(ngModel)]="selectedClient" (ngModelChange)="onSelectedClient($event)" nzShowSearch nzPlaceHolder="Select Client">
-            @for (data of clientsList; track data) {
-              <nz-option nzValue="{{ data.id }}" nzLabel="{{ data.name }}"></nz-option>
-            }
-          </nz-select>
-        </div>
-      </div>
-    </li>
+    <li></li>
     <li>
       <div class="dropdown pc-h-item header-user-profile" ngbDropdown>
         <a class="pc-head-link head-link-primary arrow-none" href="javascript:" ngbDropdownToggle>
@@ -151,14 +140,14 @@
             </div>
             <div>
               <ng-scrollbar visibility="hover">
-                <a (click)="onChangePwd()" class="dropdown-item">
+                <!-- <a (click)="onChangePwd()" class="dropdown-item">
                   <i class="ti ti-settings"></i>
                   <span>Change Password</span>
                 </a>
                 <a *ngIf="!showTFA" (click)="onTFASettings()" class="dropdown-item">
                   <i class="ti ti-settings"></i>
                   <span>MFA Settings</span>
-                </a>
+                </a> -->
                 <!-- <a href="javascript:" class="dropdown-item">
                 <i class="ti ti-user"></i>
                 <span>Social Profile</span>

@@ -15,7 +15,7 @@ import { DeviceService } from 'src/utils/device.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'navigatEHR';
+  title = 'Health Drive';
   timeout = 300;
   idleTimeout: any;
   idleState = 'Active';

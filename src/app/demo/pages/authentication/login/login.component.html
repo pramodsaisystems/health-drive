@@ -4,7 +4,7 @@
       <div class="card my-5">
         <div class="card-body">
           <div nz-row class="row">
-            <div
+            <!-- <div
               nz-col
               [nzXs]="{ order: 2 }"
               [nzSm]="{ order: 2 }"
@@ -28,12 +28,10 @@
                 treatment effectiveness, and trends in population health, while also monitoring workflow efficiency and assessing financial
                 performance. Additionally, it oversees claims management and denial analysis, facilitating informed decision-making and
                 initiatives for quality improvement.
-                <!-- Our platform provides secure, role-based access to dynamic data analytics and visualizations powered by Power BI. Unlock
-                customized insights across multiple dimensions such as time periods, locations, CPT codes, claims and more to support
-                informed decision-making. -->
+              
               </div>
               <div class="d-flex rights-res mt-4 mb-4">© 2024 navigatEHR | All rights reserved.</div>
-            </div>
+            </div> -->
             <div
               nz-col
               [nzXs]="{ order: 1 }"
@@ -41,12 +39,16 @@
               [nzMd]="{ order: 2 }"
               [nzLg]="{ order: 2 }"
               [nzXl]="{ order: 2 }"
-              class="col-xs-12 col-sm-12 col-sm-pull-6 col-md-5 col-lg-5 rigth-sect"
+              class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ps-4 pe-4"
             >
               <div>
                 <a href="#" class="d-flex justify-content-center mt-4 mb-4">
-                  <img src="assets/images/navigatEHR_logo_v2.svg" />
+                  <img width="40%" src="assets/images/health-drive/ReferralQ_Logo_HR.png" />
                 </a>
+                <a href="#" class="d-flex justify-content-center mt-4 mb-4">
+                  <img width="45%" src="assets/images/health-drive/undraw_medicine.png" />
+                </a>
+
                 <div class="row">
                   <div class="d-flex">
                     <div class="auth-header">
@@ -144,19 +146,19 @@
                 <div class="d-grid mt-5 justify-content-center">
                   <div class="pwd-text">Powered By</div>
                 </div>
-                <div class="d-grid justify-content-center mt-1">
+                <div class="d-grid justify-content-center mt-1 mb-3">
                   <img src="assets/images/authentication/sai_health.svg" />
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div class="disclaimer">
+        <!-- <div class="disclaimer">
           CPT copyright 2017 American Medical Association. All rights reserved.Fee schedules, relative value units, conversion factors
           and/or related components are not assigned by AMA, are not part of CPT ®, and AMA is not recommending their use. AMA does not
           directly or indirectly practice medicine or dispense medical services. AMA assumes no liability for data contained or not
           contained herein.CPT ® is a registered trademark of the American Medical Association
-        </div>
+        </div> -->
       </div>
       <privacy-policy-modal [isVisible]="isPMVisible" (closeModalEvent)="onClosePrivacyModal($event)"></privacy-policy-modal>
     </div>
