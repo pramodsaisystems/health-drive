@@ -1,0 +1,185 @@
+<div class="row report-cont">
+  <div class="col-sm-12">
+    <div class="row pb-4">
+      <div class="col-10">
+        <span class="card-header-title">Referral Files Received</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-block">
+        <form nz-form [formGroup]="validateForm" [nzLayout]="'vertical'" class="login-form">
+          <ng-container>
+            <div nz-row [nzGutter]="8">
+              <div nz-col [nzXs]="12" [nzSm]="12" [nzMd]="8" [nzLg]="4" [nzXl]="4">
+                <nz-form-item>
+                  <nz-form-control [nzSpan]="24" nzErrorTip="Please input your search text!">
+                    <nz-input-group>
+                      <nz-range-picker formControlName="daterange"></nz-range-picker>
+                    </nz-input-group>
+                  </nz-form-control>
+                </nz-form-item>
+              </div>
+              <div nz-col [nzXs]="12" [nzSm]="12" [nzMd]="8" [nzLg]="4" [nzXl]="4">
+                <nz-form-item>
+                  <nz-form-control [nzSpan]="24" nzErrorTip="Please select your client!">
+                    <nz-select nzShowSearch formControlName="clientid" nzPlaceHolder="Fax Status">
+                      <!-- @for (data of clientsList; track data) {
+                        <nz-option nzValue="{{ data.id }}" nzLabel="{{ data.name }}"></nz-option>
+                      } -->
+                    </nz-select>
+                  </nz-form-control>
+                </nz-form-item>
+              </div>
+              <div nz-col [nzXs]="12" [nzSm]="12" [nzMd]="8" [nzLg]="4" [nzXl]="4">
+                <nz-form-item>
+                  <nz-form-control [nzSpan]="24" nzErrorTip="Please input your search text!">
+                    <nz-input-group>
+                      <input type="text" nz-input formControlName="search" placeholder="Patient Name" />
+                    </nz-input-group>
+                  </nz-form-control>
+                </nz-form-item>
+              </div>
+
+              <div nz-col [nzXs]="12" [nzSm]="12" [nzMd]="8" [nzLg]="4" [nzXl]="4">
+                <nz-form-item>
+                  <nz-form-control [nzSpan]="24" nzErrorTip="Please select your role!">
+                    <nz-select nzShowSearch formControlName="userroleid" nzPlaceHolder="By Received Date">
+                      <!-- @for (data of allUserRolesData; track data) {
+                        <nz-option nzValue="{{ data.id }}" nzLabel="{{ data.name }}"></nz-option>
+                      } -->
+                    </nz-select>
+                  </nz-form-control>
+                </nz-form-item>
+              </div>
+
+              <div nz-col [nzXs]="12" [nzSm]="12" [nzMd]="8" [nzLg]="4" [nzXl]="4">
+                <nz-form-item>
+                  <nz-form-control [nzSpan]="24" nzErrorTip="Please select status!">
+                    <nz-select nzMode="multiple" nzShowSearch formControlName="status" nzPlaceHolder="Facility Name">
+                      <nz-option nzValue="1" nzLabel="Active"></nz-option>
+                      <nz-option nzValue="0" nzLabel="In-Active"></nz-option>
+                    </nz-select>
+                  </nz-form-control>
+                </nz-form-item>
+              </div>
+              <div nz-col [nzXs]="12" [nzSm]="12" [nzMd]="8" [nzLg]="4" [nzXl]="4">
+                <nz-form-item>
+                  <nz-form-control [nzSpan]="24" nzErrorTip="Please select status!">
+                    <nz-select nzMode="multiple" nzShowSearch formControlName="status" nzPlaceHolder="Document Type">
+                      <nz-option nzValue="1" nzLabel="Active"></nz-option>
+                      <nz-option nzValue="0" nzLabel="In-Active"></nz-option>
+                    </nz-select>
+                  </nz-form-control>
+                </nz-form-item>
+              </div>
+              <div nz-col [nzXs]="12" [nzSm]="12" [nzMd]="8" [nzLg]="4" [nzXl]="4">
+                <nz-form-item>
+                  <nz-form-control [nzSpan]="24" nzErrorTip="Please input your search text!">
+                    <nz-input-group>
+                      <input type="text" nz-input formControlName="search" placeholder="File Name" />
+                    </nz-input-group>
+                  </nz-form-control>
+                </nz-form-item>
+              </div>
+              <div nz-col [nzXs]="12" [nzSm]="12" [nzMd]="8" [nzLg]="4" [nzXl]="4">
+                <nz-form-item>
+                  <nz-form-control [nzSpan]="24" nzErrorTip="Please select status!">
+                    <nz-select nzMode="multiple" nzShowSearch formControlName="status" nzPlaceHolder="Exception Status">
+                      <nz-option nzValue="1" nzLabel="Active"></nz-option>
+                      <nz-option nzValue="0" nzLabel="In-Active"></nz-option>
+                    </nz-select>
+                  </nz-form-control>
+                </nz-form-item>
+              </div>
+              <div nz-col [nzXs]="12" [nzSm]="12" [nzMd]="8" [nzLg]="4" [nzXl]="4">
+                <nz-form-item>
+                  <nz-form-control [nzSpan]="24" nzErrorTip="Please select status!">
+                    <nz-select nzShowSearch formControlName="status" nzPlaceHolder="New Patient">
+                      <nz-option nzValue="1" nzLabel="Yes"></nz-option>
+                      <nz-option nzValue="0" nzLabel="No"></nz-option>
+                    </nz-select>
+                  </nz-form-control>
+                </nz-form-item>
+              </div>
+              <div nz-col [nzSpan]="6">
+                <nz-form-item>
+                  <nz-form-control>
+                    <button nz-button class="me-2" nzType="primary" (click)="submitForm()">
+                      <span nz-tooltip nzTooltipTitle="search" nz-icon nzType="search"></span>
+                    </button>
+                    <button nz-button nzType="default" (click)="handleReset()">
+                      <span nz-tooltip nzTooltipTitle="reset" nz-icon nzType="close-circle" nzTheme="outline"></span>
+                    </button>
+                  </nz-form-control>
+                </nz-form-item>
+              </div>
+            </div>
+            <!-- <button nz-button class="login-form-button login-form-margin" [nzType]="'primary'">Log in</button> -->
+          </ng-container>
+        </form>
+        <!-- <nz-table [nzPageSize]="20" nzNoResult="No Data Found." [nzLoading]="loading" #basicTable [nzData]="rolesList">
+          <thead>
+            <tr>
+              <th [nzSortFn]="sortClientNameFn">Action</th>
+              <th [nzSortFn]="sortClientNameFn">Id</th>
+              <th [nzSortFn]="sortClientNameFn">File Name</th>
+              <th [nzSortFn]="sortClientNameFn">Received At</th>
+              <th [nzSortFn]="sortClientNameFn">Patient Name</th>
+              <th [nzSortFn]="sortClientNameFn">Modified User</th>
+              <th [nzSortFn]="sortClientNameFn">File Status</th>
+              <th [nzSortFn]="sortClientNameFn">Action Date Time</th>
+              <th [nzSortFn]="sortClientNameFn">Document Count</th>
+              <th [nzSortFn]="sortClientNameFn">Page Count</th>
+           
+            </tr>
+          </thead>
+          <tbody>
+          
+          </tbody>
+        </nz-table> -->
+        <nz-table [nzPageSize]="20" nzNoResult="No Data Found." [nzLoading]="loading" #basicTable [nzData]="rolesList">
+          <thead>
+            <tr>
+              <th [nzSortFn]="sortClientNameFn">Date</th>
+              <th [nzSortFn]="sortClientNameFn">New Document</th>
+              <th [nzSortFn]="sortClientNameFn">System Processing</th>
+              <th [nzSortFn]="sortClientNameFn">Successfully Processed</th>
+              <th [nzSortFn]="sortClientNameFn">System Error</th>
+              <th [nzSortFn]="sortClientNameFn">Manual Review</th>
+              <th [nzSortFn]="sortClientNameFn">Total</th>
+
+              <!-- <th [nzSortFn]="sortClientNameFn">Client Name</th>
+              <th [nzSortFn]="sortRoleNameFn">Role</th>
+              <th [nzSortFn]="sortActiveFn">Active</th> -->
+            </tr>
+          </thead>
+          <tbody>
+            <!-- @for (data of basicTable.data; track data) {
+              <tr>
+                <td>{{ data.clientname }}</td>
+                <td>{{ data.rolename }}</td>
+                <td>
+                  <div (click)="onDeactivate(data)"><nz-switch [(ngModel)]="data.isactive" [nzControl]="true"></nz-switch></div>
+                </td>
+                <td>
+                  <a (click)="showModal(data, 'Edit')" nz-tooltip nzTooltipTitle="Edit role">
+                    <img src="assets/images/pencil.svg" height="18" width="18" class="me-2" alt="Edit role" />
+                  </a>
+                  <a (click)="editReportMapping(data)" nz-tooltip nzTooltipTitle="Edit role menu mapping">
+                    <img src="assets/images/ui-checks.svg" class="me-2" height="18" width="18" alt="Delete user" />
+                  </a>
+                  <a nz-tooltip nzTooltipTitle="Delete role" (click)="onDeleteRole(data.userroleid)">
+                    <img src="assets/images/delete.svg" height="18" width="18" alt="Delete role" />
+                  </a>
+                </td>
+              </tr>
+            } -->
+          </tbody>
+        </nz-table>
+      </div>
+    </div>
+    <!-- <app-card cardTitle="Roles" buttonText="Add Role" (onBtnClickEvt)="onAddNewRole()"> -->
+
+    <!-- </app-card> -->
+  </div>
+</div>

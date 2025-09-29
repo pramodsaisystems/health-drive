@@ -39,6 +39,20 @@ let API1 = axios.create({
   }
 });
 
+let API2 = axios.create({
+  baseURL: APP_API_URL,
+  headers: {
+    'Content-Type': 'application/json'
+
+    // withCredentials: true
+    // observe: 'response'
+    // MFA_TrustedDevice: getCookie('MFA_TrustedDevice')
+    // "Access-Control-Allow-Origin": "*",
+    // "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE",
+    // "Access-Control-Allow-Headers": "Content-Type",
+  }
+});
+
 // Set the AUTH token for every request
 API.interceptors.request.use(function (config) {
   const token = localStorage.getItem('token');
@@ -160,4 +174,18 @@ const redirect = (error: any) => {
   }
 };
 
-export { get, post, put, deleteAPI, postFD, putFD };
+const get1 = (url, data?) => {
+  return API2.get(url, data)
+    .then((response) => {
+      return response;
+    })
+    .catch((error) => {
+      if (error?.status === 401) {
+        redirect(error);
+      }
+      console.log(error);
+      return error;
+    });
+};
+
+export { get, post, put, deleteAPI, postFD, putFD, get1 };

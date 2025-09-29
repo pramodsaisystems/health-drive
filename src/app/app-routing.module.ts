@@ -18,6 +18,10 @@ const routes: Routes = [
         loadComponent: () => import('./demo/dashboard/dashboard.component')
       },
       {
+        path: 'ref-dashboard',
+        loadComponent: () => import('./demo/referral/referral-files.component')
+      },
+      {
         path: 'dashboard/:reportid',
         loadComponent: () => import('./demo/default/default.component').then((c) => c.DefaultComponent)
       },

@@ -5,5 +5,6 @@ export const environment = {
   version: new Date().getTime(),
   production: true,
   // backend: 'https://navigatehrv2025prodapi.azurewebsites.net/api/'
-  backend: 'https://navigatehrdevapi-a4gecsfga6fnaxef.eastus-01.azurewebsites.net/api/'
+  backend: 'https://navigatehrdevapi-a4gecsfga6fnaxef.eastus-01.azurewebsites.net/api/',
+  hdAPI: 'https://api.referralq.com/api/'
 };
