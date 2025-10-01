@@ -32,7 +32,7 @@ interface Role {
 }
 
 @Component({
-  selector: 'referral-file-list',
+  selector: 'incoming-file-list',
   standalone: true,
   imports: [
     SharedModule,
@@ -53,10 +53,10 @@ interface Role {
     InformationModalComponent,
     NzDatePickerModule
   ],
-  templateUrl: './referral-files.component.html',
-  styleUrls: ['./referral-files.component.scss']
+  templateUrl: './incoming-file-list.component.html',
+  styleUrls: ['./incoming-file-list.component.scss']
 })
-export default class ReferralFileListComponent {
+export default class IncomingFileListComponent {
   selectedRow = [];
   fileListData: any[] = [];
   rolesList: Role[] = [];
@@ -97,7 +97,7 @@ export default class ReferralFileListComponent {
     newPatient: FormControl<string>;
   }>;
   ngOnInit() {
-    this.getListData();
+    // this.getListData();
     this.getSiteList();
     this.getFaxStatusList();
     this.getViewFilterList();
@@ -226,7 +226,7 @@ export default class ReferralFileListComponent {
 
   submitForm = async () => {
     if (this.validateForm.valid) {
-      this.getListData();
+      // this.getListData();
     } else {
       Object.values(this.validateForm.controls).forEach((control) => {
         if (control.invalid) {
@@ -250,6 +250,6 @@ export default class ReferralFileListComponent {
       newPatient: '0'
     });
 
-    this.getListData();
+    // this.getListData();
   };
 }

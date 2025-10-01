@@ -22,6 +22,10 @@ const routes: Routes = [
         loadComponent: () => import('./demo/referral/referral-files.component')
       },
       {
+        path: 'inc-file-list',
+        loadComponent: () => import('./demo/incomingfilelist/incoming-file-list.component')
+      },
+      {
         path: 'dashboard/:reportid',
         loadComponent: () => import('./demo/default/default.component').then((c) => c.DefaultComponent)
       },

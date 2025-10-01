@@ -2,7 +2,7 @@
   <div class="col-sm-12">
     <div class="row pb-4">
       <div class="col-10">
-        <span class="card-header-title">Referral Files Received</span>
+        <span class="card-header-title">Incoming File List</span>
       </div>
     </div>
     <div class="card">
@@ -114,6 +114,9 @@
                     <button nz-button nzType="default" (click)="handleReset()">
                       <span nz-tooltip nzTooltipTitle="reset" nz-icon nzType="close-circle" nzTheme="outline"></span>
                     </button>
+                    <button nz-button nzType="default" (click)="handleReset()">
+                      <span nz-tooltip nzTooltipTitle="reset" nz-icon nzType="close-circle" nzTheme="outline"></span>
+                    </button>
                   </nz-form-control>
                 </nz-form-item>
               </div>
@@ -121,7 +124,7 @@
             <!-- <button nz-button class="login-form-button login-form-margin" [nzType]="'primary'">Log in</button> -->
           </ng-container>
         </form>
-        <!-- <nz-table [nzPageSize]="20" nzNoResult="No Data Found." [nzLoading]="loading" #basicTable [nzData]="rolesList">
+        <nz-table [nzPageSize]="20" nzNoResult="No Data Found." [nzLoading]="loading" #basicTable [nzData]="rolesList">
           <thead>
             <tr>
               <th [nzSortFn]="sortClientNameFn">Action</th>
@@ -134,30 +137,27 @@
               <th [nzSortFn]="sortClientNameFn">Action Date Time</th>
               <th [nzSortFn]="sortClientNameFn">Document Count</th>
               <th [nzSortFn]="sortClientNameFn">Page Count</th>
-           
             </tr>
           </thead>
-          <tbody>
-          
-          </tbody>
-        </nz-table> -->
+          <tbody></tbody>
+        </nz-table>
         <nz-table [nzPageSize]="20" nzNoResult="No Data Found." [nzLoading]="loading" #basicTable [nzData]="fileListData">
           <thead>
             <tr>
-              <th [nzSortFn]="sortClientNameFn">Date</th>
+              <!-- <th [nzSortFn]="sortClientNameFn">Date</th>
               <th [nzSortFn]="sortClientNameFn">New Document</th>
               <th [nzSortFn]="sortClientNameFn">System Processing</th>
               <th [nzSortFn]="sortClientNameFn">Successfully Processed</th>
               <th [nzSortFn]="sortClientNameFn">System Error</th>
               <th [nzSortFn]="sortClientNameFn">Manual Review</th>
-              <th [nzSortFn]="sortClientNameFn">Total</th>
+              <th [nzSortFn]="sortClientNameFn">Total</th> -->
 
               <!-- <th [nzSortFn]="sortClientNameFn">Client Name</th>
               <th [nzSortFn]="sortRoleNameFn">Role</th>
               <th [nzSortFn]="sortActiveFn">Active</th> -->
             </tr>
           </thead>
-          <tbody>
+          <!-- <tbody>
             @for (data of basicTable.data; track data) {
               <tr>
                 <td>{{ data.date }}</td>
@@ -169,7 +169,7 @@
                 <td>{{ data.total }}</td>
               </tr>
             }
-          </tbody>
+          </tbody> -->
         </nz-table>
       </div>
     </div>
