@@ -23,6 +23,7 @@
                 <nz-form-item>
                   <nz-form-control [nzSpan]="24" nzErrorTip="Please select your client!">
                     <nz-select nzShowSearch formControlName="faxStatus" nzPlaceHolder="Fax Status">
+                      <nz-option nzValue="-1" nzLabel="Fax Status"></nz-option>
                       @for (data of faxStatusList; track data) {
                         <nz-option nzValue="{{ data.id }}" nzLabel="{{ data.text }}"></nz-option>
                       }
@@ -97,7 +98,7 @@
               <div nz-col [nzXs]="12" [nzSm]="12" [nzMd]="8" [nzLg]="4" [nzXl]="4">
                 <nz-form-item>
                   <nz-form-control [nzSpan]="24" nzErrorTip="Please select status!">
-                    <nz-select nzShowSearch [ngModel]="0" formControlName="newPatient" nzPlaceHolder="New Patient">
+                    <nz-select nzShowSearch formControlName="newPatient" nzPlaceHolder="New Patient">
                       <nz-option nzValue="0" nzLabel="New patient"></nz-option>
                       <nz-option nzValue="1" nzLabel="Yes"></nz-option>
                       <nz-option nzValue="2" nzLabel="No"></nz-option>
@@ -160,12 +161,19 @@
           <tbody>
             @for (data of basicTable.data; track data) {
               <tr>
-                <td>{{ data.date }}</td>
-                <td>{{ data.document_count }}</td>
+                <td>
+                  <div
+                    routerLink="/BotQueue/Index"
+                    [queryParams]="{ receivedDateView: true, page: 'DocumentReceived', fstatus: -1, view: 1 }"
+                  >
+                    {{ data.date }}
+                  </div>
+                </td>
+                <td>{{ data.new_fax }}</td>
                 <td>{{ data.system_processing }}</td>
                 <td>{{ data.successfully_processed }}</td>
                 <td>{{ data.system_error }}</td>
-                <td>{{ data.system_processing }}</td>
+                <td>{{ data.business_exception }}</td>
                 <td>{{ data.total }}</td>
               </tr>
             }

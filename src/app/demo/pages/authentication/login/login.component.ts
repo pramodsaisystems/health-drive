@@ -106,7 +106,14 @@ export default class LoginComponent {
           this.dataSharingService.updateRegTFAD('yes');
           localStorage.setItem('regTFA', 'yes');
         }
-        this.router.navigate(['/']);
+        this.router.navigate(['/BotQueue/Index'], {
+          queryParams: {
+            receivedDateView: true,
+            page: 'DocumentReceived',
+            fstatus: -1,
+            view: 1
+          }
+        });
       } else if (res?.status === 200 && res?.data?.isTFAEnabled) {
         if (!res?.data?.isTFARegistered) {
           this.key = res?.data?.data?.manualEntryKey;

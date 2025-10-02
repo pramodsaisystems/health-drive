@@ -32,7 +32,7 @@ interface Role {
 }
 
 @Component({
-  selector: 'incoming-file-list',
+  selector: 'details-file-list',
   standalone: true,
   imports: [
     SharedModule,
@@ -53,10 +53,10 @@ interface Role {
     InformationModalComponent,
     NzDatePickerModule
   ],
-  templateUrl: './incoming-file-list.component.html',
-  styleUrls: ['./incoming-file-list.component.scss']
+  templateUrl: './details-file-list.component.html',
+  styleUrls: ['./details-file-list.component.scss']
 })
-export default class IncomingFileListComponent {
+export default class DetailsFileListComponent {
   selectedRow = [];
   fileListData: any[] = [];
   rolesList: Role[] = [];
@@ -139,7 +139,6 @@ export default class IncomingFileListComponent {
     let res: any = await get1(APP_HD_URL + 'BotQueue/GetPortalDocumentTypes');
 
     if (res?.status === 200) {
-      debugger;
       let data = ['CPR'];
       let templst = keywordData
         .filter((x) => x.document_name !== '' && (data.length === 0 || data.some((y) => y?.toLowerCase() === x?.lob?.toLowerCase())))

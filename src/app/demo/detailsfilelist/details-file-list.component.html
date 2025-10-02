@@ -23,6 +23,7 @@
                 <nz-form-item>
                   <nz-form-control [nzSpan]="24" nzErrorTip="Please select your client!">
                     <nz-select nzShowSearch formControlName="faxStatus" nzPlaceHolder="Fax Status">
+                      <nz-option nzValue="-1" nzLabel="--All--"></nz-option>
                       @for (data of faxStatusList; track data) {
                         <nz-option nzValue="{{ data.id }}" nzLabel="{{ data.text }}"></nz-option>
                       }
@@ -98,7 +99,7 @@
                 <nz-form-item>
                   <nz-form-control [nzSpan]="24" nzErrorTip="Please select status!">
                     <nz-select nzShowSearch [ngModel]="0" formControlName="newPatient" nzPlaceHolder="New Patient">
-                      <nz-option nzValue="0" nzLabel="New patient"></nz-option>
+                      <nz-option nzValue="0" nzLabel="--All--"></nz-option>
                       <nz-option nzValue="1" nzLabel="Yes"></nz-option>
                       <nz-option nzValue="2" nzLabel="No"></nz-option>
                     </nz-select>
@@ -111,11 +112,11 @@
                     <button nz-button class="me-2" nzType="primary" (click)="submitForm()">
                       <span nz-tooltip nzTooltipTitle="search" nz-icon nzType="search"></span>
                     </button>
-                    <button nz-button nzType="default" (click)="handleReset()">
+                    <button nz-button class="me-2" nzType="default" (click)="handleReset()">
                       <span nz-tooltip nzTooltipTitle="reset" nz-icon nzType="close-circle" nzTheme="outline"></span>
                     </button>
-                    <button nz-button nzType="default" (click)="handleReset()">
-                      <span nz-tooltip nzTooltipTitle="reset" nz-icon nzType="close-circle" nzTheme="outline"></span>
+                    <button nz-button nzType="default">
+                      <span nz-tooltip nzTooltipTitle="back" nz-icon nzType="arrow-left" nzTheme="outline"></span>
                     </button>
                   </nz-form-control>
                 </nz-form-item>

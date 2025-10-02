@@ -20,6 +20,7 @@ import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import { InformationModalComponent } from 'src/app/component/modal/information.component';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 
 interface Role {
   clientid: number;
@@ -51,11 +52,14 @@ interface Role {
 
     NzToolTipModule,
     InformationModalComponent,
-    NzDatePickerModule
+    NzDatePickerModule,
+    RouterModule
   ],
   templateUrl: './referral-files.component.html',
   styleUrls: ['./referral-files.component.scss']
 })
+
+//Consider this as Index file which loaded after login as per old app
 export default class ReferralFileListComponent {
   selectedRow = [];
   fileListData: any[] = [];
@@ -70,13 +74,14 @@ export default class ReferralFileListComponent {
 
   constructor(
     private message: NzMessageService,
-    private fb: NonNullableFormBuilder
+    private fb: NonNullableFormBuilder,
+    private route: ActivatedRoute
   ) {
     this.validateForm = this.fb.group({
       daterange: [''],
-      faxStatus: [''],
+      faxStatus: ['-1'],
       patientName: [''],
-      viewFiltList: [''],
+      viewFiltList: ['1'],
       siteName: [''],
       docType: [''],
       fileName: [''],
@@ -97,6 +102,11 @@ export default class ReferralFileListComponent {
     newPatient: FormControl<string>;
   }>;
   ngOnInit() {
+    let fstatus = this.route.snapshot.queryParamMap.get('fstatus');
+    let view = this.route.snapshot.queryParamMap.get('view');
+    this.validateForm.patchValue({
+      faxStatus: fstatus ? fstatus : '1'
+    });
     this.getListData();
     this.getSiteList();
     this.getFaxStatusList();
@@ -121,6 +131,7 @@ export default class ReferralFileListComponent {
     if (res?.status === 200) {
       let sitedata = res?.data?.Result?.data;
       let list = sitedata.filter((x) => x.processid <= 4).map((x) => ({ id: String(x.processid), text: x.processname }));
+
       this.faxStatusList = list;
     }
   };
@@ -139,8 +150,7 @@ export default class ReferralFileListComponent {
     let res: any = await get1(APP_HD_URL + 'BotQueue/GetPortalDocumentTypes');
 
     if (res?.status === 200) {
-      debugger;
-      let data = ['CPR'];
+      let data = ['CPR']; //need to work on this
       let templst = keywordData
         .filter((x) => x.document_name !== '' && (data.length === 0 || data.some((y) => y?.toLowerCase() === x?.lob?.toLowerCase())))
         .reduce((acc, curr) => {
@@ -240,9 +250,9 @@ export default class ReferralFileListComponent {
   handleReset = () => {
     this.validateForm.patchValue({
       daterange: '',
-      faxStatus: '',
+      faxStatus: '-1',
       patientName: '',
-      viewFiltList: '',
+      viewFiltList: '1',
       siteName: '',
       docType: '',
       fileName: '',

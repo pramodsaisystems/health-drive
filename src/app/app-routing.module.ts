@@ -17,13 +17,19 @@ const routes: Routes = [
         path: 'dashboard',
         loadComponent: () => import('./demo/dashboard/dashboard.component')
       },
+      // {
+      //   path: 'ref-dashboard',
+      //   loadComponent: () => import('./demo/referral/referral-files.component')
+      // },
       {
-        path: 'ref-dashboard',
-        loadComponent: () => import('./demo/referral/referral-files.component')
+        path: 'BotQueue/Index',
+
+        loadComponent: () => import('./demo/referral/referral-files.component'),
+        pathMatch: 'prefix'
       },
       {
-        path: 'inc-file-list',
-        loadComponent: () => import('./demo/incomingfilelist/incoming-file-list.component')
+        path: 'BotQueue/Details',
+        loadComponent: () => import('./demo/detailsfilelist/details-file-list.component')
       },
       {
         path: 'dashboard/:reportid',

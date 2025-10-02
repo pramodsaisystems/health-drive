@@ -27,6 +27,8 @@ import { PowerBIEmbedModule } from 'powerbi-client-angular';
 import { ChangePasswordModalComponent } from './component/modal/change-password.component';
 import { TFAModalComponent } from './component/modal/tfa-modal.component';
 import { TFAAuthComponent } from './demo/pages/authentication/login/component/tfa-screen/tfa-auth.component';
+import { NzIconModule } from 'ng-zorro-antd/icon';
+import { ArrowLeftOutline, ArrowRightOutline } from '@ant-design/icons-angular/icons';
 const ngZorroConfig: NzConfig = {
   message: { nzTop: 90 },
   notification: { nzTop: 240 }
@@ -60,7 +62,8 @@ const ngZorroConfig: NzConfig = {
     HttpClientModule,
     PrivacyPolicyModalComponent,
     PowerBIEmbedModule,
-    TFAAuthComponent
+    TFAAuthComponent,
+    NzIconModule.forRoot([ArrowLeftOutline])
   ],
   providers: [NavigationItem, provideNzConfig(ngZorroConfig)],
   bootstrap: [AppComponent]
