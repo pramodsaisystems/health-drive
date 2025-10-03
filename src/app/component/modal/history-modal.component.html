@@ -1,0 +1,45 @@
+<nz-modal
+  [nzWidth]="'60vw'"
+  [nzMaskClosable]="false"
+  [(nzVisible)]="isVisible"
+  [nzTitle]="modalTitle"
+  [nzFooter]="modalFooter"
+  (nzOnCancel)="handleCancel()"
+>
+  <ng-template #modalTitle>Audit Fax List</ng-template>
+  <ng-container *nzModalContent>
+    <div nz-row [nzGutter]="8">
+      <div nz-col [nzSpan]="24">
+        <nz-table [nzPageSize]="20" nzNoResult="No Data Found." #basicTable [nzData]="historyData">
+          <thead>
+            <tr>
+              <th>Date Time</th>
+              <th>Action By</th>
+              <th>File Status</th>
+              <th>Current Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (data of basicTable.data; track data) {
+              <tr>
+                <td>
+                  {{ data.document_type }}
+                </td>
+                <td>{{ data.resolvedBy }}</td>
+                <td>{{ data.exception_details }}</td>
+                <td>{{ data.PageCount }}</td>
+                <td>{{ data.patient_name }}</td>
+                <td>{{ data.mrn }}</td>
+                <td>{{ data.actionTaken }}</td>
+                <td>{{ data.receiving_faxname }}</td>
+              </tr>
+            }
+          </tbody>
+        </nz-table>
+      </div>
+    </div>
+  </ng-container>
+  <ng-template #modalFooter>
+    <button nz-button nzType="primary" (click)="handleCancel()">Close</button>
+  </ng-template>
+</nz-modal>

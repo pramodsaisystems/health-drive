@@ -1,0 +1,56 @@
+<div class="row report-cont">
+  <div class="col-sm-12">
+    <div class="row pb-4">
+      <div class="col-10">
+        <span class="card-header-title">Pages in Document Fax</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-block">
+        <div class="pb-2">
+          <button nz-button class="me-2" nzType="primary">
+            <span nz-tooltip nzTooltipTitle="Click to go back" nz-icon nzType="arrow-left"></span>
+          </button>
+        </div>
+        <nz-table [nzPageSize]="20" nzNoResult="No Data Found." [nzLoading]="loading" #basicTable [nzData]="exceDetailsFileData">
+          <thead>
+            <tr>
+              <th [nzSortFn]="sortClientNameFn">ACTION</th>
+              <th [nzSortFn]="sortClientNameFn">PATIENT NAME</th>
+              <th [nzSortFn]="sortClientNameFn">MRN</th>
+              <th [nzSortFn]="sortClientNameFn">DOCUMENT TYPE</th>
+              <th [nzSortFn]="sortClientNameFn">PAGE NO.</th>
+              <th [nzSortFn]="sortClientNameFn">PAGE STATUS</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (data of basicTable.data; track data) {
+              <tr>
+                <td>
+                  <button nz-button class="me-2" nzType="primary">
+                    <span nz-tooltip nzTooltipTitle="Click to view document and information" nz-icon nzType="eye"></span>
+                  </button>
+                  <button nz-button class="me-2" nzType="primary">
+                    <span nz-tooltip nzTooltipTitle="View history" nz-icon nzType="history"></span>
+                  </button>
+                  <button nz-button class="me-2" nzType="primary">
+                    <span nz-tooltip nzTooltipTitle="Click to submit an issue" nz-icon nzType="bug"></span>
+                  </button>
+                </td>
+                <td>{{ data.patient_name }}</td>
+                <td>{{ data.mrn }}</td>
+                <td>{{ data.document_type }}</td>
+                <td>{{ data.sequence }}</td>
+
+                <td>{{ data.current_page_status }}</td>
+              </tr>
+            }
+          </tbody>
+        </nz-table>
+      </div>
+    </div>
+    <!-- <app-card cardTitle="Roles" buttonText="Add Role" (onBtnClickEvt)="onAddNewRole()"> -->
+
+    <!-- </app-card> -->
+  </div>
+</div>

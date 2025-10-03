@@ -31,6 +31,15 @@ const routes: Routes = [
         path: 'BotQueue/Details',
         loadComponent: () => import('./demo/detailsfilelist/details-file-list.component')
       },
+
+      {
+        path: 'BotQueue/ExceptionDetails',
+        loadComponent: () => import('./demo/exceDetailFiles/exce-details-file.component')
+      },
+      {
+        path: 'BotQueue/ExceptionPageDetails',
+        loadComponent: () => import('./demo/exceDetailsPage/exce-page-details.component')
+      },
       {
         path: 'dashboard/:reportid',
         loadComponent: () => import('./demo/default/default.component').then((c) => c.DefaultComponent)

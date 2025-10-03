@@ -28,7 +28,19 @@ import { ChangePasswordModalComponent } from './component/modal/change-password.
 import { TFAModalComponent } from './component/modal/tfa-modal.component';
 import { TFAAuthComponent } from './demo/pages/authentication/login/component/tfa-screen/tfa-auth.component';
 import { NzIconModule } from 'ng-zorro-antd/icon';
-import { ArrowLeftOutline, ArrowRightOutline } from '@ant-design/icons-angular/icons';
+import {
+  ArrowLeftOutline,
+  ArrowRightOutline,
+  InfoCircleOutline,
+  EyeOutline,
+  CheckOutline,
+  HistoryOutline,
+  IssuesCloseOutline,
+  MailOutline,
+  BugOutline,
+  LockOutline,
+  UnlockOutline
+} from '@ant-design/icons-angular/icons';
 const ngZorroConfig: NzConfig = {
   message: { nzTop: 90 },
   notification: { nzTop: 240 }
@@ -63,7 +75,19 @@ const ngZorroConfig: NzConfig = {
     PrivacyPolicyModalComponent,
     PowerBIEmbedModule,
     TFAAuthComponent,
-    NzIconModule.forRoot([ArrowLeftOutline])
+    NzIconModule.forRoot([
+      ArrowLeftOutline,
+      ArrowRightOutline,
+      InfoCircleOutline,
+      EyeOutline,
+      CheckOutline,
+      HistoryOutline,
+      IssuesCloseOutline,
+      MailOutline,
+      BugOutline,
+      LockOutline,
+      UnlockOutline
+    ])
   ],
   providers: [NavigationItem, provideNzConfig(ngZorroConfig)],
   bootstrap: [AppComponent]

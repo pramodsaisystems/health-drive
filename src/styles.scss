@@ -393,3 +393,12 @@ a:hover {
   background-color: #f5f5f5 !important;
   border-color: #d9d9d9 !important;
 }
+
+.cust-link {
+  cursor: pointer;
+  color: #1d4787;
+}
+
+.cust-link:hover {
+  text-decoration: underline;
+}

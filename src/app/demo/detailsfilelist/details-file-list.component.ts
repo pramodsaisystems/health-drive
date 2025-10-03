@@ -20,6 +20,7 @@ import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import { InformationModalComponent } from 'src/app/component/modal/information.component';
+import { Router, ActivatedRoute, RouterModule } from '@angular/router';
 
 interface Role {
   clientid: number;
@@ -51,14 +52,15 @@ interface Role {
 
     NzToolTipModule,
     InformationModalComponent,
-    NzDatePickerModule
+    NzDatePickerModule,
+    RouterModule
   ],
   templateUrl: './details-file-list.component.html',
   styleUrls: ['./details-file-list.component.scss']
 })
 export default class DetailsFileListComponent {
   selectedRow = [];
-  fileListData: any[] = [];
+  detailsFileListData: any[] = [];
   rolesList: Role[] = [];
   siteList: any[] = [];
   faxStatusList: any[] = [];
@@ -70,11 +72,13 @@ export default class DetailsFileListComponent {
 
   constructor(
     private message: NzMessageService,
-    private fb: NonNullableFormBuilder
+    private fb: NonNullableFormBuilder,
+    private router: Router,
+    private route: ActivatedRoute
   ) {
     this.validateForm = this.fb.group({
-      daterange: [''],
-      faxStatus: [''],
+      daterange: [null, null],
+      faxStatus: ['-1'],
       patientName: [''],
       viewFiltList: [''],
       siteName: [''],
@@ -86,7 +90,7 @@ export default class DetailsFileListComponent {
   }
 
   validateForm: FormGroup<{
-    daterange: FormControl<string>;
+    daterange: FormControl<[Date | null, Date | null] | null>;
     faxStatus: FormControl<string>;
     patientName: FormControl<string>;
     viewFiltList: FormControl<string>;
@@ -97,7 +101,16 @@ export default class DetailsFileListComponent {
     newPatient: FormControl<string>;
   }>;
   ngOnInit() {
-    // this.getListData();
+    let fstatus = this.route.snapshot.queryParamMap.get('faxStatus');
+    let date = this.route.snapshot.queryParamMap.get('dateRange');
+    let patType = this.route.snapshot.queryParamMap.get('patient_type');
+
+    this.validateForm.patchValue({
+      faxStatus: fstatus ? fstatus : '-1',
+      daterange: date ? [new Date(date), new Date(date)] : [null, null],
+      newPatient: patType ? patType : '0'
+    });
+    this.getListData();
     this.getSiteList();
     this.getFaxStatusList();
     this.getViewFilterList();
@@ -187,18 +200,12 @@ export default class DetailsFileListComponent {
 
   getListData = async () => {
     this.loading = true;
-    let d1 =
-      this.validateForm.value.daterange === null || this.validateForm.value.daterange === ''
-        ? ' '
-        : new Date(this.validateForm?.value?.daterange[0]).toLocaleDateString();
-    let d2 =
-      this.validateForm.value.daterange === null || this.validateForm.value.daterange === ''
-        ? ''
-        : new Date(this.validateForm?.value?.daterange[1]).toLocaleDateString();
+    let d1 = this.validateForm.value.daterange === null ? ' ' : new Date(this.validateForm?.value?.daterange[0]).toLocaleDateString();
+    let d2 = this.validateForm.value.daterange === null ? '' : new Date(this.validateForm?.value?.daterange[1]).toLocaleDateString();
     let res: any = await get1(
       APP_HD_URL +
-        `BotQueue/GetBotQueueDashBoardHome?view_type=${this.validateForm.value.viewFiltList === null || this.validateForm.value.viewFiltList === '' ? '1' : this.validateForm.value.viewFiltList}` +
-        `&date_range=${this.validateForm.value.daterange === null || this.validateForm.value.daterange === '' ? '' : encodeURIComponent(`${d1} - ${d2}`)}` +
+        `BotQueue/GetBotQueueDashBoardDetail?` +
+        `date_range=${this.validateForm.value.daterange === null ? '' : encodeURIComponent(`${d1} - ${d2}`)}` +
         `&fax_status=${this.validateForm.value.faxStatus === null || this.validateForm.value.faxStatus === '' ? '-1' : this.validateForm.value.faxStatus}` +
         `&patient_name=${this.validateForm.value.patientName === null ? '' : encodeURIComponent(this.validateForm.value.patientName.trim())}` +
         `&site_name=${this.validateForm.value.siteName === null || this.validateForm.value.siteName === '' ? '-1' : this.validateForm.value.siteName}` +
@@ -209,7 +216,7 @@ export default class DetailsFileListComponent {
     );
     this.loading = false;
     if (res?.status === 200) {
-      this.fileListData = res?.data?.Result?.data;
+      this.detailsFileListData = res?.data?.Result?.data;
     }
   };
 
@@ -224,8 +231,9 @@ export default class DetailsFileListComponent {
   cancel() {}
 
   submitForm = async () => {
+    debugger;
     if (this.validateForm.valid) {
-      // this.getListData();
+      this.getListData();
     } else {
       Object.values(this.validateForm.controls).forEach((control) => {
         if (control.invalid) {
@@ -238,8 +246,8 @@ export default class DetailsFileListComponent {
 
   handleReset = () => {
     this.validateForm.patchValue({
-      daterange: '',
-      faxStatus: '',
+      daterange: [null, null],
+      faxStatus: '-1',
       patientName: '',
       viewFiltList: '',
       siteName: '',
@@ -249,6 +257,56 @@ export default class DetailsFileListComponent {
       newPatient: '0'
     });
 
-    // this.getListData();
+    this.getListData();
+  };
+
+  onBackClick = () => {
+    this.router.navigate(['/BotQueue/Index'], {
+      queryParams: {
+        receivedDateView: true,
+        page: 'DocumentReceived',
+        fstatus: -1,
+        view: 1
+      }
+    });
+  };
+
+  openPageimg = async (thisobj) => {
+    const filename = thisobj?.image_file_path ? thisobj?.image_file_path.trim() : thisobj;
+    const apiUrl = APP_HD_URL + 'BotQueue/GetPageImg'; // Replace with actual endpoint
+    try {
+      // Get page image file path
+      const response = await get1(`${apiUrl}?url=${encodeURIComponent(filename)}`);
+      const filePath = await response.text(); // If API returns plain text file path
+
+      if (filePath.includes('.')) {
+        const imgPath = '../' + filePath;
+        const exists = await this.imageExists(imgPath);
+
+        if (exists) {
+          window.open(imgPath);
+        } else {
+          alert('Error unable to retrieve the file');
+        }
+      } else {
+        alert('Error unable to retrieve the file');
+      }
+    } catch (error) {
+      alert('Error unable to retrieve the file');
+    }
+  };
+
+  // async version, returns true if file exists
+  imageExists = async (image_url) => {
+    if (image_url !== '../') {
+      try {
+        const res = await fetch(image_url, { method: 'HEAD' });
+        return res.status !== 404;
+      } catch (err) {
+        return false;
+      }
+    } else {
+      return false;
+    }
   };
 }
