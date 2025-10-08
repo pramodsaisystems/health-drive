@@ -24,6 +24,11 @@ import { ActivatedRoute, RouterModule } from '@angular/router';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { NzTabsModule } from 'ng-zorro-antd/tabs';
 import { CommonModule } from '@angular/common';
+import { AccInfoInsuTableComponent } from 'src/app/component/tables/acc-info-insu-table.component';
+import { AccInfoAuthServableComponent } from 'src/app/component/tables/acc-info-auth-serv.component';
+import { AccInfoCommTableComponent } from 'src/app/component/tables/acc-info-comm.component';
+import { AccInfoRPSTableComponent } from 'src/app/component/tables/acc-info-rps.component';
+import { AccInfoDocsTableComponent } from 'src/app/component/tables/acc-info-docs.component';
 
 interface Role {
   clientid: number;
@@ -59,22 +64,20 @@ interface Role {
     RouterModule,
     NzCheckboxModule,
     NzTabsModule,
-    CommonModule
+    CommonModule,
+    AccInfoInsuTableComponent,
+    AccInfoAuthServableComponent,
+    AccInfoCommTableComponent,
+    AccInfoRPSTableComponent,
+    AccInfoDocsTableComponent
   ],
   templateUrl: './acc-info.component.html',
   styleUrls: ['./acc-info.component.scss']
 })
 
 //Consider this as Index file which loaded after login as per old app
-export default class ReferralFileListComponent {
-  selectedRow = [];
-  fileListData: any[] = [];
-  rolesList: Role[] = [];
-  siteList: any[] = [];
-  faxStatusList: any[] = [];
-  viewFilterList: any[] = [];
-  docTypeList: any[] = [];
-  exceptStatList: any[] = [];
+export default class AccountInformationComponent {
+  accInfoInsuranceList = [];
 
   loading = false;
 

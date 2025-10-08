@@ -23,6 +23,8 @@ import { InformationModalComponent } from 'src/app/component/modal/information.c
 import { Router, ActivatedRoute, RouterModule } from '@angular/router';
 import { HistoryModalComponent } from 'src/app/component/modal/history-modal.component';
 import { OpenseadragonViewerComponent } from 'src/app/openseadragon-viewer/openseadragon-viewer.component';
+import AccountInformationComponent from '../accountinfo/acc-info.component';
+
 interface Role {
   clientid: number;
   clientname: string;
@@ -56,7 +58,8 @@ interface Role {
     NzDatePickerModule,
     HistoryModalComponent,
     RouterModule,
-    OpenseadragonViewerComponent
+    OpenseadragonViewerComponent,
+    AccountInformationComponent
   ],
   templateUrl: './page-exception.component.html',
   styleUrls: ['./page-exception.component.scss']

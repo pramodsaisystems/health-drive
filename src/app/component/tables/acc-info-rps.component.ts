@@ -2,12 +2,12 @@ import { Component, Input } from '@angular/core';
 import { NzTableModule } from 'ng-zorro-antd/table';
 
 @Component({
-  selector: 'acc-info-insu-table',
+  selector: 'acc-info-rps',
   standalone: true,
   imports: [NzTableModule],
-  templateUrl: './acc-info-insu-table.component.html'
+  templateUrl: './acc-info-rps.component.html'
 })
-export class AccInfoInsuTableComponent {
+export class AccInfoRPSTableComponent {
   @Input() data = [];
   loading: boolean = false;
   constructor() {}
