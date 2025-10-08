@@ -1,0 +1,260 @@
+<div class="row report-cont">
+  <div class="col-sm-12">
+    <div class="row pb-4">
+      <div class="col-10">
+        <span class="card-header-title">Account Info</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-block">
+        <form nz-form [formGroup]="validateForm" [nzLayout]="'vertical'" class="login-form">
+          <ng-container>
+            <div nz-row [nzGutter]="8">
+              <div nz-col [nzXs]="12" [nzSm]="12" [nzMd]="8" [nzLg]="3" [nzXl]="3">
+                <nz-form-item>
+                  <nz-form-label [nzSpan]="24" nzFor="username">Last</nz-form-label>
+                  <nz-form-control [nzSpan]="24" nzErrorTip="Please input your search text!">
+                    <nz-input-group>
+                      <input type="text" nz-input formControlName="lname" placeholder="Last Name" />
+                    </nz-input-group>
+                  </nz-form-control>
+                </nz-form-item>
+              </div>
+              <div nz-col [nzXs]="12" [nzSm]="12" [nzMd]="8" [nzLg]="3" [nzXl]="3">
+                <nz-form-item>
+                  <nz-form-label [nzSpan]="24" nzFor="username">First</nz-form-label>
+                  <nz-form-control [nzSpan]="24" nzErrorTip="Please input your search text!">
+                    <nz-input-group>
+                      <input type="text" nz-input formControlName="fname" placeholder="First Name" />
+                    </nz-input-group>
+                  </nz-form-control>
+                </nz-form-item>
+              </div>
+              <div nz-col [nzXs]="12" [nzSm]="12" [nzMd]="8" [nzLg]="3" [nzXl]="3">
+                <nz-form-item>
+                  <nz-form-label [nzSpan]="24" nzFor="username">Mi</nz-form-label>
+                  <nz-form-control [nzSpan]="24" nzErrorTip="Please input your search text!">
+                    <nz-input-group>
+                      <input type="text" nz-input formControlName="mname" placeholder="Middle Name" />
+                    </nz-input-group>
+                  </nz-form-control>
+                </nz-form-item>
+              </div>
+              <div nz-col [nzXs]="12" [nzSm]="12" [nzMd]="8" [nzLg]="3" [nzXl]="3">
+                <nz-form-item>
+                  <nz-form-label [nzSpan]="24" nzFor="username">Sex</nz-form-label>
+                  <nz-form-control [nzSpan]="24" nzErrorTip="Please select sex!">
+                    <nz-select nzShowSearch formControlName="sex" nzPlaceHolder="Select Sex">
+                      <nz-option nzValue="1" nzLabel="Male"></nz-option>
+                      <nz-option nzValue="2" nzLabel="Female"></nz-option>
+                    </nz-select>
+                  </nz-form-control>
+                </nz-form-item>
+              </div>
+              <div nz-col [nzXs]="12" [nzSm]="12" [nzMd]="8" [nzLg]="3" [nzXl]="3">
+                <nz-form-item>
+                  <nz-form-label [nzSpan]="24" nzFor="username">MRN</nz-form-label>
+                  <nz-form-control [nzSpan]="24" nzErrorTip="Please input your search text!">
+                    <nz-input-group>
+                      <input type="text" nz-input formControlName="mrn" placeholder="Enter MRN" />
+                    </nz-input-group>
+                  </nz-form-control>
+                </nz-form-item>
+              </div>
+              <div nz-col [nzXs]="12" [nzSm]="12" [nzMd]="8" [nzLg]="3" [nzXl]="3">
+                <nz-form-item>
+                  <nz-form-label [nzSpan]="24" nzFor="username">SSN</nz-form-label>
+                  <nz-form-control [nzSpan]="24" nzErrorTip="Please input your search text!">
+                    <nz-input-group>
+                      <input type="text" nz-input formControlName="ssn" placeholder="Enter SSN" />
+                    </nz-input-group>
+                  </nz-form-control>
+                </nz-form-item>
+              </div>
+              <div nz-col [nzXs]="12" [nzSm]="12" [nzMd]="8" [nzLg]="3" [nzXl]="3">
+                <nz-form-item>
+                  <nz-form-label [nzSpan]="24" nzFor="username">DOB</nz-form-label>
+                  <nz-form-control [nzSpan]="24" nzErrorTip="Please input your search text!">
+                    <nz-input-group>
+                      <nz-date-picker [nzFormat]="'MM/dd/YYYY'" formControlName="dob"></nz-date-picker>
+                    </nz-input-group>
+                  </nz-form-control>
+                </nz-form-item>
+              </div>
+              <div nz-col [nzXs]="12" [nzSm]="12" [nzMd]="8" [nzLg]="3" [nzXl]="3">
+                <nz-form-item>
+                  <nz-form-label [nzSpan]="24" nzFor="username">Race</nz-form-label>
+                  <nz-form-control [nzSpan]="24" nzErrorTip="Please select sex!">
+                    <nz-select nzShowSearch formControlName="race" nzPlaceHolder="Select Race">
+                      <nz-option nzValue="1" nzLabel="White"></nz-option>
+                      <nz-option nzValue="2" nzLabel="Black"></nz-option>
+                    </nz-select>
+                  </nz-form-control>
+                </nz-form-item>
+              </div>
+              <div nz-col [nzXs]="12" [nzSm]="12" [nzMd]="8" [nzLg]="3" [nzXl]="3">
+                <nz-form-item>
+                  <nz-form-label [nzSpan]="24" nzFor="username">Acc #.</nz-form-label>
+                  <nz-form-control [nzSpan]="24" nzErrorTip="Please input your search text!">
+                    <nz-input-group>
+                      <input type="text" nz-input formControlName="accno" placeholder="Enter Acc Number" />
+                    </nz-input-group>
+                  </nz-form-control>
+                </nz-form-item>
+              </div>
+              <div nz-col [nzXs]="12" [nzSm]="12" [nzMd]="8" [nzLg]="3" [nzXl]="3">
+                <nz-form-item>
+                  <nz-form-label [nzSpan]="24" nzFor="username">Ins:</nz-form-label>
+                  <nz-form-control [nzSpan]="24" nzErrorTip="Please input your search text!">
+                    <nz-input-group>
+                      <input type="text" nz-input formControlName="insurance" placeholder="Enter Insurance No" />
+                    </nz-input-group>
+                  </nz-form-control>
+                </nz-form-item>
+              </div>
+              <div nz-col [nzXs]="12" [nzSm]="12" [nzMd]="8" [nzLg]="3" [nzXl]="3">
+                <nz-form-item>
+                  <nz-form-label [nzSpan]="24" nzFor="username">Unit</nz-form-label>
+                  <nz-form-control [nzSpan]="24" nzErrorTip="Please input your search text!">
+                    <nz-input-group>
+                      <input type="text" nz-input formControlName="unit" placeholder="Enter Unit" />
+                    </nz-input-group>
+                  </nz-form-control>
+                </nz-form-item>
+              </div>
+              <div nz-col [nzXs]="12" [nzSm]="12" [nzMd]="8" [nzLg]="3" [nzXl]="3">
+                <nz-form-item>
+                  <nz-form-label [nzSpan]="24" nzFor="username">Rec Cr.</nz-form-label>
+                  <nz-form-control [nzSpan]="24" nzErrorTip="Please input your search text!">
+                    <nz-input-group>
+                      <nz-date-picker [nzFormat]="'MM/dd/YYYY'" formControlName="reccreated"></nz-date-picker>
+                    </nz-input-group>
+                  </nz-form-control>
+                </nz-form-item>
+              </div>
+              <div nz-col [nzXs]="24" [nzSm]="24" [nzMd]="24" [nzLg]="24" [nzXl]="24"><h3>Enrollment Info</h3></div>
+              <div nz-col [nzXs]="12" [nzSm]="12" [nzMd]="8" [nzLg]="3" [nzXl]="3">
+                <nz-form-item>
+                  <nz-form-label [nzSpan]="24" nzFor="username">Enrollm. Date:</nz-form-label>
+                  <nz-form-control [nzSpan]="24" nzErrorTip="Please input your search text!">
+                    <nz-input-group>
+                      <nz-date-picker [nzFormat]="'MM/dd/YYYY'" formControlName="enrolldate"></nz-date-picker>
+                    </nz-input-group>
+                  </nz-form-control>
+                </nz-form-item>
+              </div>
+              <div nz-col [nzXs]="12" [nzSm]="12" [nzMd]="8" [nzLg]="3" [nzXl]="3">
+                <nz-form-item style="margin-bottom: 0px !important">
+                  <nz-form-control [nzSpan]="24" nzErrorTip="Please input your search text!">
+                    <label nz-checkbox formControlName="deconch">Dec. on.</label>
+                  </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                  <nz-form-control [nzSpan]="24" nzErrorTip="Please select sex!">
+                    <nz-date-picker [nzFormat]="'MM/dd/YYYY'" formControlName="decon"></nz-date-picker>
+                  </nz-form-control>
+                </nz-form-item>
+              </div>
+              <div nz-col [nzXs]="12" [nzSm]="12" [nzMd]="8" [nzLg]="3" [nzXl]="3">
+                <nz-form-item style="margin-bottom: 0px !important">
+                  <nz-form-control [nzSpan]="24" nzErrorTip="Please input your search text!">
+                    <label nz-checkbox formControlName="dischonch">Disch. on.</label>
+                  </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                  <nz-form-control [nzSpan]="24" nzErrorTip="Please select sex!">
+                    <nz-date-picker [nzFormat]="'MM/dd/YYYY'" formControlName="dischon"></nz-date-picker>
+                  </nz-form-control>
+                </nz-form-item>
+              </div>
+              <div nz-col [nzXs]="12" [nzSm]="12" [nzMd]="8" [nzLg]="3" [nzXl]="3">
+                <nz-form-item>
+                  <nz-form-control [nzSpan]="24" nzErrorTip="Please input your search text!">
+                    <label nz-checkbox formControlName="compl">Compl.</label>
+                  </nz-form-control>
+                </nz-form-item>
+              </div>
+              <div nz-col [nzXs]="12" [nzSm]="12" [nzMd]="8" [nzLg]="3" [nzXl]="3">
+                <nz-form-item>
+                  <nz-form-control [nzSpan]="24" nzErrorTip="Please input your search text!">
+                    <label nz-checkbox formControlName="va">VA</label>
+                  </nz-form-control>
+                </nz-form-item>
+              </div>
+              <div nz-col [nzXs]="24" [nzSm]="24" [nzMd]="24" [nzLg]="24" [nzXl]="24"><h3>Facility Info</h3></div>
+              <div nz-col [nzXs]="12" [nzSm]="12" [nzMd]="8" [nzLg]="3" [nzXl]="3">
+                <nz-form-item>
+                  <nz-form-label [nzSpan]="24" nzFor="username">Contract For:</nz-form-label>
+                  <nz-form-control [nzSpan]="24" nzErrorTip="Please select sex!">
+                    <nz-select nzShowSearch formControlName="contractfor" nzPlaceHolder="Select contract for"></nz-select>
+                  </nz-form-control>
+                </nz-form-item>
+              </div>
+              <div nz-col [nzXs]="12" [nzSm]="12" [nzMd]="8" [nzLg]="3" [nzXl]="3">
+                <nz-form-item>
+                  <nz-form-label [nzSpan]="24" nzFor="username">PCC Name</nz-form-label>
+                  <nz-form-control [nzSpan]="24" nzErrorTip="Please select sex!">
+                    <nz-select nzShowSearch formControlName="pccname" nzPlaceHolder="Select PCC Name"></nz-select>
+                  </nz-form-control>
+                </nz-form-item>
+              </div>
+              <div nz-col [nzXs]="12" [nzSm]="12" [nzMd]="8" [nzLg]="3" [nzXl]="3">
+                <nz-form-item>
+                  <nz-form-label [nzSpan]="24" nzFor="username">Phone:</nz-form-label>
+                  <nz-form-control [nzSpan]="24" nzErrorTip="Please input your search text!">
+                    <nz-input-group>
+                      <input type="text" nz-input formControlName="phone" placeholder="Enter Phone" />
+                    </nz-input-group>
+                  </nz-form-control>
+                </nz-form-item>
+              </div>
+              <div nz-col [nzXs]="12" [nzSm]="12" [nzMd]="8" [nzLg]="3" [nzXl]="3">
+                <nz-form-item>
+                  <nz-form-label [nzSpan]="24" nzFor="username">Admin:</nz-form-label>
+                  <nz-form-control [nzSpan]="24" nzErrorTip="Please input your search text!">
+                    <nz-input-group>
+                      <input type="text" nz-input formControlName="admin" placeholder="Enter Admin" />
+                    </nz-input-group>
+                  </nz-form-control>
+                </nz-form-item>
+              </div>
+              <div nz-col [nzXs]="12" [nzSm]="12" [nzMd]="8" [nzLg]="3" [nzXl]="3">
+                <nz-form-item>
+                  <nz-form-label [nzSpan]="24" nzFor="username">Fax:</nz-form-label>
+                  <nz-form-control [nzSpan]="24" nzErrorTip="Please input your search text!">
+                    <nz-input-group>
+                      <input type="text" nz-input formControlName="fax" placeholder="Enter fax" />
+                    </nz-input-group>
+                  </nz-form-control>
+                </nz-form-item>
+              </div>
+              <div nz-col [nzXs]="12" [nzSm]="12" [nzMd]="8" [nzLg]="3" [nzXl]="3">
+                <nz-form-item>
+                  <nz-form-label [nzSpan]="24" nzFor="username">Contract:</nz-form-label>
+                  <nz-form-control [nzSpan]="24" nzErrorTip="Please input your search text!">
+                    <nz-input-group>
+                      <input type="text" nz-input formControlName="contact" placeholder="Enter Contract" />
+                    </nz-input-group>
+                  </nz-form-control>
+                </nz-form-item>
+              </div>
+            </div>
+            <div nz-col [nzXs]="24" [nzSm]="24" [nzMd]="24" [nzLg]="24" [nzXl]="24">
+              <nz-tabset>
+                <nz-tab nzTitle="Insur.">Content of Tab Insurance</nz-tab>
+                <nz-tab nzTitle="Auth. serv./recalls">Content of Tab Auth Service or Recalls</nz-tab>
+                <nz-tab nzTitle="RP's">Content of Tab RP's</nz-tab>
+                <nz-tab nzTitle="Comm.">Content of Tab Comm</nz-tab>
+                <nz-tab nzTitle="Hist. Info">Content of Tab history information</nz-tab>
+                <nz-tab nzTitle="Docs">Content of Tab Documents</nz-tab>
+                <nz-tab nzTitle="Req.">Content of Tab Requisites</nz-tab>
+                <nz-tab nzTitle="Proc. hist.">Content of Tab Proc History</nz-tab>
+              </nz-tabset>
+            </div>
+            <!-- <button nz-button class="login-form-button login-form-margin" [nzType]="'primary'">Log in</button> -->
+          </ng-container>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

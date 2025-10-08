@@ -45,6 +45,10 @@ const routes: Routes = [
         loadComponent: () => import('./demo/pageException/page-exception.component')
       },
       {
+        path: 'acc-info',
+        loadComponent: () => import('./demo/accountinfo/acc-info.component')
+      },
+      {
         path: 'dashboard/:reportid',
         loadComponent: () => import('./demo/default/default.component').then((c) => c.DefaultComponent)
       },

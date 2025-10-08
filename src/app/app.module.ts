@@ -41,6 +41,9 @@ import {
   LockOutline,
   UnlockOutline
 } from '@ant-design/icons-angular/icons';
+import { NzTabsModule } from 'ng-zorro-antd/tabs';
+import { CommonModule } from '@angular/common';
+import { NzFormModule } from 'ng-zorro-antd/form';
 const ngZorroConfig: NzConfig = {
   message: { nzTop: 90 },
   notification: { nzTop: 240 }
@@ -87,7 +90,10 @@ const ngZorroConfig: NzConfig = {
       BugOutline,
       LockOutline,
       UnlockOutline
-    ])
+    ]),
+    NzTabsModule,
+    CommonModule,
+    NzFormModule
   ],
   providers: [NavigationItem, provideNzConfig(ngZorroConfig)],
   bootstrap: [AppComponent]

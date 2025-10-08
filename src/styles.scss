@@ -100,9 +100,11 @@ body {
 
 .ant-input,
 .ant-select .ant-select-selector,
-.ant-picker-range {
+.ant-picker-range,
+.ant-picker {
   min-height: 38px;
   border-radius: 4px !important;
+  width: 100%;
 }
 
 .ant-table-thead .ant-table-cell {
