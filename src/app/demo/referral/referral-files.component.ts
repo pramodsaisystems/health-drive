@@ -93,6 +93,7 @@ export default class ReferralFileListComponent {
       patientName: [''],
       viewFiltList: ['1'],
       siteName: [''],
+      // siteName: [],
       docType: [''],
       fileName: [''],
       exceptStatus: [''],
@@ -105,6 +106,7 @@ export default class ReferralFileListComponent {
     faxStatus: FormControl<string>;
     patientName: FormControl<string>;
     viewFiltList: FormControl<string>;
+    // siteName: FormControl<any[]>;
     siteName: FormControl<string>;
     docType: FormControl<string>;
     fileName: FormControl<string>;
@@ -265,6 +267,7 @@ export default class ReferralFileListComponent {
       faxStatus: '-1',
       patientName: '',
       viewFiltList: '1',
+      // siteName: [],
       siteName: '',
       docType: '',
       fileName: '',

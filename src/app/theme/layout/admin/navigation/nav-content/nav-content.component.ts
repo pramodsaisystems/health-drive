@@ -11,6 +11,7 @@ import { DataSharingService } from 'src/utils/broadcast-service';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { SharedService } from 'src/app/activity.service';
+import { NzIconModule } from 'ng-zorro-antd/icon';
 @Component({
   selector: 'app-nav-content',
   templateUrl: './nav-content.component.html',

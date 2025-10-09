@@ -39,7 +39,8 @@ import {
   MailOutline,
   BugOutline,
   LockOutline,
-  UnlockOutline
+  UnlockOutline,
+  FormOutline
 } from '@ant-design/icons-angular/icons';
 import { NzTabsModule } from 'ng-zorro-antd/tabs';
 import { CommonModule } from '@angular/common';
@@ -89,7 +90,8 @@ const ngZorroConfig: NzConfig = {
       MailOutline,
       BugOutline,
       LockOutline,
-      UnlockOutline
+      UnlockOutline,
+      FormOutline
     ]),
     NzTabsModule,
     CommonModule,

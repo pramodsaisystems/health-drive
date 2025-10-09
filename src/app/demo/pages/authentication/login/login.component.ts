@@ -82,18 +82,125 @@ export default class LoginComponent {
   };
   submitForm = async () => {
     if (this.validateForm.valid) {
-      let res: any = await post(APP_API_URL + 'Auth/Login', {
-        email: this.validateForm.value.userName,
-        password: this.validateForm.value.password
-      });
+      debugger;
+      // let res: any = await post(APP_API_URL + 'Auth/Login', {
+      //   email: this.validateForm.value.userName,
+      //   password: this.validateForm.value.password
+      // });
 
+      let res = {
+        data: {
+          isSuccess: true,
+          isTFAEnabled: false,
+          isTFARegistered: false,
+          message: '',
+          data: {
+            token:
+              'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySWQiOiIxIiwiSW50ZXJuYWxVc2VySWQiOiIxIiwiRmlyc3ROYW1lIjoiU2Fpc3lzdGVtcyBzIiwiTGFzdE5hbWUiOiJIZWFsdGgiLCJFbWFpbElkIjoiYWRtaW5Ac2Fpc3lzdGVtc2hlYWx0aC5jb20iLCJVc2VyTmFtZSI6ImFkbWluQHNhaXN5c3RlbXNoZWFsdGguY29tIiwiRG9iIjoiIiwiR2VuZGVyIjoiIiwiQ2xpZW50SWQiOiIxNyIsIkNsaWVudEFiYnJldmlhdGlvbiI6IkRFTU8iLCJqdGkiOiIyMWQ0MjM5NC1kNmNjLTRmOTgtODY2YS0wNDBlODY4ZGM4MzIiLCJBc3NpZ25lZFN0YXRlcyI6IiIsIkFzc2lnbmVkU2VydmljZUxvY2F0aW9ucyI6IiIsIkFzc2lnbmVkUHJvdmlkZXJzIjoiIiwiU2Vzc2lvblRpbWVvdXQiOiIyMCIsInJvbGUiOiJTdXBlciBBZG1pbiIsIlVzZXJyb2xlSWQiOiIxIiwibmJmIjoxNzYwMDEyNjg1LCJleHAiOjE3NjAwOTkwODQsImlhdCI6MTc2MDAxMjY4NX0.Nc0fJHXfJqyga7OrREOFj6w5jk0IeLSVJXYoG2I1_Ac',
+            refreshToken: '030ce543-9ef1-4536-8f0d-b7e3bbd1fb24',
+            userLoginInfoId: 'fb7173f3-d26f-4b86-a099-13324bb07371',
+            dayShiftStart: null,
+            dayShiftEnd: null
+          }
+        },
+        status: 200,
+        statusText: 'OK',
+        headers: {
+          'content-type': 'application/json; charset=utf-8'
+        },
+        config: {
+          transitional: {
+            silentJSONParsing: true,
+            forcedJSONParsing: true,
+            clarifyTimeoutError: false
+          },
+          adapter: ['xhr', 'http', 'fetch'],
+          transformRequest: [null],
+          transformResponse: [null],
+          timeout: 0,
+          xsrfCookieName: 'XSRF-TOKEN',
+          xsrfHeaderName: 'X-XSRF-TOKEN',
+          maxContentLength: -1,
+          maxBodyLength: -1,
+          env: {},
+          headers: {
+            Accept: 'application/json, text/plain, */*',
+            'Content-Type': 'application/json',
+            Authorization: '',
+            LoginDeviceId: 'f0eb9bbf4b5f1dd2c55b9b53d1fdc1ec'
+          },
+          baseURL: 'https://navigatehrdevapi-a4gecsfga6fnaxef.eastus-01.azurewebsites.net/api/',
+          method: 'post',
+          url: 'https://navigatehrdevapi-a4gecsfga6fnaxef.eastus-01.azurewebsites.net/api/Auth/Login',
+          data: '{"email":"admin@saisystemshealth.com","password":"Admin@123"}',
+          params: {}
+        },
+        request: {
+          __zone_symbol__xhrSync: false,
+          __zone_symbol__xhrURL: 'https://navigatehrdevapi-a4gecsfga6fnaxef.eastus-01.azurewebsites.net/api/Auth/Login',
+          __zone_symbol__loadendfalse: [
+            {
+              type: 'eventTask',
+              state: 'scheduled',
+              source: 'XMLHttpRequest.addEventListener:loadend',
+              zone: 'angular',
+              runCount: 2
+            }
+          ],
+          __zone_symbol__abortfalse: [
+            {
+              type: 'eventTask',
+              state: 'scheduled',
+              source: 'XMLHttpRequest.addEventListener:abort',
+              zone: 'angular',
+              runCount: 0
+            }
+          ],
+          __zone_symbol__errorfalse: [
+            {
+              type: 'eventTask',
+              state: 'scheduled',
+              source: 'XMLHttpRequest.addEventListener:error',
+              zone: 'angular',
+              runCount: 0
+            }
+          ],
+          __zone_symbol__timeoutfalse: [
+            {
+              type: 'eventTask',
+              state: 'scheduled',
+              source: 'XMLHttpRequest.addEventListener:timeout',
+              zone: 'angular',
+              runCount: 0
+            }
+          ],
+          __zone_symbol__xhrScheduled: true,
+          __zone_symbol__xhrErrorBeforeScheduled: false,
+          __zone_symbol__xhrTask: {
+            type: 'macroTask',
+            state: 'notScheduled',
+            source: 'XMLHttpRequest.send',
+            zone: 'angular',
+            runCount: 0
+          }
+        }
+      };
       if (res?.status === 200 && res?.data?.isSuccess) {
+        let today = new Date();
+        let tomorrow = new Date(today);
+        tomorrow.setDate(tomorrow.getDate() + 1);
+
+        let tomorrowTimestamp = tomorrow.getTime().toString();
         this.message.create('success', res.data.message);
         const tokenInfo = this.getDecodedAccessToken(res.data.data.token);
+        tokenInfo.EmailId = this.validateForm.value.userName;
+        tokenInfo.UserName = this.validateForm.value.userName;
+        tokenInfo.FirstName = 'Guest';
+        tokenInfo.LastName = 'User';
         localStorage.setItem('userInfo', JSON.stringify(tokenInfo));
         localStorage.setItem('isLoggedIn', 'yes');
-        localStorage.setItem('exp', tokenInfo.exp);
-        localStorage.setItem('idle', tokenInfo.SessionTimeout);
+        localStorage.setItem('exp', tomorrowTimestamp);
+        localStorage.setItem('idle', '240');
         localStorage.setItem('token', res.data.data.token);
         localStorage.setItem('userLoginInfoId', res.data.data.userLoginInfoId);
         localStorage.setItem('refreshToken', res.data.data.refreshToken);
@@ -114,18 +221,18 @@ export default class LoginComponent {
             view: 1
           }
         });
-      } else if (res?.status === 200 && res?.data?.isTFAEnabled) {
-        if (!res?.data?.isTFARegistered) {
-          this.key = res?.data?.data?.manualEntryKey;
-          this.QRImage = res?.data?.data?.qrCodeSetupImageUrl;
-        } else if (res?.data?.isTFARegistered) {
-          // localStorage.setItem('TFAReg', 'yes');
+        // } else if (res?.status === 200 && res?.data?.isTFAEnabled) {
+        //   if (!res?.data?.isTFARegistered) {
+        //     this.key = res?.data?.data?.manualEntryKey;
+        //     this.QRImage = res?.data?.data?.qrCodeSetupImageUrl;
+        //   } else if (res?.data?.isTFARegistered) {
+        //     // localStorage.setItem('TFAReg', 'yes');
 
-          this.dataSharingService.updateRegTFAD('yes');
-          localStorage.setItem('regTFA', 'yes');
-        }
+        //     this.dataSharingService.updateRegTFAD('yes');
+        //     localStorage.setItem('regTFA', 'yes');
+        //   }
 
-        this.isTFA = true;
+        //   this.isTFA = true;
       } else {
         this.message.create('error', res?.data?.message);
       }

@@ -1,5 +1,5 @@
 <div>
-  <nz-table [nzPageSize]="20" nzNoResult="No Data Found." [nzLoading]="loading" #basicTable [nzData]="fileListData">
+  <nz-table [nzPageSize]="10" nzNoResult="No Data Found." [nzLoading]="loading" #basicTable [nzData]="fileListData">
     <thead>
       <tr>
         <th [nzSortFn]="sortClientNameFn">Date</th>
@@ -33,6 +33,7 @@
           </td>
           <td>
             <div
+              class="cust-link"
               routerLink="/BotQueue/Details"
               [queryParams]="{
                 dateRange: data.date,
@@ -49,6 +50,7 @@
           </td>
           <td>
             <div
+              class="cust-link"
               routerLink="/BotQueue/Details"
               [queryParams]="{
                 dateRange: data.date,
@@ -65,6 +67,7 @@
           </td>
           <td>
             <div
+              class="cust-link"
               routerLink="/BotQueue/Details"
               [queryParams]="{
                 dateRange: data.date,
@@ -81,6 +84,7 @@
           </td>
           <td>
             <div
+              class="cust-link"
               routerLink="/BotQueue/Details"
               [queryParams]="{
                 dateRange: data.date,
@@ -97,6 +101,7 @@
           </td>
           <td>
             <div
+              class="cust-link"
               routerLink="/BotQueue/Details"
               [queryParams]="{
                 dateRange: data.date,
@@ -113,6 +118,7 @@
           </td>
           <td>
             <div
+              class="cust-link"
               routerLink="/BotQueue/Details"
               [queryParams]="{
                 dateRange: data.date,

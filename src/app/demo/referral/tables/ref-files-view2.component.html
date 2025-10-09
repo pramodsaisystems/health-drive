@@ -2,8 +2,8 @@
   <nz-table [nzPageSize]="10" nzNoResult="No Data Found." [nzLoading]="loading" #basicTable [nzData]="fileListData">
     <thead>
       <tr>
-        <th [nzSortFn]="sortClientNameFn">Action</th>
-        <th [nzSortFn]="sortClientNameFn">Id</th>
+        <th nzWidth="120px" [nzSortFn]="sortClientNameFn">Action</th>
+
         <th [nzSortFn]="sortClientNameFn">File Name</th>
         <th [nzSortFn]="sortClientNameFn">Received At</th>
         <th [nzSortFn]="sortClientNameFn">Patient Name</th>
@@ -35,7 +35,7 @@
               <span nz-tooltip nzTooltipTitle="Click to View/Download File" nz-icon nzType="eye"></span>
             </button>
           </td>
-          <td></td>
+
           <td>
             <div>
               {{ formatFileName(data.fax_file_name) }}
