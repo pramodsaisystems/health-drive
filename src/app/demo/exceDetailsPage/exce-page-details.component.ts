@@ -97,7 +97,7 @@ export default class ExecDetailsFileComponent {
         `faxid=${this.faxid === null || this.faxid === '' ? '' : this.faxid}` +
         `&site_name=${this.faxStatus === null || this.faxStatus === '' ? '-1' : this.faxStatus}`
     );
-    debugger;
+
     if (res?.status === 200) {
       this.exceDetailsFileData = res?.data?.Result?.data;
       this.exceDetailsFileData = this.exceDetailsFileData

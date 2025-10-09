@@ -231,7 +231,6 @@ export default class DetailsFileListComponent {
   cancel() {}
 
   submitForm = async () => {
-    debugger;
     if (this.validateForm.valid) {
       this.getListData();
     } else {

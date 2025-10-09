@@ -8,16 +8,17 @@
     <div class="card">
       <div class="card-block">
         <div class="pb-2">
-          <button nz-button class="me-2" nzType="primary">
-            <div
-              routerLink="/BotQueue/ExceptionDetails"
-              [queryParams]="{
-                faxid: faxid,
-                status: exception
-              }"
-            >
-              <span nz-tooltip nzTooltipTitle="Click to go back" nz-icon nzType="arrow-left"></span>
-            </div>
+          <button
+            routerLink="/BotQueue/ExceptionDetails"
+            [queryParams]="{
+              faxid: faxid,
+              status: exception
+            }"
+            nz-button
+            class="me-2"
+            nzType="primary"
+          >
+            <span nz-tooltip nzTooltipTitle="Click to go back" nz-icon nzType="arrow-left"></span>
           </button>
         </div>
         <nz-table [nzPageSize]="20" nzNoResult="No Data Found." [nzLoading]="loading" #basicTable [nzData]="exceDetailsFileData">

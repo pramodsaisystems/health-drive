@@ -1,0 +1,85 @@
+<div>
+  <nz-table [nzPageSize]="20" nzNoResult="No Data Found." [nzLoading]="loading" #basicTable [nzData]="fileListData">
+    <thead>
+      <tr>
+        <th>Action</th>
+        <th>File Name</th>
+        <th>Received At</th>
+        <th>File Source</th>
+
+        <th>Referral source</th>
+
+        <th>Department</th>
+        <th>Deleted By</th>
+        <th>Patient Name</th>
+        <th>MRN</th>
+        <th>File Status</th>
+        <th>Action Date Time</th>
+        <th>Document Count</th>
+        <th>Page Count</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (data of basicTable.data; track data) {
+        <tr>
+          <td>
+            <button
+              routerLink="/BotQueue/ExceptionDetails"
+              [queryParams]="{
+                faxid: data.faxid,
+                status: data.exception_status
+              }"
+              nz-button
+              class="me-2"
+              nzType="primary"
+            >
+              <span nz-tooltip nzTooltipTitle="Click to view document and information" nz-icon nzType="info-circle"></span>
+            </button>
+            <button nz-button class="me-2" nzType="primary" (click)="openPageimg(data.file_path)">
+              <span nz-tooltip nzTooltipTitle="Click to View/Download File" nz-icon nzType="eye"></span>
+            </button>
+          </td>
+          <td>
+            <div>
+              {{ formatFileName(data.fax_file_name) }}
+            </div>
+          </td>
+
+          <td>
+            {{ formatDate(data.received_at) }}
+          </td>
+          <td>
+            {{ data.file_source }}
+          </td>
+          <td>
+            {{ data.referral_source }}
+          </td>
+          <td>
+            {{ data.department }}
+          </td>
+          <td>
+            {{ data.deleted_by }}
+          </td>
+          <td>
+            {{ data.patient_name }}
+          </td>
+          <td>
+            {{ data.mrn }}
+          </td>
+          <td>
+            {{ data.exception_status }}
+          </td>
+          <td>
+            {{ data.action_datetime }}
+          </td>
+          <td>
+            {{ data.document_count }}
+          </td>
+          <td>
+            {{ data.page_count }}
+          </td>
+        </tr>
+      }
+    </tbody>
+  </nz-table>
+</div>

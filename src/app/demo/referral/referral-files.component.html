@@ -119,7 +119,6 @@
                 </nz-form-item>
               </div>
             </div>
-            <!-- <button nz-button class="login-form-button login-form-margin" [nzType]="'primary'">Log in</button> -->
           </ng-container>
         </form>
         <!-- <nz-table [nzPageSize]="20" nzNoResult="No Data Found." [nzLoading]="loading" #basicTable [nzData]="rolesList">
@@ -142,7 +141,7 @@
           
           </tbody>
         </nz-table> -->
-        <nz-table [nzPageSize]="20" nzNoResult="No Data Found." [nzLoading]="loading" #basicTable [nzData]="fileListData">
+        <!-- <nz-table [nzPageSize]="20" nzNoResult="No Data Found." [nzLoading]="loading" #basicTable [nzData]="fileListData">
           <thead>
             <tr>
               <th [nzSortFn]="sortClientNameFn">Date</th>
@@ -152,10 +151,6 @@
               <th [nzSortFn]="sortClientNameFn">System Error</th>
               <th [nzSortFn]="sortClientNameFn">Manual Review</th>
               <th [nzSortFn]="sortClientNameFn">Total</th>
-
-              <!-- <th [nzSortFn]="sortClientNameFn">Client Name</th>
-              <th [nzSortFn]="sortRoleNameFn">Role</th>
-              <th [nzSortFn]="sortActiveFn">Active</th> -->
             </tr>
           </thead>
           <tbody>
@@ -277,11 +272,16 @@
               </tr>
             }
           </tbody>
-        </nz-table>
+        </nz-table> -->
+        <ref-files-view1 *ngIf="selectedScreen === '1'" [fileListData]="fileListData" [validateForm]="validateForm"></ref-files-view1>
+        <ref-files-view2
+          *ngIf="selectedScreen === '2' || selectedScreen === '3' || selectedScreen === '5' || selectedScreen === '7'"
+          [fileListData]="fileListData"
+          [validateForm]="validateForm"
+        ></ref-files-view2>
+        <ref-files-view3 *ngIf="selectedScreen === '4'" [fileListData]="fileListData" [validateForm]="validateForm"></ref-files-view3>
+        <ref-files-view4 *ngIf="selectedScreen === '6'" [fileListData]="fileListData" [validateForm]="validateForm"></ref-files-view4>
       </div>
     </div>
-    <!-- <app-card cardTitle="Roles" buttonText="Add Role" (onBtnClickEvt)="onAddNewRole()"> -->
-
-    <!-- </app-card> -->
   </div>
 </div>

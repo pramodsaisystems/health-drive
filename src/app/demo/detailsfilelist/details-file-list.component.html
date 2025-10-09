@@ -144,30 +144,31 @@
             @for (data of basicTable.data; track data) {
               <tr>
                 <td>
-                  <button nz-button class="me-2" nzType="primary">
-                    <div
-                      routerLink="/BotQueue/ExceptionDetails"
-                      [queryParams]="{
-                        dateRange: validateForm.value.daterange
-                          ? validateForm.value.daterange[0]?.toLocaleDateString('en-US', {
-                              month: '2-digit',
-                              day: '2-digit',
-                              year: 'numeric'
-                            }) +
-                            '-' +
-                            validateForm.value.daterange[1]?.toLocaleDateString('en-US', {
-                              month: '2-digit',
-                              day: '2-digit',
-                              year: 'numeric'
-                            })
-                          : null,
-                        faxid: data.faxid,
-                        status: data.current_status,
-                        faxStatus: validateForm.value.faxStatus
-                      }"
-                    >
-                      <span nz-tooltip nzTooltipTitle="Click to View Fax Details and Information" nz-icon nzType="info-circle"></span>
-                    </div>
+                  <button
+                    routerLink="/BotQueue/ExceptionDetails"
+                    [queryParams]="{
+                      dateRange: validateForm.value.daterange
+                        ? validateForm.value.daterange[0]?.toLocaleDateString('en-US', {
+                            month: '2-digit',
+                            day: '2-digit',
+                            year: 'numeric'
+                          }) +
+                          '-' +
+                          validateForm.value.daterange[1]?.toLocaleDateString('en-US', {
+                            month: '2-digit',
+                            day: '2-digit',
+                            year: 'numeric'
+                          })
+                        : null,
+                      faxid: data.faxid,
+                      status: data.current_status,
+                      faxStatus: validateForm.value.faxStatus
+                    }"
+                    nz-button
+                    class="me-2"
+                    nzType="primary"
+                  >
+                    <span nz-tooltip nzTooltipTitle="Click to View Fax Details and Information" nz-icon nzType="info-circle"></span>
                   </button>
                   <button nz-button class="me-2" nzType="primary">
                     <span nz-tooltip nzTooltipTitle="Click to View the Entities" nz-icon nzType="check"></span>

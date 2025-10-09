@@ -21,6 +21,11 @@ import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import { InformationModalComponent } from 'src/app/component/modal/information.component';
 import { ActivatedRoute, RouterModule } from '@angular/router';
+import { RefFilesView1Component } from './tables/ref-files-view1.component';
+import { RefFilesView2Component } from './tables/ref-files-view2.component';
+import { RefFilesView3Component } from './tables/ref-files-view3.component';
+import { RefFilesView4Component } from './tables/ref-files-view4.component';
+import { CommonModule } from '@angular/common';
 
 interface Role {
   clientid: number;
@@ -53,7 +58,12 @@ interface Role {
     NzToolTipModule,
     InformationModalComponent,
     NzDatePickerModule,
-    RouterModule
+    RouterModule,
+    RefFilesView1Component,
+    RefFilesView2Component,
+    RefFilesView3Component,
+    RefFilesView4Component,
+    CommonModule
   ],
   templateUrl: './referral-files.component.html',
   styleUrls: ['./referral-files.component.scss']
@@ -71,7 +81,7 @@ export default class ReferralFileListComponent {
   exceptStatList: any[] = [];
 
   loading = false;
-
+  selectedScreen: string = '1';
   constructor(
     private message: NzMessageService,
     private fb: NonNullableFormBuilder,
@@ -198,6 +208,7 @@ export default class ReferralFileListComponent {
 
   getListData = async () => {
     this.loading = true;
+    this.fileListData = [];
     let d1 =
       this.validateForm.value.daterange === null || this.validateForm.value.daterange === ''
         ? ' '
@@ -220,6 +231,7 @@ export default class ReferralFileListComponent {
     );
     this.loading = false;
     if (res?.status === 200) {
+      this.selectedScreen = this.validateForm.value.viewFiltList;
       this.fileListData = res?.data?.Result?.data;
     }
   };

@@ -45,19 +45,20 @@
             @for (data of basicTable.data; track data) {
               <tr>
                 <td>
-                  <button nz-button class="me-2" nzType="primary">
-                    <div
-                      routerLink="/BotQueue/ExceptionPageDetails"
-                      [queryParams]="{
-                        faxid: data.faxid,
-                        status: exception,
-                        faxStatus: faxStatus,
-                        patient_group_id: data.patient_group_id,
-                        document_group_id: data.document_group_id
-                      }"
-                    >
-                      <span nz-tooltip nzTooltipTitle="Click to view document and information" nz-icon nzType="info-circle"></span>
-                    </div>
+                  <button
+                    routerLink="/BotQueue/ExceptionPageDetails"
+                    [queryParams]="{
+                      faxid: data.faxid,
+                      status: exception,
+                      faxStatus: faxStatus,
+                      patient_group_id: data.patient_group_id,
+                      document_group_id: data.document_group_id
+                    }"
+                    nz-button
+                    class="me-2"
+                    nzType="primary"
+                  >
+                    <span nz-tooltip nzTooltipTitle="Click to view document and information" nz-icon nzType="info-circle"></span>
                   </button>
                   <button nz-button class="me-2" nzType="primary">
                     <span nz-tooltip nzTooltipTitle="Click to view the Entities" nz-icon nzType="check"></span>

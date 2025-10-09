@@ -1,0 +1,134 @@
+<div>
+  <nz-table [nzPageSize]="20" nzNoResult="No Data Found." [nzLoading]="loading" #basicTable [nzData]="fileListData">
+    <thead>
+      <tr>
+        <th [nzSortFn]="sortClientNameFn">Date</th>
+        <th [nzSortFn]="sortClientNameFn">New Document</th>
+        <th [nzSortFn]="sortClientNameFn">System Processing</th>
+        <th [nzSortFn]="sortClientNameFn">Successfully Processed</th>
+        <th [nzSortFn]="sortClientNameFn">System Error</th>
+        <th [nzSortFn]="sortClientNameFn">Manual Review</th>
+        <th [nzSortFn]="sortClientNameFn">Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (data of basicTable.data; track data) {
+        <tr>
+          <td>
+            <div
+              class="cust-link"
+              routerLink="/BotQueue/Details"
+              [queryParams]="{
+                dateRange: data.date,
+                documentType: validateForm.value.docType,
+                faxStatus: -1,
+                site_name: validateForm.value.siteName,
+                file_name: validateForm.value.fileName,
+                exception_status: validateForm.value.exceptStatus,
+                patient_type: validateForm.value.newPatient
+              }"
+            >
+              {{ data.date }}
+            </div>
+          </td>
+          <td>
+            <div
+              routerLink="/BotQueue/Details"
+              [queryParams]="{
+                dateRange: data.date,
+                documentType: validateForm.value.docType,
+                faxStatus: 0,
+                site_name: validateForm.value.siteName,
+                file_name: validateForm.value.fileName,
+                exception_status: validateForm.value.exceptStatus,
+                patient_type: validateForm.value.newPatient
+              }"
+            >
+              {{ data.new_fax }}
+            </div>
+          </td>
+          <td>
+            <div
+              routerLink="/BotQueue/Details"
+              [queryParams]="{
+                dateRange: data.date,
+                documentType: validateForm.value.docType,
+                faxStatus: 1,
+                site_name: validateForm.value.siteName,
+                file_name: validateForm.value.fileName,
+                exception_status: validateForm.value.exceptStatus,
+                patient_type: validateForm.value.newPatient
+              }"
+            >
+              {{ data.system_processing }}
+            </div>
+          </td>
+          <td>
+            <div
+              routerLink="/BotQueue/Details"
+              [queryParams]="{
+                dateRange: data.date,
+                documentType: validateForm.value.docType,
+                faxStatus: 3,
+                site_name: validateForm.value.siteName,
+                file_name: validateForm.value.fileName,
+                exception_status: validateForm.value.exceptStatus,
+                patient_type: validateForm.value.newPatient
+              }"
+            >
+              {{ data.successfully_processed }}
+            </div>
+          </td>
+          <td>
+            <div
+              routerLink="/BotQueue/Details"
+              [queryParams]="{
+                dateRange: data.date,
+                documentType: validateForm.value.docType,
+                faxStatus: 2,
+                site_name: validateForm.value.siteName,
+                file_name: validateForm.value.fileName,
+                exception_status: validateForm.value.exceptStatus,
+                patient_type: validateForm.value.newPatient
+              }"
+            >
+              {{ data.system_error }}
+            </div>
+          </td>
+          <td>
+            <div
+              routerLink="/BotQueue/Details"
+              [queryParams]="{
+                dateRange: data.date,
+                documentType: validateForm.value.docType,
+                faxStatus: 4,
+                site_name: validateForm.value.siteName,
+                file_name: validateForm.value.fileName,
+                exception_status: validateForm.value.exceptStatus,
+                patient_type: validateForm.value.newPatient
+              }"
+            >
+              {{ data.business_exception }}
+            </div>
+          </td>
+          <td>
+            <div
+              routerLink="/BotQueue/Details"
+              [queryParams]="{
+                dateRange: data.date,
+                documentType: validateForm.value.docType,
+                faxStatus: -1,
+                site_name: validateForm.value.siteName,
+                file_name: validateForm.value.fileName,
+                exception_status: validateForm.value.exceptStatus,
+                patient_type: validateForm.value.newPatient
+              }"
+            >
+              {{ data.total }}
+            </div>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </nz-table>
+</div>
