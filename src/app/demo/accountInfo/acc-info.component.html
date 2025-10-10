@@ -253,6 +253,21 @@
                 <!-- <nz-tab nzTitle="Proc. hist.">Content of Tab Proc History</nz-tab> -->
               </nz-tabset>
             </div>
+            <div class="mt-3" div nz-col [nzXs]="12" [nzSm]="12" [nzMd]="10" [nzLg]="10" [nzXl]="10">
+              <nz-form-item>
+                <nz-form-control>
+                  <button nz-button class="me-2" nzType="primary">
+                    <span nz-tooltip nzTooltipTitle="reset">Reset</span>
+                  </button>
+                  <button nz-button class="me-2" nzType="default">
+                    <span nz-tooltip nzTooltipTitle="save">Save</span>
+                  </button>
+                  <button nz-button nzType="default">
+                    <span nz-tooltip nzTooltipTitle="save and next">Save & Next</span>
+                  </button>
+                </nz-form-control>
+              </nz-form-item>
+            </div>
             <!-- <button nz-button class="login-form-button login-form-margin" [nzType]="'primary'">Log in</button> -->
           </ng-container>
         </form>

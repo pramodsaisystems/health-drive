@@ -56,9 +56,16 @@
               <div nz-col [nzXs]="12" [nzSm]="12" [nzMd]="8" [nzLg]="4" [nzXl]="4">
                 <nz-form-item>
                   <nz-form-control [nzSpan]="24" nzErrorTip="Please select status!">
-                    <nz-select nzShowSearch formControlName="siteName" nzPlaceHolder="Facility Name">
+                    <nz-select
+                      [nzMaxTagCount]="1"
+                      nzMode="multiple"
+                      nzAllowClear
+                      nzShowSearch
+                      formControlName="siteName"
+                      nzPlaceHolder="Facility Name"
+                    >
                       @for (data of siteList; track data) {
-                        <nz-option nzValue="{{ data.siteid }}" nzLabel="{{ data.sitename }}"></nz-option>
+                        <nz-option nzValue="{{ data.sitename }}" nzLabel="{{ data.sitename }}"></nz-option>
                       }
                     </nz-select>
                   </nz-form-control>
@@ -67,9 +74,16 @@
               <div nz-col [nzXs]="12" [nzSm]="12" [nzMd]="8" [nzLg]="4" [nzXl]="4">
                 <nz-form-item>
                   <nz-form-control [nzSpan]="24" nzErrorTip="Please select status!">
-                    <nz-select nzShowSearch formControlName="docType" nzPlaceHolder="Document Type">
+                    <nz-select
+                      [nzMaxTagCount]="1"
+                      nzMode="multiple"
+                      nzAllowClear
+                      nzShowSearch
+                      formControlName="docType"
+                      nzPlaceHolder="Document Type"
+                    >
                       @for (data of docTypeList; track data) {
-                        <nz-option nzValue="{{ data.keyword_id }}" nzLabel="{{ data.display_name }}"></nz-option>
+                        <nz-option nzValue="{{ data.display_name }}" nzLabel="{{ data.display_name }}"></nz-option>
                       }
                     </nz-select>
                   </nz-form-control>
@@ -87,9 +101,16 @@
               <div nz-col [nzXs]="12" [nzSm]="12" [nzMd]="8" [nzLg]="4" [nzXl]="4">
                 <nz-form-item>
                   <nz-form-control [nzSpan]="24" nzErrorTip="Please select status!">
-                    <nz-select nzShowSearch formControlName="exceptStatus" nzPlaceHolder="Exception Status">
+                    <nz-select
+                      [nzMaxTagCount]="1"
+                      nzMode="multiple"
+                      nzAllowClear
+                      nzShowSearch
+                      formControlName="exceptStatus"
+                      nzPlaceHolder="Exception Status"
+                    >
                       @for (data of exceptStatList; track data) {
-                        <nz-option nzValue="{{ data.id }}" nzLabel="{{ data.text }}"></nz-option>
+                        <nz-option nzValue="{{ data.text }}" nzLabel="{{ data.text }}"></nz-option>
                       }
                     </nz-select>
                   </nz-form-control>
@@ -98,7 +119,7 @@
               <div nz-col [nzXs]="12" [nzSm]="12" [nzMd]="8" [nzLg]="4" [nzXl]="4">
                 <nz-form-item>
                   <nz-form-control [nzSpan]="24" nzErrorTip="Please select status!">
-                    <nz-select nzShowSearch [ngModel]="0" formControlName="newPatient" nzPlaceHolder="New Patient">
+                    <nz-select nzShowSearch formControlName="newPatient" nzPlaceHolder="New Patient">
                       <nz-option nzValue="0" nzLabel="--All--"></nz-option>
                       <nz-option nzValue="1" nzLabel="Yes"></nz-option>
                       <nz-option nzValue="2" nzLabel="No"></nz-option>
@@ -128,7 +149,7 @@
         <nz-table [nzPageSize]="20" nzNoResult="No Data Found." [nzLoading]="loading" #basicTable [nzData]="detailsFileListData">
           <thead>
             <tr>
-              <th [nzSortFn]="sortClientNameFn">Action</th>
+              <th nzWidth="160px" [nzSortFn]="sortClientNameFn">Action</th>
               <th [nzSortFn]="sortClientNameFn">Id</th>
               <th [nzSortFn]="sortClientNameFn">File Name</th>
               <th [nzSortFn]="sortClientNameFn">Received At</th>
@@ -171,11 +192,21 @@
                     <span nz-tooltip nzTooltipTitle="Click to View Fax Details and Information" nz-icon nzType="info-circle"></span>
                   </button>
                   <button nz-button class="me-2" nzType="primary">
-                    <span nz-tooltip nzTooltipTitle="Click to View the Entities" nz-icon nzType="check"></span>
+                    <span
+                      routerLink="/pageException"
+                      [queryParams]="{
+                        faxid: data.faxid,
+                        actionstatus: 'view'
+                      }"
+                      nz-tooltip
+                      nzTooltipTitle="Click to View the Entities"
+                      nz-icon
+                      nzType="check"
+                    ></span>
                   </button>
-                  <button nz-button class="me-2" nzType="primary">
+                  <!-- <button nz-button class="me-2" nzType="primary">
                     <span nz-tooltip nzTooltipTitle="Click to ` an issue" nz-icon nzType="bug"></span>
-                  </button>
+                  </button> -->
                   <button nz-button class="me-2" nzType="primary" (click)="openPageimg(data.file_path)">
                     <span nz-tooltip nzTooltipTitle="Click to View/Download File" nz-icon nzType="eye"></span>
                   </button>

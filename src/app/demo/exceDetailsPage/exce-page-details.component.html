@@ -24,7 +24,7 @@
         <nz-table [nzPageSize]="20" nzNoResult="No Data Found." [nzLoading]="loading" #basicTable [nzData]="exceDetailsFileData">
           <thead>
             <tr>
-              <th [nzSortFn]="sortClientNameFn">ACTION</th>
+              <th nzWidth="120px" [nzSortFn]="sortClientNameFn">ACTION</th>
               <th [nzSortFn]="sortClientNameFn">PATIENT NAME</th>
               <th [nzSortFn]="sortClientNameFn">MRN</th>
               <th [nzSortFn]="sortClientNameFn">DOCUMENT TYPE</th>
@@ -39,12 +39,12 @@
                   <button nz-button class="me-2" nzType="primary">
                     <span nz-tooltip nzTooltipTitle="Click to view document and information" nz-icon nzType="eye"></span>
                   </button>
-                  <button nz-button class="me-2" nzType="primary">
+                  <button nz-button class="me-2" nzType="primary" (click)="openHistory(data.faxid)">
                     <span nz-tooltip nzTooltipTitle="View history" nz-icon nzType="history"></span>
                   </button>
-                  <button nz-button class="me-2" nzType="primary">
+                  <!-- <button nz-button class="me-2" nzType="primary">
                     <span nz-tooltip nzTooltipTitle="Click to submit an issue" nz-icon nzType="bug"></span>
-                  </button>
+                  </button> -->
                 </td>
                 <td>{{ data.patient_name }}</td>
                 <td>{{ data.mrn }}</td>
@@ -58,6 +58,13 @@
         </nz-table>
       </div>
     </div>
+
+    <history-modal
+      *ngIf="isHMVisible"
+      [isVisible]="isHMVisible"
+      [historyData]="historyData"
+      (closeModalEvent)="onHMCloseModalEvent($event)"
+    ></history-modal>
     <!-- <app-card cardTitle="Roles" buttonText="Add Role" (onBtnClickEvt)="onAddNewRole()"> -->
 
     <!-- </app-card> -->

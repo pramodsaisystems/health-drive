@@ -24,6 +24,7 @@ import { Router, ActivatedRoute, RouterModule } from '@angular/router';
 import { HistoryModalComponent } from 'src/app/component/modal/history-modal.component';
 import { OpenseadragonViewerComponent } from 'src/app/openseadragon-viewer/openseadragon-viewer.component';
 import AccountInformationComponent from '../accountinfo/acc-info.component';
+import { Location } from '@angular/common';
 
 interface Role {
   clientid: number;
@@ -71,10 +72,15 @@ export default class PageExceptionComponent {
     private message: NzMessageService,
     private fb: NonNullableFormBuilder,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private location: Location
   ) {}
 
   ngOnInit() {
     // this.getExcePageDetailsList();
   }
+
+  goBack = () => {
+    this.location.back();
+  };
 }

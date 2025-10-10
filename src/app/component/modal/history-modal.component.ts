@@ -14,6 +14,7 @@ export class HistoryModalComponent {
   constructor() {}
   @Input() isVisible = false;
   @Input() historyData = [];
+  @Input() title = '';
 
   @Output() closeModalEvent = new EventEmitter<boolean>();
 

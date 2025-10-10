@@ -23,10 +23,13 @@ export class RefFilesView1Component {
   @Input() fileListData = [];
   @Input() validateForm!: FormGroup;
   @Input() formDataCopy: any = {};
+
   loading: boolean = false;
   constructor() {}
 
-  ngOnChanges() {}
+  ngOnChanges() {
+    console.log(this.formDataCopy);
+  }
 
   sortRoleNameFn = (a: Role, b: Role): any => a.rolename.localeCompare(b.rolename);
   sortClientNameFn = (a: Role, b: Role): any => a.clientname.localeCompare(b.clientname);
@@ -43,7 +46,7 @@ export class RefFilesView1Component {
       site_name: Array.isArray(siteName) && siteName.length > 0 ? siteName.join(',') : '',
       file_name: this.formDataCopy?.fileName,
       exception_status: Array.isArray(exceptStatus) && exceptStatus.length > 0 ? exceptStatus.join(',') : '',
-
+      patient_name: this.formDataCopy?.patientName,
       patient_type: this.formDataCopy?.newPatient
     };
   }

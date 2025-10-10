@@ -8,13 +8,13 @@
     <div class="card">
       <div class="card-block">
         <div class="pb-2">
-          <button nz-button class="me-2" nzType="primary">
+          <button nz-button class="me-2" nzType="primary" (click)="goBack()">
             <span nz-tooltip nzTooltipTitle="Click to go back" nz-icon nzType="arrow-left"></span>
           </button>
-          <button nz-button class="me-2" nzType="primary">
+          <!-- <button nz-button class="me-2" nzType="primary">
             <span nz-tooltip nzTooltipTitle="Click to submit an issue" nz-icon nzType="bug"></span>
-          </button>
-          <button nz-button class="me-2" nzType="primary">
+          </button> -->
+          <button nz-button class="me-2" nzType="primary" (click)="viewEntities()">
             <span nz-tooltip nzTooltipTitle="Click to view the Entities" nz-icon nzType="check"></span>
           </button>
           <button nz-button class="me-2" nzType="primary" (click)="openHistory(exceDetailsFileData[0]?.faxid)">
@@ -23,9 +23,9 @@
           <button nz-button class="me-2" nzType="primary" (click)="openPageimg(exceDetailsFileData[0]?.fax_file_path)">
             <span nz-tooltip nzTooltipTitle="Click to View/Download the file" nz-icon nzType="eye"></span>
           </button>
-          <button nz-button class="me-2" nzType="primary">
+          <!-- <button nz-button class="me-2" nzType="primary">
             <span nz-tooltip nzTooltipTitle="Open Outlook" nz-icon nzType="mail"></span>
-          </button>
+          </button> -->
         </div>
         <nz-table [nzPageSize]="20" nzNoResult="No Data Found." [nzLoading]="loading" #basicTable [nzData]="exceDetailsFileData">
           <thead>
@@ -61,7 +61,17 @@
                     <span nz-tooltip nzTooltipTitle="Click to view document and information" nz-icon nzType="info-circle"></span>
                   </button>
                   <button nz-button class="me-2" nzType="primary">
-                    <span nz-tooltip nzTooltipTitle="Click to view the Entities" nz-icon nzType="check"></span>
+                    <span
+                      routerLink="/pageException"
+                      [queryParams]="{
+                        faxid: data.faxid,
+                        actionstatus: 'view'
+                      }"
+                      nz-tooltip
+                      nzTooltipTitle="Click to view the Entities"
+                      nz-icon
+                      nzType="check"
+                    ></span>
                   </button>
                 </td>
                 <td [nzExpand]="expandSet.has(data.faxid)" (nzExpandChange)="onExpandChange(data.faxid, $event)">

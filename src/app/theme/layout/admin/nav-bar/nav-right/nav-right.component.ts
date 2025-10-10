@@ -40,7 +40,7 @@ export class NavRightComponent {
       //this.showTFA = userData?.role?.toLowerCase() === 'super admin';
     }
     // if (localStorage.getItem('role') === 'Super Admin') {
-    this.getClientsList(false);
+    // this.getClientsList(false);
     // }
 
     this.subscription = this.dataSharingService.regTFAService$.subscribe((data) => {

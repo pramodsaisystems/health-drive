@@ -6,7 +6,7 @@ import { SharedModule } from 'src/app/theme/shared/shared.module';
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 
-import { get, deleteAPI, put, get1 } from 'src/utils/api';
+import { get, deleteAPI, put, get1, get2 } from 'src/utils/api';
 import { APP_API_URL, APP_HD_URL } from 'src/utils/urls';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzSwitchModule } from 'ng-zorro-antd/switch';
@@ -67,6 +67,8 @@ export default class ExecDetailsFileComponent {
   patient_group_id: string = '';
   document_group_id: string = '';
   loading = false;
+  isHMVisible: boolean = false;
+  historyData: any[] = [];
 
   constructor(
     private message: NzMessageService,
@@ -112,4 +114,22 @@ export default class ExecDetailsFileComponent {
     }
   };
   cancel() {}
+
+  openHistory = async (faxid) => {
+    this.onInfoClick();
+    let res: any = await get2(APP_HD_URL + `BotQueue/GetAuditFaxData?` + `faxid=${faxid === null || faxid === '' ? '-1' : faxid}`);
+
+    if (res?.status === 200) {
+      this.historyData = res?.data?.Result?.data;
+      this.onInfoClick();
+    }
+  };
+
+  onInfoClick() {
+    this.isHMVisible = true;
+  }
+
+  onHMCloseModalEvent(e) {
+    this.isHMVisible = false;
+  }
 }

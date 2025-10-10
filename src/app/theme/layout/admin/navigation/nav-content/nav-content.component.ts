@@ -355,4 +355,15 @@ export class NavContentComponent implements OnInit {
   //     }
   //   });
   // };
+
+  onClick = () => {
+    this.router.navigate(['/BotQueue/Index'], {
+      queryParams: {
+        receivedDateView: true,
+        page: 'DocumentReceived',
+        fstatus: -1,
+        view: 1
+      }
+    });
+  };
 }

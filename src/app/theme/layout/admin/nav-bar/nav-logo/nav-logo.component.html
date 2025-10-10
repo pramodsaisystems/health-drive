@@ -10,7 +10,16 @@
       <i class="ti ti-menu-2"></i>
     </a>
   </div>
-  <a [routerLink]="['/dashboard/']" class="b-brand">
+  <a
+    routerLink="/BotQueue/Index"
+    [queryParams]="{
+      receivedDateView: true,
+      page: 'DocumentReceived',
+      fstatus: -1,
+      view: 1
+    }"
+    class="b-brand"
+  >
     <img width="164px" src="assets/images/health-drive/health-drive2.png" alt="" class="logo logo-lg" />
   </a>
 </div>

@@ -22,6 +22,7 @@ import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import { InformationModalComponent } from 'src/app/component/modal/information.component';
 import { Router, ActivatedRoute, RouterModule } from '@angular/router';
 import { HistoryModalComponent } from 'src/app/component/modal/history-modal.component';
+import { Location } from '@angular/common';
 interface Role {
   clientid: number;
   clientname: string;
@@ -75,7 +76,8 @@ export default class ExecDetailsFileComponent {
     private message: NzMessageService,
     private fb: NonNullableFormBuilder,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private location: Location
   ) {}
 
   ngOnInit() {
@@ -279,4 +281,19 @@ export default class ExecDetailsFileComponent {
   onHMCloseModalEvent(e) {
     this.isHMVisible = false;
   }
+
+  goBack = () => {
+    this.location.back();
+  };
+
+  viewEntities = () => {
+    if (this.exceDetailsFileData.length > 0) {
+      this.router.navigate(['/pageException'], {
+        queryParams: {
+          faxid: this.exceDetailsFileData[0].faxid,
+          actionstatus: 'view'
+        }
+      });
+    }
+  };
 }

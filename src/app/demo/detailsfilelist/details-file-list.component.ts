@@ -81,10 +81,10 @@ export default class DetailsFileListComponent {
       faxStatus: ['-1'],
       patientName: [''],
       viewFiltList: [''],
-      siteName: [''],
-      docType: [''],
+      siteName: [],
+      docType: [],
       fileName: [''],
-      exceptStatus: [''],
+      exceptStatus: [],
       newPatient: ['0']
     });
   }
@@ -94,21 +94,31 @@ export default class DetailsFileListComponent {
     faxStatus: FormControl<string>;
     patientName: FormControl<string>;
     viewFiltList: FormControl<string>;
-    siteName: FormControl<string>;
-    docType: FormControl<string>;
+    siteName: FormControl<any[]>;
+    docType: FormControl<any[]>;
     fileName: FormControl<string>;
-    exceptStatus: FormControl<string>;
+    exceptStatus: FormControl<any[]>;
     newPatient: FormControl<string>;
   }>;
   ngOnInit() {
+    debugger;
     let fstatus = this.route.snapshot.queryParamMap.get('faxStatus');
     let date = this.route.snapshot.queryParamMap.get('dateRange');
     let patType = this.route.snapshot.queryParamMap.get('patient_type');
-
+    let patName = this.route.snapshot.queryParamMap.get('patient_name');
+    let fileName = this.route.snapshot.queryParamMap.get('file_name');
+    let docType = this.route.snapshot.queryParamMap.get('documentType');
+    let exceptionStatus = this.route.snapshot.queryParamMap.get('exception_status');
+    let siteName = this.route.snapshot.queryParamMap.get('site_name');
     this.validateForm.patchValue({
       faxStatus: fstatus ? fstatus : '-1',
       daterange: date ? [new Date(date), new Date(date)] : [null, null],
-      newPatient: patType ? patType : '0'
+      newPatient: patType ? patType.toString() : '0',
+      patientName: patName,
+      fileName: fileName,
+      docType: docType.length > 0 ? docType.split(',') : [],
+      exceptStatus: exceptionStatus.length > 0 ? exceptionStatus.split(',') : [],
+      siteName: siteName.length > 0 ? siteName.split(',') : []
     });
     this.getListData();
     this.getSiteList();
@@ -208,9 +218,9 @@ export default class DetailsFileListComponent {
         `date_range=${this.validateForm.value.daterange === null ? '' : encodeURIComponent(`${d1} - ${d2}`)}` +
         `&fax_status=${this.validateForm.value.faxStatus === null || this.validateForm.value.faxStatus === '' ? '-1' : this.validateForm.value.faxStatus}` +
         `&patient_name=${this.validateForm.value.patientName === null ? '' : encodeURIComponent(this.validateForm.value.patientName.trim())}` +
-        `&site_name=${this.validateForm.value.siteName === null || this.validateForm.value.siteName === '' ? '-1' : this.validateForm.value.siteName}` +
-        `&document_name=${this.validateForm.value.docType === null || this.validateForm.value.docType === '' ? '-1' : encodeURIComponent(this.validateForm.value.docType)}` +
-        `&exception_status=${this.validateForm.value.exceptStatus === null || this.validateForm.value.exceptStatus === '' ? '-1' : this.validateForm.value.exceptStatus}` +
+        `&site_name=${this.validateForm.value.siteName === null || this.validateForm.value.siteName.length === 0 ? '-1' : this.validateForm.value.siteName}` +
+        `&document_name=${this.validateForm.value.docType === null || this.validateForm.value.docType.length === 0 ? '-1' : this.validateForm.value.docType}` +
+        `&exception_status=${this.validateForm.value.exceptStatus === null || this.validateForm.value.exceptStatus.length === 0 ? '-1' : this.validateForm.value.exceptStatus}` +
         `&file_name=${this.validateForm.value.fileName === null ? '' : this.validateForm.value.fileName}` +
         `&patient_type=${this.validateForm.value.newPatient}`
     );
@@ -249,10 +259,10 @@ export default class DetailsFileListComponent {
       faxStatus: '-1',
       patientName: '',
       viewFiltList: '',
-      siteName: '',
-      docType: '',
+      siteName: [],
+      docType: [],
       fileName: '',
-      exceptStatus: '',
+      exceptStatus: [],
       newPatient: '0'
     });
 
