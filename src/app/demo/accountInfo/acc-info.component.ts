@@ -76,7 +76,7 @@ interface Role {
 })
 
 //Consider this as Index file which loaded after login as per old app
-export default class AccountInformationComponent {
+export default class AccountInfoComponent {
   accInfoInsuranceList = [];
 
   loading = false;

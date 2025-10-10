@@ -10,7 +10,8 @@ export const environment = {
   production: false,
   backend: 'https://navigatehrdevapi-a4gecsfga6fnaxef.eastus-01.azurewebsites.net/api/',
   // backend: 'https://navigatehrv2025prodapi.azurewebsites.net/api/'
-  hdAPI: 'http://localhost:22863/api/'
+  hdAPI: 'http://localhost:22863/api/',
+  hdAPI2: 'http://localhost:25139'
 };
 
 /*

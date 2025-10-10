@@ -7,7 +7,7 @@ import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 
 import { get, deleteAPI, put, get1 } from 'src/utils/api';
-import { APP_API_URL, APP_HD_URL } from 'src/utils/urls';
+import { APP_API_URL, APP_HD_URL, APP_HD_URL1 } from 'src/utils/urls';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzSwitchModule } from 'ng-zorro-antd/switch';
 import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
@@ -23,8 +23,10 @@ import { InformationModalComponent } from 'src/app/component/modal/information.c
 import { Router, ActivatedRoute, RouterModule } from '@angular/router';
 import { HistoryModalComponent } from 'src/app/component/modal/history-modal.component';
 import { OpenseadragonViewerComponent } from 'src/app/openseadragon-viewer/openseadragon-viewer.component';
-import AccountInformationComponent from '../accountinfo/acc-info.component';
+
 import { Location } from '@angular/common';
+
+import AccountInfoComponent from '../accountinfo/acc-info.component';
 
 interface Role {
   clientid: number;
@@ -60,14 +62,15 @@ interface Role {
     HistoryModalComponent,
     RouterModule,
     OpenseadragonViewerComponent,
-    AccountInformationComponent
+    AccountInfoComponent
   ],
   templateUrl: './page-exception.component.html',
   styleUrls: ['./page-exception.component.scss']
 })
 export default class PageExceptionComponent {
   loading = false;
-
+  faxdata: any = {};
+  patientGroupData: any = {};
   constructor(
     private message: NzMessageService,
     private fb: NonNullableFormBuilder,
@@ -77,10 +80,40 @@ export default class PageExceptionComponent {
   ) {}
 
   ngOnInit() {
-    // this.getExcePageDetailsList();
+    this.getFaxDetails();
+    this.getPatientGroupingInfo();
   }
 
   goBack = () => {
     this.location.back();
+  };
+
+  getFaxDetails = async () => {
+    debugger;
+    let faxid = this.route.snapshot.queryParamMap.get('faxid');
+    if (faxid) {
+      let res: any = await get1(APP_HD_URL + `Fax?FaxId=` + faxid);
+      if (res?.status === 200) {
+        this.faxdata = res?.data?.Result?.data;
+      }
+    }
+  };
+
+  getPatientGroupingInfo = async () => {
+    debugger;
+    let faxid = this.route.snapshot.queryParamMap.get('faxid');
+    let actionstatus = this.route.snapshot.queryParamMap.get('actionstatus')
+      ? this.route.snapshot.queryParamMap.get('actionstatus')
+      : 'view';
+    let faxdoctagid = this.route.snapshot.queryParamMap.get('faxdoctagid') ? this.route.snapshot.queryParamMap.get('faxdoctagid') : '';
+    let patient_group_id = this.route.snapshot.queryParamMap.get('patient_group_id')
+      ? this.route.snapshot.queryParamMap.get('patient_group_id')
+      : '0';
+    if (faxid) {
+      let res: any = await get1(APP_HD_URL + `portal/GetPatientGroupingInfo?fax=` + faxid);
+      if (res?.status === 200) {
+        this.patientGroupData = res?.data?.Result?.data;
+      }
+    }
   };
 }

@@ -7,8 +7,8 @@
         <th [nzSortFn]="sortClientNameFn">File Name</th>
         <th [nzSortFn]="sortClientNameFn">Received At</th>
         <th [nzSortFn]="sortClientNameFn">Patient Name</th>
-        <!-- <th [nzSortFn]="sortClientNameFn">Referral Source</th>
-        <th [nzSortFn]="sortClientNameFn">Department</th> -->
+        <th [nzSortFn]="sortClientNameFn">Exception Status</th>
+        <!-- <th [nzSortFn]="sortClientNameFn">Department</th> -->
         <th [nzSortFn]="sortClientNameFn">File Status</th>
         <th [nzSortFn]="sortClientNameFn">Action Date Time</th>
         <th [nzSortFn]="sortClientNameFn">Document Count</th>
@@ -53,12 +53,10 @@
             <div>
               {{ data.referral_source }}
             </div>
-          </td>
-          <td>
-            <div>
-              {{ data.department }}
-            </div>
           </td> -->
+          <td>
+            <div></div>
+          </td>
           <td>
             <div>
               {{ data.exception_status }}
