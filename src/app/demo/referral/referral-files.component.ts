@@ -82,6 +82,7 @@ export default class ReferralFileListComponent {
 
   loading = false;
   selectedScreen: string = '1';
+  formDataCopy: any = {};
   constructor(
     private message: NzMessageService,
     private fb: NonNullableFormBuilder,
@@ -92,11 +93,11 @@ export default class ReferralFileListComponent {
       faxStatus: ['-1'],
       patientName: [''],
       viewFiltList: ['1'],
-      siteName: [''],
-      // siteName: [],
-      docType: [''],
+      // siteName: [''],
+      siteName: [],
+      docType: [],
       fileName: [''],
-      exceptStatus: [''],
+      exceptStatus: [],
       newPatient: ['0']
     });
   }
@@ -106,11 +107,11 @@ export default class ReferralFileListComponent {
     faxStatus: FormControl<string>;
     patientName: FormControl<string>;
     viewFiltList: FormControl<string>;
-    // siteName: FormControl<any[]>;
-    siteName: FormControl<string>;
-    docType: FormControl<string>;
+    siteName: FormControl<any[]>;
+    // siteName: FormControl<string>;
+    docType: FormControl<any[]>;
     fileName: FormControl<string>;
-    exceptStatus: FormControl<string>;
+    exceptStatus: FormControl<any[]>;
     newPatient: FormControl<string>;
   }>;
   ngOnInit() {
@@ -211,23 +212,28 @@ export default class ReferralFileListComponent {
   getListData = async () => {
     this.loading = true;
     this.fileListData = [];
+    this.formDataCopy = JSON.parse(JSON.stringify(this.validateForm.value));
     let d1 =
-      this.validateForm.value.daterange === null || this.validateForm.value.daterange === ''
+      this.validateForm?.value?.daterange === null ||
+      this?.validateForm?.value?.daterange === undefined ||
+      this?.validateForm?.value?.daterange === ''
         ? ' '
         : new Date(this.validateForm?.value?.daterange[0]).toLocaleDateString();
     let d2 =
-      this.validateForm.value.daterange === null || this.validateForm.value.daterange === ''
+      this.validateForm?.value?.daterange === null ||
+      this.validateForm?.value?.daterange === undefined ||
+      this.validateForm?.value?.daterange === ''
         ? ''
         : new Date(this.validateForm?.value?.daterange[1]).toLocaleDateString();
     let res: any = await get1(
       APP_HD_URL +
         `BotQueue/GetBotQueueDashBoardHome?view_type=${this.validateForm.value.viewFiltList === null || this.validateForm.value.viewFiltList === '' ? '1' : this.validateForm.value.viewFiltList}` +
-        `&date_range=${this.validateForm.value.daterange === null || this.validateForm.value.daterange === '' ? '' : encodeURIComponent(`${d1} - ${d2}`)}` +
+        `&date_range=${this.validateForm?.value?.daterange === null || this.validateForm?.value?.daterange === undefined || this.validateForm?.value?.daterange === '' ? '' : encodeURIComponent(`${d1} - ${d2}`)}` +
         `&fax_status=${this.validateForm.value.faxStatus === null || this.validateForm.value.faxStatus === '' ? '-1' : this.validateForm.value.faxStatus}` +
         `&patient_name=${this.validateForm.value.patientName === null ? '' : encodeURIComponent(this.validateForm.value.patientName.trim())}` +
-        `&site_name=${this.validateForm.value.siteName === null || this.validateForm.value.siteName === '' ? '-1' : this.validateForm.value.siteName}` +
-        `&document_name=${this.validateForm.value.docType === null || this.validateForm.value.docType === '' ? '-1' : encodeURIComponent(this.validateForm.value.docType)}` +
-        `&exception_status=${this.validateForm.value.exceptStatus === null || this.validateForm.value.exceptStatus === '' ? '-1' : this.validateForm.value.exceptStatus}` +
+        `&site_name=${this.validateForm.value.siteName === null || this.validateForm.value.siteName.length === 0 ? '-1' : this.validateForm.value.siteName}` +
+        `&document_name=${this.validateForm.value.docType === null || this.validateForm.value.docType.length === 0 ? '-1' : this.validateForm.value.docType}` +
+        `&exception_status=${this.validateForm.value.exceptStatus === null || this.validateForm.value.exceptStatus.length === 0 ? '-1' : this.validateForm.value.exceptStatus}` +
         `&file_name=${this.validateForm.value.fileName === null ? '' : this.validateForm.value.fileName}` +
         `&patient_type=${this.validateForm.value.newPatient}`
     );
@@ -262,19 +268,34 @@ export default class ReferralFileListComponent {
   };
 
   handleReset = () => {
+    this.validateForm.get('daterange')?.enable();
     this.validateForm.patchValue({
       daterange: '',
       faxStatus: '-1',
       patientName: '',
       viewFiltList: '1',
-      // siteName: [],
-      siteName: '',
-      docType: '',
+      siteName: [],
+      // siteName: '',
+      docType: [],
       fileName: '',
-      exceptStatus: '',
+      exceptStatus: [],
       newPatient: '0'
     });
 
     this.getListData();
+  };
+
+  enableDisableFn = (e) => {
+    if (e === '5') {
+      this.validateForm.get('daterange')?.disable();
+      this.validateForm.patchValue({
+        faxStatus: '4'
+      });
+    } else {
+      this.validateForm.get('daterange')?.enable();
+      this.validateForm.patchValue({
+        faxStatus: '-1'
+      });
+    }
   };
 }

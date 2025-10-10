@@ -44,7 +44,12 @@
               <div nz-col [nzXs]="12" [nzSm]="12" [nzMd]="8" [nzLg]="4" [nzXl]="4">
                 <nz-form-item>
                   <nz-form-control [nzSpan]="24" nzErrorTip="Please select your role!">
-                    <nz-select nzShowSearch formControlName="viewFiltList" nzPlaceHolder="View Filter List">
+                    <nz-select
+                      nzShowSearch
+                      formControlName="viewFiltList"
+                      nzPlaceHolder="View Filter List"
+                      (ngModelChange)="enableDisableFn($event)"
+                    >
                       @for (data of viewFilterList; track data) {
                         <nz-option nzValue="{{ data.id }}" nzLabel="{{ data.text }}"></nz-option>
                       }
@@ -53,24 +58,38 @@
                 </nz-form-item>
               </div>
 
-              <div nz-col [nzXs]="12" [nzSm]="12" [nzMd]="8" [nzLg]="4" [nzXl]="4">
+              <div nz-col [nzXs]="12" [nzSm]="12" [nzMd]="8" [nzLg]="6" [nzXl]="6">
                 <nz-form-item>
                   <nz-form-control [nzSpan]="24" nzErrorTip="Please select status!">
-                    <!-- <nz-select nzMode="multiple" nzAllowClear nzShowSearch formControlName="siteName" nzPlaceHolder="Facility Name"> -->
-                    <nz-select nzShowSearch formControlName="siteName" nzPlaceHolder="Facility Name">
+                    <nz-select
+                      [nzMaxTagCount]="1"
+                      nzMode="multiple"
+                      nzAllowClear
+                      nzShowSearch
+                      formControlName="siteName"
+                      nzPlaceHolder="Facility Name"
+                    >
+                      <!-- <nz-select nzShowSearch formControlName="siteName" nzPlaceHolder="Facility Name"> -->
                       @for (data of siteList; track data) {
-                        <nz-option nzValue="{{ data.siteid }}" nzLabel="{{ data.sitename }}"></nz-option>
+                        <nz-option nzValue="{{ data.sitename }}" nzLabel="{{ data.sitename }}"></nz-option>
                       }
                     </nz-select>
                   </nz-form-control>
                 </nz-form-item>
               </div>
-              <div nz-col [nzXs]="12" [nzSm]="12" [nzMd]="8" [nzLg]="4" [nzXl]="4">
+              <div nz-col [nzXs]="12" [nzSm]="12" [nzMd]="8" [nzLg]="6" [nzXl]="6">
                 <nz-form-item>
                   <nz-form-control [nzSpan]="24" nzErrorTip="Please select status!">
-                    <nz-select nzShowSearch formControlName="docType" nzPlaceHolder="Document Type">
+                    <nz-select
+                      [nzMaxTagCount]="1"
+                      nzMode="multiple"
+                      nzAllowClear
+                      nzShowSearch
+                      formControlName="docType"
+                      nzPlaceHolder="Document Type"
+                    >
                       @for (data of docTypeList; track data) {
-                        <nz-option nzValue="{{ data.keyword_id }}" nzLabel="{{ data.display_name }}"></nz-option>
+                        <nz-option nzValue="{{ data.display_name }}" nzLabel="{{ data.display_name }}"></nz-option>
                       }
                     </nz-select>
                   </nz-form-control>
@@ -85,10 +104,17 @@
                   </nz-form-control>
                 </nz-form-item>
               </div>
-              <div nz-col [nzXs]="12" [nzSm]="12" [nzMd]="8" [nzLg]="4" [nzXl]="4">
+              <div nz-col [nzXs]="12" [nzSm]="12" [nzMd]="8" [nzLg]="6" [nzXl]="6">
                 <nz-form-item>
                   <nz-form-control [nzSpan]="24" nzErrorTip="Please select status!">
-                    <nz-select nzShowSearch formControlName="exceptStatus" nzPlaceHolder="Exception Status">
+                    <nz-select
+                      [nzMaxTagCount]="1"
+                      nzMode="multiple"
+                      nzAllowClear
+                      nzShowSearch
+                      formControlName="exceptStatus"
+                      nzPlaceHolder="Exception Status"
+                    >
                       @for (data of exceptStatList; track data) {
                         <nz-option nzValue="{{ data.text }}" nzLabel="{{ data.text }}"></nz-option>
                       }
@@ -107,7 +133,7 @@
                   </nz-form-control>
                 </nz-form-item>
               </div>
-              <div nz-col [nzSpan]="6">
+              <div nz-col nz-col [nzXs]="12" [nzSm]="12" [nzMd]="8" [nzLg]="4" [nzXl]="4">
                 <nz-form-item>
                   <nz-form-control>
                     <button nz-button class="me-2" nzType="primary" (click)="submitForm()">
@@ -123,7 +149,12 @@
           </ng-container>
         </form>
 
-        <ref-files-view1 *ngIf="selectedScreen === '1'" [fileListData]="fileListData" [validateForm]="validateForm"></ref-files-view1>
+        <ref-files-view1
+          *ngIf="selectedScreen === '1'"
+          [fileListData]="fileListData"
+          [formDataCopy]="formDataCopy"
+          [validateForm]="validateForm"
+        ></ref-files-view1>
         <ref-files-view2
           *ngIf="selectedScreen === '2' || selectedScreen === '3' || selectedScreen === '5' || selectedScreen === '7'"
           [fileListData]="fileListData"

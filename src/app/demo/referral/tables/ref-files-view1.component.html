@@ -15,121 +15,37 @@
       @for (data of basicTable.data; track data) {
         <tr>
           <td>
-            <div
-              class="cust-link"
-              routerLink="/BotQueue/Details"
-              [queryParams]="{
-                dateRange: data.date,
-                documentType: validateForm.value.docType,
-                faxStatus: -1,
-                site_name: validateForm.value.siteName,
-                file_name: validateForm.value.fileName,
-                exception_status: validateForm.value.exceptStatus,
-                patient_type: validateForm.value.newPatient
-              }"
-            >
+            <div class="cust-link" routerLink="/BotQueue/Details" [queryParams]="queryParams(data, '-1')">
               {{ data.date }}
             </div>
           </td>
           <td>
-            <div
-              class="cust-link"
-              routerLink="/BotQueue/Details"
-              [queryParams]="{
-                dateRange: data.date,
-                documentType: validateForm.value.docType,
-                faxStatus: 0,
-                site_name: validateForm.value.siteName,
-                file_name: validateForm.value.fileName,
-                exception_status: validateForm.value.exceptStatus,
-                patient_type: validateForm.value.newPatient
-              }"
-            >
+            <div class="cust-link" routerLink="/BotQueue/Details" [queryParams]="queryParams(data, '0')">
               {{ data.new_fax }}
             </div>
           </td>
           <td>
-            <div
-              class="cust-link"
-              routerLink="/BotQueue/Details"
-              [queryParams]="{
-                dateRange: data.date,
-                documentType: validateForm.value.docType,
-                faxStatus: 1,
-                site_name: validateForm.value.siteName,
-                file_name: validateForm.value.fileName,
-                exception_status: validateForm.value.exceptStatus,
-                patient_type: validateForm.value.newPatient
-              }"
-            >
+            <div class="cust-link" routerLink="/BotQueue/Details" [queryParams]="queryParams(data, '1')">
               {{ data.system_processing }}
             </div>
           </td>
           <td>
-            <div
-              class="cust-link"
-              routerLink="/BotQueue/Details"
-              [queryParams]="{
-                dateRange: data.date,
-                documentType: validateForm.value.docType,
-                faxStatus: 3,
-                site_name: validateForm.value.siteName,
-                file_name: validateForm.value.fileName,
-                exception_status: validateForm.value.exceptStatus,
-                patient_type: validateForm.value.newPatient
-              }"
-            >
+            <div class="cust-link" routerLink="/BotQueue/Details" [queryParams]="queryParams(data, '3')">
               {{ data.successfully_processed }}
             </div>
           </td>
           <td>
-            <div
-              class="cust-link"
-              routerLink="/BotQueue/Details"
-              [queryParams]="{
-                dateRange: data.date,
-                documentType: validateForm.value.docType,
-                faxStatus: 2,
-                site_name: validateForm.value.siteName,
-                file_name: validateForm.value.fileName,
-                exception_status: validateForm.value.exceptStatus,
-                patient_type: validateForm.value.newPatient
-              }"
-            >
+            <div class="cust-link" routerLink="/BotQueue/Details" [queryParams]="queryParams(data, '2')">
               {{ data.system_error }}
             </div>
           </td>
           <td>
-            <div
-              class="cust-link"
-              routerLink="/BotQueue/Details"
-              [queryParams]="{
-                dateRange: data.date,
-                documentType: validateForm.value.docType,
-                faxStatus: 4,
-                site_name: validateForm.value.siteName,
-                file_name: validateForm.value.fileName,
-                exception_status: validateForm.value.exceptStatus,
-                patient_type: validateForm.value.newPatient
-              }"
-            >
+            <div class="cust-link" routerLink="/BotQueue/Details" [queryParams]="queryParams(data, '4')">
               {{ data.business_exception }}
             </div>
           </td>
           <td>
-            <div
-              class="cust-link"
-              routerLink="/BotQueue/Details"
-              [queryParams]="{
-                dateRange: data.date,
-                documentType: validateForm.value.docType,
-                faxStatus: -1,
-                site_name: validateForm.value.siteName,
-                file_name: validateForm.value.fileName,
-                exception_status: validateForm.value.exceptStatus,
-                patient_type: validateForm.value.newPatient
-              }"
-            >
+            <div class="cust-link" routerLink="/BotQueue/Details" [queryParams]="queryParams(data, '-1')">
               {{ data.total }}
             </div>
           </td>

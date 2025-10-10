@@ -82,7 +82,6 @@ export default class LoginComponent {
   };
   submitForm = async () => {
     if (this.validateForm.valid) {
-      debugger;
       // let res: any = await post(APP_API_URL + 'Auth/Login', {
       //   email: this.validateForm.value.userName,
       //   password: this.validateForm.value.password
