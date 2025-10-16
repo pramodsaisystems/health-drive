@@ -101,7 +101,6 @@ export default class DetailsFileListComponent {
     newPatient: FormControl<string>;
   }>;
   ngOnInit() {
-    debugger;
     let fstatus = this.route.snapshot.queryParamMap.get('faxStatus');
     let date = this.route.snapshot.queryParamMap.get('dateRange');
     let patType = this.route.snapshot.queryParamMap.get('patient_type');

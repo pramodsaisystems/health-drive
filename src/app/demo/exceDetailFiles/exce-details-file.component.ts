@@ -266,7 +266,7 @@ export default class ExecDetailsFileComponent {
   };
 
   openHistory = async (faxid) => {
-    let res: any = await get2(APP_HD_URL + `BotQueue/GetAuditFaxData?` + `faxid=${faxid === null || faxid === '' ? '-1' : faxid}`);
+    let res: any = await get2(APP_HD_URL + `AuditFaxes/GetAudFaxes?faxid=` + `${faxid === null || faxid === '' ? '-1' : faxid}`);
 
     if (res?.status === 200) {
       this.historyData = res?.data?.Result?.data;

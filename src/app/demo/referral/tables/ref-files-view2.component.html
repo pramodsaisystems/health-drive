@@ -7,12 +7,13 @@
         <th [nzSortFn]="sortClientNameFn">File Name</th>
         <th [nzSortFn]="sortClientNameFn">Received At</th>
         <th [nzSortFn]="sortClientNameFn">Patient Name</th>
-        <th [nzSortFn]="sortClientNameFn">Exception Status</th>
+        <th [nzSortFn]="sortClientNameFn">Exception Type</th>
         <!-- <th [nzSortFn]="sortClientNameFn">Department</th> -->
-        <th [nzSortFn]="sortClientNameFn">File Status</th>
+        <!-- <th [nzSortFn]="sortClientNameFn">File Status</th> -->
         <th [nzSortFn]="sortClientNameFn">Action Date Time</th>
-        <th [nzSortFn]="sortClientNameFn">Document Count</th>
+        <th [nzSortFn]="sortClientNameFn">No. of Doc. types</th>
         <th [nzSortFn]="sortClientNameFn">Page Count</th>
+        <th [nzSortFn]="sortClientNameFn">Patient Count</th>
       </tr>
     </thead>
     <tbody>
@@ -54,9 +55,9 @@
               {{ data.referral_source }}
             </div>
           </td> -->
-          <td>
+          <!-- <td>
             <div></div>
-          </td>
+          </td> -->
           <td>
             <div>
               {{ data.exception_status }}

@@ -21,7 +21,8 @@ import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import { InformationModalComponent } from 'src/app/component/modal/information.component';
 import { Router, ActivatedRoute, RouterModule } from '@angular/router';
-import { HistoryModalComponent } from 'src/app/component/modal/history-modal.component';
+import { PageHistoryModalComponent } from 'src/app/component/modal/page-history-modal.component';
+
 interface Role {
   clientid: number;
   clientname: string;
@@ -53,7 +54,7 @@ interface Role {
     NzToolTipModule,
     InformationModalComponent,
     NzDatePickerModule,
-    HistoryModalComponent,
+    PageHistoryModalComponent,
     RouterModule
   ],
   templateUrl: './exce-page-details.component.html'
@@ -115,9 +116,10 @@ export default class ExecDetailsFileComponent {
   };
   cancel() {}
 
-  openHistory = async (faxid) => {
+  openHistory = async (pageId) => {
+    debugger;
     this.onInfoClick();
-    let res: any = await get2(APP_HD_URL + `BotQueue/GetAuditFaxData?` + `faxid=${faxid === null || faxid === '' ? '-1' : faxid}`);
+    let res: any = await get1(APP_HD_URL + `AuditPages/GetAudPages?pageid=` + `${pageId === null || pageId === '' ? '-1' : pageId}`);
 
     if (res?.status === 200) {
       this.historyData = res?.data?.Result?.data;

@@ -30,13 +30,13 @@
         <nz-table [nzPageSize]="20" nzNoResult="No Data Found." [nzLoading]="loading" #basicTable [nzData]="exceDetailsFileData">
           <thead>
             <tr>
-              <th [nzSortFn]="sortClientNameFn">ACTION</th>
+              <th nzWidth="120px" [nzSortFn]="sortClientNameFn">ACTION</th>
               <th [nzSortFn]="sortClientNameFn">DOCUMENT TYPE</th>
               <th [nzSortFn]="sortClientNameFn">CURRENT/MODIFIED USER NAME</th>
               <th [nzSortFn]="sortClientNameFn">FILE STATUS</th>
               <th [nzSortFn]="sortClientNameFn">PAGE COUNT</th>
               <th [nzSortFn]="sortClientNameFn">PATIENT NAME</th>
-              <th [nzSortFn]="sortClientNameFn">MRN</th>
+              <th [nzSortFn]="sortClientNameFn">Date of Birth</th>
               <th [nzSortFn]="sortClientNameFn">ACTION DATE TIME</th>
               <th [nzSortFn]="sortClientNameFn">RECEIVER NAME</th>
             </tr>
@@ -45,7 +45,7 @@
             @for (data of basicTable.data; track data) {
               <tr>
                 <td>
-                  <button
+                  <!-- <button
                     routerLink="/BotQueue/ExceptionPageDetails"
                     [queryParams]="{
                       faxid: data.faxid,
@@ -59,7 +59,7 @@
                     nzType="primary"
                   >
                     <span nz-tooltip nzTooltipTitle="Click to view document and information" nz-icon nzType="info-circle"></span>
-                  </button>
+                  </button> -->
                   <button nz-button class="me-2" nzType="primary">
                     <span
                       routerLink="/pageException"
@@ -81,7 +81,7 @@
                 <td>{{ data.exception_details }}</td>
                 <td>{{ data.PageCount }}</td>
                 <td>{{ data.patient_name }}</td>
-                <td>{{ data.mrn }}</td>
+                <td></td>
                 <td>{{ data.actionTaken }}</td>
                 <td>{{ data.receiving_faxname }}</td>
               </tr>
@@ -100,7 +100,7 @@
                         <th [nzSortFn]="sortClientNameFn">ACTION</th>
                         <th [nzSortFn]="sortClientNameFn">PATIENT NAME</th>
 
-                        <th [nzSortFn]="sortClientNameFn">MRN</th>
+                        <th [nzSortFn]="sortClientNameFn">Date of Birth</th>
                         <th [nzSortFn]="sortClientNameFn">PAGE NO.</th>
                         <th [nzSortFn]="sortClientNameFn">PAGE STATUS</th>
                       </tr>
@@ -121,7 +121,7 @@
                           </td>
                           <td>{{ data1.patient_name }}</td>
 
-                          <td>{{ data1.mrn }}</td>
+                          <td></td>
                           <td>{{ data1.sequence }}</td>
                           <td>{{ data1.current_page_status }}</td>
                         </tr>

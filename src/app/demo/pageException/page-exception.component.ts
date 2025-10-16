@@ -89,7 +89,6 @@ export default class PageExceptionComponent {
   };
 
   getFaxDetails = async () => {
-    debugger;
     let faxid = this.route.snapshot.queryParamMap.get('faxid');
     if (faxid) {
       let res: any = await get1(APP_HD_URL + `Fax?FaxId=` + faxid);

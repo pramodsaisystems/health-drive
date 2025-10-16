@@ -39,7 +39,7 @@
                   <button nz-button class="me-2" nzType="primary">
                     <span nz-tooltip nzTooltipTitle="Click to view document and information" nz-icon nzType="eye"></span>
                   </button>
-                  <button nz-button class="me-2" nzType="primary" (click)="openHistory(data.faxid)">
+                  <button nz-button class="me-2" nzType="primary" (click)="openHistory(data.pageid)">
                     <span nz-tooltip nzTooltipTitle="View history" nz-icon nzType="history"></span>
                   </button>
                   <!-- <button nz-button class="me-2" nzType="primary">
@@ -59,12 +59,12 @@
       </div>
     </div>
 
-    <history-modal
+    <page-history-modal
       *ngIf="isHMVisible"
       [isVisible]="isHMVisible"
       [historyData]="historyData"
       (closeModalEvent)="onHMCloseModalEvent($event)"
-    ></history-modal>
+    ></page-history-modal>
     <!-- <app-card cardTitle="Roles" buttonText="Add Role" (onBtnClickEvt)="onAddNewRole()"> -->
 
     <!-- </app-card> -->

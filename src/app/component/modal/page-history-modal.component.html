@@ -6,7 +6,7 @@
   [nzFooter]="modalFooter"
   (nzOnCancel)="handleCancel()"
 >
-  <ng-template #modalTitle>Audit Fax List</ng-template>
+  <ng-template #modalTitle>Audit Page List</ng-template>
   <ng-container *nzModalContent>
     <div nz-row [nzGutter]="8">
       <div nz-col [nzSpan]="24">
@@ -15,8 +15,7 @@
             <tr>
               <th>Date Time</th>
               <th>Action By</th>
-              <th>File Status</th>
-              <th>Current Status</th>
+              <th>Status</th>
             </tr>
           </thead>
           <tbody>
@@ -26,8 +25,7 @@
                   {{ data.action_datetime | date: 'MM/dd/YYYY hh:mm' }}
                 </td>
                 <td>{{ data.action_by }}</td>
-                <td>{{ data.faxstatus }}</td>
-                <td>{{ data.currentstatus }}</td>
+                <td>{{ data.PageStatusDetail }}</td>
               </tr>
             }
           </tbody>

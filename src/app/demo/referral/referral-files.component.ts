@@ -7,7 +7,7 @@ import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 
 import { get, deleteAPI, put, get1 } from 'src/utils/api';
-import { APP_API_URL, APP_HD_URL } from 'src/utils/urls';
+import { APP_API_URL, APP_HD_URL, APP_HD_URL1 } from 'src/utils/urls';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzSwitchModule } from 'ng-zorro-antd/switch';
 import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
@@ -120,6 +120,7 @@ export default class ReferralFileListComponent {
     this.validateForm.patchValue({
       faxStatus: fstatus ? fstatus : '1'
     });
+
     this.getListData();
     this.getSiteList();
     this.getFaxStatusList();
@@ -133,70 +134,108 @@ export default class ReferralFileListComponent {
   sortActiveFn = (a: Role, b: Role): any => !a.isactive && b.isactive;
 
   getSiteList = async () => {
-    let res: any = await get1(APP_HD_URL + 'BotQueue/GetSites');
+    // let res: any = await get1(APP_HD_URL + 'BotQueue/GetSites');
+
+    // if (res?.status === 200) {
+    //   this.siteList = res?.data?.Result?.data;
+    // }
+    let res: any = await get1(APP_HD_URL1 + 'Values/GetFacilityNames');
+
     if (res?.status === 200) {
-      this.siteList = res?.data?.Result?.data;
+      let siteList = res?.data?.data;
+      let list = siteList.map((x) => ({ id: x.nh_name, sitename: x.nh_name }));
+      this.siteList = list;
     }
   };
 
   getFaxStatusList = async () => {
-    let res: any = await get1(APP_HD_URL + 'BotQueue/GetStatus');
-    if (res?.status === 200) {
-      let sitedata = res?.data?.Result?.data;
-      let list = sitedata.filter((x) => x.processid <= 4).map((x) => ({ id: String(x.processid), text: x.processname }));
+    // let res: any = await get1(APP_HD_URL + 'BotQueue/GetStatus');
+    // if (res?.status === 200) {
 
+    //   let sitedata = res?.data?.Result?.data;
+    //   let list = sitedata.filter((x) => x.processid <= 4).map((x) => ({ id: String(x.processid), text: x.processname }));
+
+    //   this.faxStatusList = list;
+    // }
+
+    let res: any = await get1(APP_HD_URL1 + 'Values/GetFaxStatus');
+    if (res?.status === 200) {
+      let sitedata = res?.data?.data;
+      let list = sitedata.map((x) => ({ id: String(x.fax_status), text: x.fax_status }));
       this.faxStatusList = list;
     }
   };
-  getViewFilterList = async () => {
-    let res: any = await get1(APP_HD_URL + 'BotQueue/GetPortalViewList');
 
+  getViewFilterList = async () => {
+    // let res: any = await get1(APP_HD_URL + 'BotQueue/GetPortalViewList');
+
+    // if (res?.status === 200) {
+    //   let data = res?.data?.Result?.data;
+    //   let list = data.filter((x) => x.id !== '' && x.id < 5).map((x) => ({ id: x.id, text: x.text }));
+    //   this.viewFilterList = list;
+    // }
+
+    let res: any = await get1(APP_HD_URL1 + 'Values/GetProcessStatus');
     if (res?.status === 200) {
-      let data = res?.data?.Result?.data;
-      let list = data.filter((x) => x.id !== '').map((x) => ({ id: x.id, text: x.text }));
+      let sitedata = res?.data?.data;
+      let list = sitedata.map((x) => ({ id: String(x.processname), text: x.processname }));
       this.viewFilterList = list;
     }
   };
 
   getDocTypeList = async () => {
-    let keywordData = await this.getKeyWords();
-    let res: any = await get1(APP_HD_URL + 'BotQueue/GetPortalDocumentTypes');
+    // let keywordData = await this.getKeyWords();
+    // let res: any = await get1(APP_HD_URL + 'BotQueue/GetPortalDocumentTypes');
+
+    // if (res?.status === 200) {
+    //   let data = ['CPR']; //need to work on this
+    //   let templst = keywordData
+    //     .filter((x) => x.document_name !== '' && (data.length === 0 || data.some((y) => y?.toLowerCase() === x?.lob?.toLowerCase())))
+    //     .reduce((acc, curr) => {
+    //       // Check if group with same document_name and display_name exists
+    //       if (!acc.some((item) => item.document_name === curr.document_name && item.display_name === curr.display_name)) {
+    //         acc.push(curr);
+    //       }
+    //       return acc;
+    //     }, []);
+
+    //   this.docTypeList = templst;
+    // }
+    let res: any = await get1(APP_HD_URL1 + 'DocumentPages/GetDocumentTypes');
 
     if (res?.status === 200) {
-      let data = ['CPR']; //need to work on this
-      let templst = keywordData
-        .filter((x) => x.document_name !== '' && (data.length === 0 || data.some((y) => y?.toLowerCase() === x?.lob?.toLowerCase())))
-        .reduce((acc, curr) => {
-          // Check if group with same document_name and display_name exists
-          if (!acc.some((item) => item.document_name === curr.document_name && item.display_name === curr.display_name)) {
-            acc.push(curr);
-          }
-          return acc;
-        }, []);
-
-      this.docTypeList = templst;
+      let data = res?.data?.data;
+      let list = data.map((x) => ({ id: x.classified_as, display_name: x.classified_as }));
+      this.docTypeList = list;
     }
   };
 
   getExceptStatList = async () => {
-    let res: any = await get1(APP_HD_URL + 'BotQueue/GetStatus');
-    const status = [74, 75, 76, 79, 82, 84, 85, 86, 87, 88, 89, 94, 95, 96];
+    // let res: any = await get1(APP_HD_URL + 'BotQueue/GetStatus');
+    // const status = [74, 75, 76, 79, 82, 84, 85, 86, 87, 88, 89, 94, 95, 96];
+    // if (res?.status === 200) {
+    //   let sitedata = res?.data?.Result?.data;
+    //   let namelst = [];
+    //   sitedata.forEach((x) => {
+    //     if (status.includes(x.processid)) {
+    //       let nameLower = x.processname.toLowerCase();
+    //       if (!namelst.some((e) => e.toLowerCase() === nameLower)) {
+    //         namelst.push(x.processname);
+    //       }
+    //     }
+    //   });
+
+    //   // Map to dropdown options
+    //   let lst = namelst.map((x, ind) => ({ id: ind, text: x }));
+
+    //   this.exceptStatList = lst;
+    // }
+    let res: any = await get1(APP_HD_URL1 + 'Values/GetExceptionStatus');
+
     if (res?.status === 200) {
-      let sitedata = res?.data?.Result?.data;
-      let namelst = [];
-      sitedata.forEach((x) => {
-        if (status.includes(x.processid)) {
-          let nameLower = x.processname.toLowerCase();
-          if (!namelst.some((e) => e.toLowerCase() === nameLower)) {
-            namelst.push(x.processname);
-          }
-        }
-      });
-
-      // Map to dropdown options
-      let lst = namelst.map((x, ind) => ({ id: ind, text: x }));
-
-      this.exceptStatList = lst;
+      let data = res?.data?.data;
+      let list = data.map((x) => ({ id: x.current_status, text: x.current_status }));
+      this.exceptStatList = list;
     }
   };
 

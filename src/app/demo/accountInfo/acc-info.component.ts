@@ -1,5 +1,5 @@
 // angular import
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 // project import
 import { SharedModule } from 'src/app/theme/shared/shared.module';
@@ -80,6 +80,8 @@ export default class AccountInfoComponent {
   accInfoInsuranceList = [];
 
   loading = false;
+  @Input() faxdata = [];
+  @Input() patientGroupData = [];
 
   constructor(
     private message: NzMessageService,
@@ -151,7 +153,9 @@ export default class AccountInfoComponent {
     fax: FormControl<string>;
     contact: FormControl<string>;
   }>;
-  ngOnInit() {}
+  ngOnInit() {
+    debugger;
+  }
 
   sortRoleNameFn = (a: Role, b: Role): any => a.rolename.localeCompare(b.rolename);
   sortClientNameFn = (a: Role, b: Role): any => a.clientname.localeCompare(b.clientname);
