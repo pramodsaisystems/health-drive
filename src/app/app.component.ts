@@ -140,10 +140,10 @@ export class AppComponent {
     this.interval = setInterval(() => {
       this.checkSessionExp();
     }, 10000);
-    this.resetIdleTimer();
+    // this.resetIdleTimer();
     this.subscription = this.dataSharingService.idleService$.subscribe((data) => {
       if (data) {
-        this.resetIdleTimer();
+        // this.resetIdleTimer();
       }
     });
   }

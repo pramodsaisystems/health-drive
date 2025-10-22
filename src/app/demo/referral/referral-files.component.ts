@@ -159,9 +159,10 @@ export default class ReferralFileListComponent {
     // }
 
     let res: any = await get1(APP_HD_URL1 + 'Values/GetFaxStatus');
+    debugger;
     if (res?.status === 200) {
       let sitedata = res?.data?.data;
-      let list = sitedata.map((x) => ({ id: String(x.fax_status), text: x.fax_status }));
+      let list = sitedata.map((x) => ({ id: String(x.faxId), text: x.faxStatus }));
       this.faxStatusList = list;
     }
   };
@@ -234,7 +235,7 @@ export default class ReferralFileListComponent {
 
     if (res?.status === 200) {
       let data = res?.data?.data;
-      let list = data.map((x) => ({ id: x.current_status, text: x.current_status }));
+      let list = data.map((x) => ({ id: x.processid, text: x.processname }));
       this.exceptStatList = list;
     }
   };
@@ -265,8 +266,8 @@ export default class ReferralFileListComponent {
         ? ''
         : new Date(this.validateForm?.value?.daterange[1]).toLocaleDateString();
     let res: any = await get1(
-      APP_HD_URL +
-        `BotQueue/GetBotQueueDashBoardHome?view_type=${this.validateForm.value.viewFiltList === null || this.validateForm.value.viewFiltList === '' ? '1' : this.validateForm.value.viewFiltList}` +
+      APP_HD_URL1 +
+        `Document/GetDocumentStatusSummary?view_type=${this.validateForm.value.viewFiltList === null || this.validateForm.value.viewFiltList === '' ? '1' : this.validateForm.value.viewFiltList}` +
         `&date_range=${this.validateForm?.value?.daterange === null || this.validateForm?.value?.daterange === undefined || this.validateForm?.value?.daterange === '' ? '' : encodeURIComponent(`${d1} - ${d2}`)}` +
         `&fax_status=${this.validateForm.value.faxStatus === null || this.validateForm.value.faxStatus === '' ? '-1' : this.validateForm.value.faxStatus}` +
         `&patient_name=${this.validateForm.value.patientName === null ? '' : encodeURIComponent(this.validateForm.value.patientName.trim())}` +
@@ -279,7 +280,8 @@ export default class ReferralFileListComponent {
     this.loading = false;
     if (res?.status === 200) {
       this.selectedScreen = this.validateForm.value.viewFiltList;
-      this.fileListData = res?.data?.Result?.data;
+      // this.fileListData = res?.data?.Result?.data;
+      this.fileListData = res?.data?.data;
     }
   };
 

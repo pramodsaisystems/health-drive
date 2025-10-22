@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { ReactiveFormsModule, FormGroup } from '@angular/forms';
 import { ActivatedRoute, RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 interface Role {
   clientid: number;
@@ -16,7 +17,7 @@ interface Role {
 @Component({
   selector: 'ref-files-view1',
   standalone: true,
-  imports: [NzTableModule, ReactiveFormsModule, RouterModule],
+  imports: [NzTableModule, ReactiveFormsModule, RouterModule, CommonModule],
   templateUrl: './ref-files-view1.component.html'
 })
 export class RefFilesView1Component {

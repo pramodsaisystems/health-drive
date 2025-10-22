@@ -16,37 +16,44 @@
         <tr>
           <td>
             <div class="cust-link" routerLink="/BotQueue/Details" [queryParams]="queryParams(data, '-1')">
-              {{ data.date }}
+              <!-- {{ data.date }} -->
+              {{ data.receivedDate | date: 'MM/dd/YYYY' }}
             </div>
           </td>
           <td>
             <div class="cust-link" routerLink="/BotQueue/Details" [queryParams]="queryParams(data, '0')">
-              {{ data.new_fax }}
+              <!-- {{ data.new_fax }} -->
+              {{ data.newDocument }}
             </div>
           </td>
           <td>
             <div class="cust-link" routerLink="/BotQueue/Details" [queryParams]="queryParams(data, '1')">
-              {{ data.system_processing }}
+              <!-- {{ data.system_processing }} -->
+              {{ data.systemProcessing }}
             </div>
           </td>
           <td>
             <div class="cust-link" routerLink="/BotQueue/Details" [queryParams]="queryParams(data, '3')">
-              {{ data.successfully_processed }}
+              <!-- {{ data.successfully_processed }} -->
+              {{ data.successfullyProcessed }}
             </div>
           </td>
           <td>
             <div class="cust-link" routerLink="/BotQueue/Details" [queryParams]="queryParams(data, '2')">
-              {{ data.system_error }}
+              <!-- {{ data.system_error }} -->
+              {{ data.systemError }}
             </div>
           </td>
           <td>
             <div class="cust-link" routerLink="/BotQueue/Details" [queryParams]="queryParams(data, '4')">
-              {{ data.business_exception }}
+              <!-- {{ data.business_exception }} -->
+              {{ data.manualReview }}
             </div>
           </td>
           <td>
             <div class="cust-link" routerLink="/BotQueue/Details" [queryParams]="queryParams(data, '-1')">
-              {{ data.total }}
+              <!-- {{ data.total }} -->
+              {{ data.totalDocuments }}
             </div>
           </td>
         </tr>

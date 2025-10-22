@@ -127,6 +127,13 @@
                   </nz-form-control>
                 </nz-form-item>
               </div>
+              <div nz-col [nzXs]="12" [nzSm]="12" [nzMd]="8" [nzLg]="4" [nzXl]="4">
+                <nz-form-item>
+                  <nz-form-control [nzSpan]="24" nzErrorTip="Please select user!">
+                    <nz-select nzShowSearch formControlName="selectedUser" nzPlaceHolder="Users"></nz-select>
+                  </nz-form-control>
+                </nz-form-item>
+              </div>
               <div nz-col [nzSpan]="6">
                 <nz-form-item>
                   <nz-form-control>
@@ -159,6 +166,7 @@
               <th [nzSortFn]="sortClientNameFn">Action Date Time</th>
               <th [nzSortFn]="sortClientNameFn">Document Count</th>
               <th [nzSortFn]="sortClientNameFn">Page Count</th>
+              <th [nzSortFn]="sortClientNameFn">Assigend to</th>
             </tr>
           </thead>
           <tbody>
@@ -226,6 +234,13 @@
                 <td>{{ data.actionTaken }}</td>
                 <td>{{ data.page_doc_count }}</td>
                 <td>{{ data.page_count }}</td>
+                <td>
+                  <nz-select nzShowSearch nzPlaceHolder="Select User">
+                    <nz-option nzValue="0" nzLabel="User 1"></nz-option>
+                    <nz-option nzValue="1" nzLabel="User 2"></nz-option>
+                    <nz-option nzValue="2" nzLabel="User 3"></nz-option>
+                  </nz-select>
+                </td>
               </tr>
             }
           </tbody>
